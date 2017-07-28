@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../index.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton type="button" value="Novo" icon="fa fa-plus" onclick="PF('cadastroproduto').show()"/>                  
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+
+        <p:panel header="Produtos">
+            <h:form id="tabelaProdutos">
+                <p:dataTable var="produto" value="#{mbProduto.listaProdutos}" style="height: 400px">
+
+                    <p:column headerText="Id" width="60">
+                        <h:outputText value="#{produto.id}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição" width="300">
+                        <h:outputText value="#{produto.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Família" width="140">
+                        <h:outputText value="#{produto.familia.nomeFamilia}" />
+                    </p:column>
+
+                    <p:column headerText="U.M" width="40">
+                        <h:outputText value="#{produto.unidadeMedida.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Marca" width="110">
+                        <h:outputText value="#{produto.marca.nomeMarca}" />
+                    </p:column>
+
+                    <p:column headerText="Situação" width="110">
+                        <h:outputText value="#{produto.situacao.descricao}" />
+                    </p:column>
+
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
+
+
+        <p:dialog header="Cadatro de Produto" widgetVar="cadastroproduto" resizable="false" responsive="true">
+            <h:form>
+                <p:growl id="msg"/>
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="Família" />
+                    <p:selectOneMenu value="#{mbProduto.produto.familia}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma Família"/>
+                        <f:selectItems var="familia" value="#{mbFamilia.listaFamilias}" itemLabel="#{familia.nomeFamilia}" itemValue="#{familia}"/>                    
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Descrição" for="descricao"/>
+                    <p:inputText value="#{mbProduto.produto.descricao}" id="descricao" style="width:229px"/> 
+
+                    <p:outputLabel value="U.M" />
+                    <p:selectOneMenu value="#{mbProduto.produto.unidadeMedida}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma U.M"/>
+                        <f:selectItems var="unidademedida" value="#{mbUnidadeMedida.listaUnidadeMedida}" itemLabel="#{unidademedida.descricao}" itemValue="#{unidademedida}"/>                    
+                    </p:selectOneMenu>  
+
+                    <p:outputLabel value="Marca" />
+                    <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma Marca"/>
+                        <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}"/>                    
+                    </p:selectOneMenu> 
+
+                    <p:outputLabel value="Preço de Custo"/>
+                    <p:inputNumber value="#{mbProduto.produto.custo}" size="30"/>
+
+                    <p:outputLabel value="Peso"/>
+                    <p:inputNumber value="#{mbProduto.produto.peso}" size="30"/>
+
+                    <p:outputLabel value="Requisitado"/>
+                    <p:selectOneMenu  value="#{mbProduto.produto.requisitado}" style="width:201px">
+                        <f:selectItem itemLabel="Pode ser Requisitado ?"/>
+                        <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Vendido"/>
+                    <p:selectOneMenu  value="#{mbProduto.produto.vendido}" style="width:201px">
+                        <f:selectItem itemLabel="Pode ser Vendido ?"/>
+                        <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Comprado"/>
+                    <p:selectOneMenu  value="#{mbProduto.produto.comprado}" style="width:201px">
+                        <f:selectItem itemLabel="Pode ser Comprado ?"/>
+                        <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Situação"/>
+                    <p:selectOneMenu  value="#{mbProduto.produto.situacao}" style="width:201px">
+                        <f:selectItem itemLabel="Selecione a Situação"/>
+                        <f:selectItems value="#{mbProduto.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>                            
+                    </p:selectOneMenu>
+
+                </h:panelGrid>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton value="Salvar" actionListener="#{mbProduto.salvar()}" update="@form,:tabelaProdutos"/>
+                    </f:facet>
+                </p:toolbar>
+
+            </h:form>
+        </p:dialog>
+    </ui:define>
+
+</ui:composition>
