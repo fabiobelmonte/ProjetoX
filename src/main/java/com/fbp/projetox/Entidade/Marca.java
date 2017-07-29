@@ -5,6 +5,7 @@
  */
 package com.fbp.projetox.Entidade;
 
+import com.fbp.projetox.Entidade.AbstractEntity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

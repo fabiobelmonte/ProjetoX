@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fbp.projetox.Entidade;
+package com.fbp.projetox.Enums;
 
 import lombok.Getter;
 

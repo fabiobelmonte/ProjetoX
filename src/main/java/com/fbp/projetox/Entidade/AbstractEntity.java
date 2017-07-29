@@ -28,4 +28,4 @@ public interface AbstractEntity extends Serializable {
      * <code>null</code>.
      */
     public Number getId();
-}
+} 

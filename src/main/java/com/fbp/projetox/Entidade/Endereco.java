@@ -6,6 +6,7 @@
 package com.fbp.projetox.Entidade;
 
 
+import com.fbp.projetox.Enums.EstadoProvincia;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,14 +15,22 @@ import lombok.Data;
 
 /**
  *
- * @author F.Belmonte
+ * @author FA&GRA
  */
 @Entity
-public @Data class Familia implements AbstractEntity {
+public @Data class Endereco implements AbstractEntity {
 
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nomeFamilia;
+    private String endereco;
+    private String cep;
+    private Integer numero;
+    private String complemento;
+    private String proximidade;
+    private String referencia;
+    private EstadoProvincia estado;
+    private boolean principal;
 
 }

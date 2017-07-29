@@ -6,7 +6,7 @@
 package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Produto;
-import com.fbp.projetox.Entidade.UnidadeMedida;
+import com.fbp.projetox.Enums.UnidadeMedida;
 import com.fbp.projetox.Repositorio.Produtos;
 import com.fbp.projetox.Repositorio.UnidadeMedidas;
 import java.io.Serializable;

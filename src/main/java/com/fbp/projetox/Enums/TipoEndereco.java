@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fbp.projetox.Entidade;
+package com.fbp.projetox.Enums;
 
 import lombok.Getter;
 
@@ -11,13 +11,13 @@ import lombok.Getter;
  *
  * @author F.Belmonte
  */
-public enum SimNao {
-    SIM("Sim"), NAO("Não");
+public enum TipoEndereco {
+    AVENIDA("Avenida"), RODOVIA("Rodovia"), RUA("Rua");
 
     @Getter
     private final String descricao;
 
-    private SimNao(String descricao) {
+    private TipoEndereco(String descricao) {
         this.descricao = descricao;
     }
 }

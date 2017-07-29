@@ -6,7 +6,7 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
-import com.fbp.projetox.Entidade.UnidadeMedida;
+import com.fbp.projetox.Enums.UnidadeMedida;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
