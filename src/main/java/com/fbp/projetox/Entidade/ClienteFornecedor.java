@@ -7,7 +7,7 @@ package com.fbp.projetox.Entidade;
 
 
 import com.fbp.projetox.Enums.EstadoCivil;
-import com.fbp.projetox.Enums.Operadora;
+import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.Origem;
 import com.fbp.projetox.Enums.RamoAtividade;
 import com.fbp.projetox.Enums.Situacao;
@@ -62,7 +62,7 @@ class ClienteFornecedor implements AbstractEntity {
     private Origem origem;
 
     @Enumerated(EnumType.STRING)
-    private Operadora operadora;
+    private OperadoraCelular operadora;
 
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil;

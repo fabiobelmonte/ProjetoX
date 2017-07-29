@@ -11,13 +11,13 @@ import lombok.Getter;
  *
  * @author F.Belmonte
  */
-public enum Operadora {
-    CLARO, OI, TIM, VIVO;
-
+public enum OperadoraCelular {
+    CLARO("Claro"), OI("Oi"), TIM("Tim"), VIVO("Vivo");
+ 
     @Getter
     private final String descricao;
 
-    private Operadora(String descricao) {
+    private OperadoraCelular(String descricao) {
         this.descricao = descricao;
     }
 }

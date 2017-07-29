@@ -5,7 +5,7 @@
  */
 package com.fbp.projetox.Entidade;
 
-import com.fbp.projetox.Enums.Operadora;
+import com.fbp.projetox.Enums.OperadoraCelular;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +32,6 @@ class Contato implements Serializable {
     private String fone;
     private String celular;
     private String email;
-    private Operadora operadora;
+    private OperadoraCelular operadora;
 
 }

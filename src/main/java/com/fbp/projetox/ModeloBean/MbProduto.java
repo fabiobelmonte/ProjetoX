@@ -6,8 +6,9 @@
 package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Produto;
-import com.fbp.projetox.Entidade.SimNao;
-import com.fbp.projetox.Entidade.Situacao;
+import com.fbp.projetox.Enums.SimNao;
+import com.fbp.projetox.Enums.Situacao;
+
 import com.fbp.projetox.Repositorio.Produtos;
 import java.io.Serializable;
 import java.util.List;
