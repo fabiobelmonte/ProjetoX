@@ -20,16 +20,16 @@
                     <p:menuitem value="Home" outcome="/index" icon="fa fa-home" />
 
                     <p:submenu label="Cadastro" icon="ui-icon-document">
+
                         <p:submenu label="Cliente" icon="fa fa-users">
-                            <p:menuitem value="Cliente"/> 
+                            <p:menuitem value="Cliente" outcome="/restrito/cadastrocliente"/> 
                         </p:submenu>
-                        <p:submenu label="Produto/Serviço" icon="fa fa-product-hunt">
 
+                        <p:submenu label="Produto" icon="fa fa-product-hunt">
                             <p:menuitem value="Família" outcome="/restrito/cadastrofamilia"/> 
-                            <p:menuitem value="Marca" outcome="/restrito/cadastromarca"/> 
-                            <p:menuitem value="Produto" outcome="/restrito/cadastroproduto" /> 
+                            <p:menuitem value="Marca" outcome="/restrito/cadastromarca"/>                             
                             <p:menuitem value="Unidade de Medida" outcome="/restrito/cadastrounidademedida"/> 
-
+                            <p:menuitem value="Produto" outcome="/restrito/cadastroproduto" /> 
                         </p:submenu>
 
                         <p:separator />

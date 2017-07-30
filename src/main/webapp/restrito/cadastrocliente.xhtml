@@ -1,0 +1,168 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../index.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form>
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton type="button" value="Novo Cliente" icon="fa fa-plus" onclick="PF('cadastrocliente').show()"/>                  
+                </f:facet>
+            </p:toolbar>
+        </h:form>
+
+        <p:panel header="Clientes">
+            <h:form id="tabelaClientes">
+                <p:dataTable var="cliente" value="#{mbCliente.listaClientes}" style="height: 400px">
+
+                    <p:column headerText="Id" width="30">
+                        <h:outputText value="#{cliente.id}" />
+                    </p:column>
+
+                    <p:column headerText="Nome/Razão Social" width="230">
+                        <h:outputText value="#{cliente.nome}" />
+                    </p:column>
+
+                    <p:column headerText="Nome Fantasia" width="140">
+                        <h:outputText value="#{cliente.fantasia}" />
+                    </p:column>
+
+                    <p:column headerText="Cpf/Cnpj" width="40">
+                        <h:outputText value="#{cliente.cpfCnpj}" />
+                    </p:column>
+
+                    <p:column headerText="Operadora" width="40">
+                        <h:outputText value="#{cliente.operadora.descricao}" />
+                    </p:column>
+
+                    <p:column headerText="Celular" width="40">
+                        <h:outputText value="#{cliente.celular}" />
+                    </p:column>
+
+                    <p:column headerText="Situação" width="30">
+                        <h:outputText value="#{cliente.situacao.descricao}" />
+                    </p:column>
+
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
+
+        <p:dialog header="Cadastro de Cliente" widgetVar="cadastrocliente" resizable="false" responsive="true">
+
+            <h:form>
+                <p:growl id="msg"/>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton value="Salvar" update="@form,:tabelaClientes" actionListener="#{mbCliente.salvar()}"/>
+                    </f:facet>
+                </p:toolbar>
+                <p:tabView style="height: 475px; width: 750px">
+                    <p:tab title="Informações Basicas">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nome/Razão Social"/>
+                            <p:inputText value="#{mbCliente.cliente.nome}" size="60"/>
+
+                            <p:outputLabel value="Nome Fantasia"/>
+                            <p:inputText value="#{mbCliente.cliente.fantasia}" size="60"/>
+
+                            <p:outputLabel value="Tipo de Cliente"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.tipoPessoa}" >
+                                <f:selectItem itemLabel="Tipo de Cliente"/>
+                                <f:selectItems value="#{mbCliente.tipoPessoa}" var="tipopessoa" itemLabel="#{tipopessoa.descricao}" itemValue="#{tipopessoa}"/>   
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="CPF/CNPJ"/>
+                            <p:inputText value="#{mbCliente.cliente.cpfCnpj}" size="16"/>
+
+                            <p:outputLabel value="Inscrição Estadual"/>
+                            <p:inputText value="#{mbCliente.cliente.incricaoEstatual}" size="16"/>
+
+                            <p:outputLabel value="RG"/>
+                            <p:inputText value="#{mbCliente.cliente.rg}" size="16"/>
+
+                            <p:outputLabel value="Ramo de Atividade"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.ramoAtividade}" >
+                                <f:selectItem itemLabel="Selecione o Ramo de Atividade"/>
+                                <f:selectItems value="#{mbCliente.ramoAtividade}" var="ramodeatividade" itemLabel="#{ramodeatividade.descricao}" itemValue="#{ramodeatividade}"/>   
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="E-Mail"/>
+                            <p:inputText value="#{mbCliente.cliente.emailNfe}" size="16"/>
+
+                            <p:outputLabel value="Telefone Fixo"/>
+                            <p:inputText value="#{mbCliente.cliente.fone}" size="16"/>
+
+                            <p:outputLabel value="Operadora Móvel"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.operadora}" >
+                                <f:selectItem itemLabel="Selecione a Operadora"/>
+                                <f:selectItems value="#{mbCliente.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Celular"/>
+                            <p:inputText value="#{mbCliente.cliente.celular}"/>
+
+                            <p:outputLabel value="Situação"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.situacao}" >
+                                <f:selectItem itemLabel="Informe a situação"/>
+                                <f:selectItems value="#{mbCliente.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Informações Adicionais"/>
+                            <p:inputTextarea value="#{mbCliente.cliente.informacaoAdicional}" style="width: 440px"/>
+
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Endereço">
+                        <h:panelGrid columns="3">
+
+                            <p:outputLabel value="CEP"/>
+                            <p:inputText value="#{mbCliente.cliente.endereco.cep}"/>
+                            <p:commandButton value="Consutar CEP"/>
+                            <p:outputLabel value="Endereço" />
+                            <p:spacer/>
+
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Informações Complementares">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Nome da Mãe"/>
+                            <p:inputText value="#{mbCliente.cliente.nomeMae}"/>
+
+                            <p:outputLabel value="Nome do Pai"/>
+                            <p:inputText value="#{mbCliente.cliente.nomePai}"/>
+
+                            <p:outputLabel value="Origem"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.origem}" >
+                                <f:selectItem itemLabel="Informe a Origem"/>
+                                <f:selectItems value="#{mbCliente.origem}" var="origem" itemLabel="#{origem.descricao}" itemValue="#{origem}"/>   
+                            </p:selectOneMenu>
+
+                            <p:outputLabel value="Estado Civil"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.estadoCivil}" >
+                                <f:selectItem itemLabel="Selecione o Estado Civil"/>
+                                <f:selectItems value="#{mbCliente.estadoCivil}" var="estadocivil" itemLabel="#{estadocivil.descricao}" itemValue="#{estadocivil}"/>   
+                            </p:selectOneMenu>
+
+                        </h:panelGrid>
+                    </p:tab>
+                    <p:tab title="Limite de Crédito">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <p:outputLabel value="Limite de Crédito(R$)"/>
+                            <p:inputNumber value="#{mbCliente.cliente.limiteCredito}"/>
+                        </h:panelGrid>
+                    </p:tab>
+                </p:tabView>
+            </h:form>
+
+        </p:dialog>
+
+
+    </ui:define>
+
+
+</ui:composition>

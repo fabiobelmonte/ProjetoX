@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 
@@ -26,7 +27,10 @@ class Contato implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
     private TipoContato tipoContato;
+
     @NotNull(message = "O 'Nome' do contato não pode ser vazio!")
     private String nomeContato;
     private String fone;

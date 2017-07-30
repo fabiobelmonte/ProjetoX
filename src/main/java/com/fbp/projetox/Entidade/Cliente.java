@@ -28,7 +28,7 @@ import lombok.Data;
  */
 @Entity
 public @Data
-class ClienteFornecedor implements AbstractEntity {
+class Cliente implements AbstractEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
