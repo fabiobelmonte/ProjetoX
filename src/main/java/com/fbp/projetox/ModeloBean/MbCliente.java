@@ -7,21 +7,21 @@ package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Cliente;
 import com.fbp.projetox.Entidade.Endereco;
-import com.fbp.projetox.Entidade.Produto;
 import com.fbp.projetox.Enums.EstadoCivil;
+import com.fbp.projetox.Enums.EstadoProvincia;
 import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.Origem;
 import com.fbp.projetox.Enums.RamoAtividade;
 import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
+import com.fbp.projetox.Enums.TipoEndereco;
 import com.fbp.projetox.Enums.TipoPessoa;
-
 import com.fbp.projetox.Repositorio.Clientes;
+import com.fbp.projetox.WebService.CepRetorno;
 import com.fbp.projetox.WebService.ConsultaCep;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -40,6 +40,8 @@ import lombok.Setter;
 @ViewScoped
 public class MbCliente implements Serializable {
 
+    
+
     @Inject
     Clientes clientes;
 
@@ -49,6 +51,9 @@ public class MbCliente implements Serializable {
     @Getter
     @Setter
     Cliente cliente;
+
+    @Getter
+    @Setter
     Endereco endereco;
 
     @Getter
@@ -72,7 +77,13 @@ public class MbCliente implements Serializable {
     @Getter
     private final EstadoCivil[] estadoCivil;
 
-    List<Produto> listaProdutos;
+    @Getter
+    private final EstadoProvincia[] estadoProvincia;
+
+    @Getter
+    private final TipoEndereco[] tipoEndereco;
+
+    List<Cliente> listaClientes;
 
     public List<Cliente> getListaClientes() {
         return clientes.findAll();
@@ -80,6 +91,8 @@ public class MbCliente implements Serializable {
 
     public MbCliente() {
         cliente = new Cliente();
+        endereco = new Endereco();
+
         situacao = Situacao.values();
         simNao = SimNao.values();
         ramoAtividade = RamoAtividade.values();
@@ -87,6 +100,8 @@ public class MbCliente implements Serializable {
         origem = Origem.values();
         operadoraCelular = OperadoraCelular.values();
         estadoCivil = EstadoCivil.values();
+        estadoProvincia = EstadoProvincia.values();
+        tipoEndereco = TipoEndereco.values();
     }
 
     public void salvar() {
@@ -94,7 +109,38 @@ public class MbCliente implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Cliente Cadastrado com Sucesso!"));
         cliente = new Cliente();
+    }
+
+    public void salvarEndereco() {
+        cliente.getEnderecos().add(endereco);
         endereco = new Endereco();
     }
 
+    public void consultaEndereco() {
+        try {
+            String CEP = endereco.getCep();
+            CepRetorno retorno = consultaCep.retorna(CEP);
+
+            endereco.setEndereco(retorno.getEndereco());
+            endereco.setBairro(retorno.getBairro());
+            endereco.setCidade(retorno.getCidade());
+            endereco.setEstado(retorno.getUf());
+
+        } catch (IOException ex) {
+            Logger.getLogger(MbCliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void novoCliente() {
+        cliente = new Cliente();
+    }
+
+    public void editarCliente() {
+        if (cliente == null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Selecione um cliente primeiro!"));
+        } else {
+            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrocliente').show()");
+        }
+    }
 }

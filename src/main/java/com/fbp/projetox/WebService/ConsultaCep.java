@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.fbp.projetox.WebService;
 
+import com.fbp.projetox.Enums.EstadoProvincia;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import javax.ejb.Stateless;
@@ -12,7 +8,6 @@ import javax.ejb.Stateless;
 import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 /**
@@ -22,79 +17,27 @@ import org.jsoup.select.Elements;
 @Stateless
 public class ConsultaCep {
 
-    public String getEndereco(String CEP) throws IOException {
-
-        //***************************************************
+    public CepRetorno retorna(String CEP) throws IOException {
+        CepRetorno ret = new CepRetorno();
         try {
-
             Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/" + CEP)
                     .timeout(120000)
                     .get();
-            Elements urlPesquisa = doc.select("span[itemprop=streetAddress]");
-            for (Element urlEndereco : urlPesquisa) {
-                return urlEndereco.text();
-            }
+            Elements urlPesquisa = doc.select("span[itemprop=streetAddress]"); // endereço
+            ret.setEndereco(urlPesquisa.get(0).text());
+
+            urlPesquisa = doc.select("td:gt(1)"); //bairro
+            ret.setBairro(urlPesquisa.get(0).text());
+
+            urlPesquisa = doc.select("span[itemprop=addressLocality]");//cidade
+            ret.setCidade(urlPesquisa.get(0).text());
+
+            urlPesquisa = doc.select("span[itemprop=addressRegion]"); //uf            
+            ret.setUf(EstadoProvincia.valueOf(urlPesquisa.get(0).text()));
 
         } catch (SocketTimeoutException | HttpStatusException e) {
 
         }
-        return CEP;
-    }
-
-    public String getBairro(String CEP) throws IOException {
-
-        //***************************************************
-        try {
-
-            Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/" + CEP)
-                    .timeout(120000)
-                    .get();
-            Elements urlPesquisa = doc.select("td:gt(1)");
-            for (Element urlBairro : urlPesquisa) {
-                return urlBairro.text();
-            }
-
-        } catch (SocketTimeoutException | HttpStatusException e) {
-
-        }
-        return CEP;
-    }
-
-    public String getCidade(String CEP) throws IOException {
-
-        //***************************************************
-        try {
-
-            Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/" + CEP)
-                    .timeout(120000)
-                    .get();
-            Elements urlPesquisa = doc.select("span[itemprop=addressLocality]");
-            for (Element urlCidade : urlPesquisa) {
-                return urlCidade.text();
-            }
-
-        } catch (SocketTimeoutException | HttpStatusException e) {
-
-        }
-        return CEP;
-    }
-
-    public String getUF(String CEP) throws IOException {
-
-        //***************************************************
-        try {
-
-            Document doc = Jsoup.connect("http://www.qualocep.com/busca-cep/" + CEP)
-                    .timeout(120000)
-                    .get();
-            Elements urlPesquisa = doc.select("span[itemprop=addressRegion]");
-            for (Element urlUF : urlPesquisa) {
-                return urlUF.text();
-            }
-
-        } catch (SocketTimeoutException | HttpStatusException e) {
-
-        }
-        return CEP;
+        return ret;
     }
 }

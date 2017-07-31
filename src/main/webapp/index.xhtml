@@ -50,6 +50,12 @@
             <ui:insert name="bottom"></ui:insert>
         </div>
 
+
+        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+            <p:graphicImage library="images" name="loading.gif" />
+        </p:dialog>
+
     </h:body>
 
 </html>

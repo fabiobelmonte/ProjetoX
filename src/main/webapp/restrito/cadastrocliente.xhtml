@@ -7,17 +7,23 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="formtabelaclientes">
+            <p:growl id="msgcadastro"/>
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton type="button" value="Novo Cliente" icon="fa fa-plus" onclick="PF('cadastrocliente').show()"/>                  
+
+                    <p:commandButton value="Novo Cliente" icon="fa fa-plus" onclick="PF('cadastrocliente').show()" update=":idcadastrocliente" actionListener="#{mbCliente.novoCliente()}"/>                  
+
+                    <p:commandButton value="Editar Cliente" icon="fa fa-edit" 
+                                     update="@form,:idcadastrocliente" 
+                                     actionListener="#{mbCliente.editarCliente()}"/>    
                 </f:facet>
             </p:toolbar>
-        </h:form>
 
-        <p:panel header="Clientes">
-            <h:form id="tabelaClientes">
-                <p:dataTable var="cliente" value="#{mbCliente.listaClientes}" style="height: 400px">
+            <p:panel header="Clientes">
+
+                <p:dataTable var="cliente" value="#{mbCliente.listaClientes}" style="height: 400px" 
+                             selectionMode="single" selection="#{mbCliente.cliente}" rowKey="#{cliente.id}" id="tabelaclientes">
 
                     <p:column headerText="Id" width="30">
                         <h:outputText value="#{cliente.id}" />
@@ -48,17 +54,17 @@
                     </p:column>
 
                 </p:dataTable>                
-            </h:form>
-        </p:panel>
 
+            </p:panel>
+        </h:form>
 
         <p:dialog header="Cadastro de Cliente" widgetVar="cadastrocliente" resizable="false" responsive="true">
 
-            <h:form>
+            <h:form id="idcadastrocliente">
                 <p:growl id="msg"/>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="@form,:tabelaClientes" actionListener="#{mbCliente.salvar()}"/>
+                        <p:commandButton value="Salvar" update="@form,:formtabelaclientes" actionListener="#{mbCliente.salvar()}"/>
                     </f:facet>
                 </p:toolbar>
                 <p:tabView style="height: 475px; width: 750px">
@@ -71,8 +77,7 @@
                             <p:inputText value="#{mbCliente.cliente.fantasia}" size="60"/>
 
                             <p:outputLabel value="Tipo de Cliente"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.tipoPessoa}" >
-                                <f:selectItem itemLabel="Tipo de Cliente"/>
+                            <p:selectOneMenu  value="#{mbCliente.cliente.tipoPessoa}">
                                 <f:selectItems value="#{mbCliente.tipoPessoa}" var="tipopessoa" itemLabel="#{tipopessoa.descricao}" itemValue="#{tipopessoa}"/>   
                             </p:selectOneMenu>
 
@@ -87,7 +92,6 @@
 
                             <p:outputLabel value="Ramo de Atividade"/>
                             <p:selectOneMenu  value="#{mbCliente.cliente.ramoAtividade}" >
-                                <f:selectItem itemLabel="Selecione o Ramo de Atividade"/>
                                 <f:selectItems value="#{mbCliente.ramoAtividade}" var="ramodeatividade" itemLabel="#{ramodeatividade.descricao}" itemValue="#{ramodeatividade}"/>   
                             </p:selectOneMenu>
 
@@ -99,7 +103,6 @@
 
                             <p:outputLabel value="Operadora Móvel"/>
                             <p:selectOneMenu  value="#{mbCliente.cliente.operadora}" >
-                                <f:selectItem itemLabel="Selecione a Operadora"/>
                                 <f:selectItems value="#{mbCliente.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
                             </p:selectOneMenu>
 
@@ -108,25 +111,71 @@
 
                             <p:outputLabel value="Situação"/>
                             <p:selectOneMenu  value="#{mbCliente.cliente.situacao}" >
-                                <f:selectItem itemLabel="Informe a situação"/>
                                 <f:selectItems value="#{mbCliente.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Informações Adicionais"/>
                             <p:inputTextarea value="#{mbCliente.cliente.informacaoAdicional}" style="width: 440px"/>
 
-                        </h:panelGrid>
+                        </h:panelGrid>   
                     </p:tab>
                     <p:tab title="Endereço">
-                        <h:panelGrid columns="3">
+                        <h:panelGrid columns="2" id="endereco">
+                            <p:outputLabel value="Tipo Endereço"/>
+                            <p:selectOneMenu value="#{mbCliente.endereco.tipoEndereco}" >
+                                <f:selectItems value="#{mbCliente.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
+                            </p:selectOneMenu>  
+
 
                             <p:outputLabel value="CEP"/>
-                            <p:inputText value="#{mbCliente.cliente.endereco.cep}"/>
-                            <p:commandButton value="Consutar CEP"/>
-                            <p:outputLabel value="Endereço" />
-                            <p:spacer/>
+                            <p:column>
+                                <p:inputText value="#{mbCliente.endereco.cep}" size="22"/>
+                                <p:commandButton icon="fa fa-search" actionListener="#{mbCliente.consultaEndereco()}" update="endereco" style="margin-left: -31px"/>
+                            </p:column>
 
+                            <p:outputLabel value="Logradouro"/>
+                            <p:inputText value="#{mbCliente.endereco.endereco}" size="22"/>   
+
+                            <p:outputLabel value="Numero"/>
+                            <p:inputText value="#{mbCliente.endereco.numero}" size="10"/>                            
+
+                            <p:outputLabel value="Bairro"/>
+                            <p:inputText value="#{mbCliente.endereco.bairro}" size="22"/>                      
+
+                            <p:outputLabel value="Cidade"/>
+                            <p:inputText value="#{mbCliente.endereco.cidade}" size="22"/>                  
+
+                            <p:outputLabel value="Estado"/>
+                            <p:selectOneMenu value="#{mbCliente.endereco.estado}" >
+                                <f:selectItems value="#{mbCliente.estadoProvincia}" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"/>   
+                            </p:selectOneMenu>                 
+
+                            <p:column/>
+                            <p:commandButton value="Adicionar" icon="fa fa-plus" actionListener="#{mbCliente.salvarEndereco()}" update="endereco,tabelaEnderecos"/>
                         </h:panelGrid>
+
+                        <p:dataTable var="endereco" value="#{mbCliente.cliente.enderecos}" style="height: 400px" id="tabelaEnderecos">
+                            <p:column headerText="Tipo de Endereço">
+                                <p:outputLabel value="#{endereco.tipoEndereco.descricao}"/>
+                            </p:column>
+
+                            <p:column headerText="Endereço">
+                                <p:outputLabel value="#{endereco.endereco}"/> 
+                            </p:column>
+
+                            <p:column headerText="CEP">
+                                <p:outputLabel value="#{endereco.cep}"/>
+                            </p:column>
+
+                            <p:column headerText="Numero">
+                                <p:outputLabel value="#{endereco.numero}"/>
+                            </p:column>
+
+                            <p:column headerText="Bairro">
+                                <p:outputLabel value="#{endereco.bairro}"/>
+                            </p:column>                               
+
+                        </p:dataTable>  
                     </p:tab>
                     <p:tab title="Informações Complementares">
                         <h:panelGrid columns="2">
@@ -138,13 +187,11 @@
 
                             <p:outputLabel value="Origem"/>
                             <p:selectOneMenu  value="#{mbCliente.cliente.origem}" >
-                                <f:selectItem itemLabel="Informe a Origem"/>
                                 <f:selectItems value="#{mbCliente.origem}" var="origem" itemLabel="#{origem.descricao}" itemValue="#{origem}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Estado Civil"/>
                             <p:selectOneMenu  value="#{mbCliente.cliente.estadoCivil}" >
-                                <f:selectItem itemLabel="Selecione o Estado Civil"/>
                                 <f:selectItems value="#{mbCliente.estadoCivil}" var="estadocivil" itemLabel="#{estadocivil.descricao}" itemValue="#{estadocivil}"/>   
                             </p:selectOneMenu>
 
@@ -160,9 +207,8 @@
             </h:form>
 
         </p:dialog>
-
-
     </ui:define>
+
 
 
 </ui:composition>

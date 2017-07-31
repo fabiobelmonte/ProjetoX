@@ -12,13 +12,13 @@ import lombok.Getter;
  * @author F.Belmonte
  */
 public enum EstadoProvincia {
-    ACRE("Acre"), ALAGOAS("Alagoas"), AMAPA("Amapá"), AMAZONAS("Amazonas"), 
-    BAHIA("Bahia"), CEARA("Ceará"), DISTRITO_FEDERAL("Distrito Federal"), ESPIRITO_SANTO("Espirito Santo"), 
-    GOIAS("Goias"), MARANHAO("Maranhão"), MATO_GROSSO("Mato Grosso"), MATO_GROSSO_DO_SUL("Mato Grosso do Sul"), 
-    MINAS_GERAIS("Minas Gerais"), PARA("Pará"), PARAIBA("Paraíba"), PARANA("Paraná"), PERNAMBUCO("Pernambuco"),
-    PIAUI("Piauí"), RIO_DE_JANEIRO("Rio de Janeiro"), RIO_GRANDE_DO_NORTE("Rio Grande do Norte"), 
-    RIO_GRANDE_DO_SUL("Rio Grande do Sul"), RONDONIA("Rondonia"), RORAIMA("Roraima"), SANTA_CATARINA("Santa Catarina"), 
-    SAO_PAULO("São Paulo"), SERGIPE("Sergipe"), TOCANTINS("Tocantins");
+    AC("Acre"), AL("Alagoas"), AP("Amapá"), AM("Amazonas"), 
+    BA("Bahia"), CE("Ceará"), DF("Distrito Federal"), ES("Espirito Santo"), 
+    GO("Goias"), MA("Maranhão"), MT("Mato Grosso"), MS("Mato Grosso do Sul"), 
+    MG("Minas Gerais"), PA("Pará"), PB("Paraíba"), PR("Paraná"), PE("Pernambuco"),
+    PI("Piauí"), RJ("Rio de Janeiro"), RN("Rio Grande do Norte"), 
+    RS("Rio Grande do Sul"), RO("Rondonia"), RR("Roraima"), SC("Santa Catarina"), 
+    SP("São Paulo"), SE("Sergipe"), TO("Tocantins");
 
     @Getter
     private final String descricao;

@@ -12,7 +12,7 @@ import lombok.Getter;
  * @author F.Belmonte
  */
 public enum TipoEndereco {
-    AVENIDA("Avenida"), RODOVIA("Rodovia"), RUA("Rua");
+    ENTREGA("Entrega"), RESIDENCIAL("Residencial"), COBRANCA("Cobrança"), COMERCIAL("Comercial");
 
     @Getter
     private final String descricao;
