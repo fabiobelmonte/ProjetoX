@@ -13,10 +13,26 @@
                     <p:outputLabel value="Descrição da U.M"/>
                     <p:inputText value="#{mbUnidadeMedida.unidadeMedida.descricao}"/>
                     <p:column/>
-                    <p:commandButton value="Salvar" actionListener="#{mbUnidadeMedida.salvar()}" update="@form"/>
+                    <p:commandButton value="Salvar" actionListener="#{mbUnidadeMedida.salvar()}" update="@form, tabelaUnidadeMedida"/>
                 </h:panelGrid>
             </h:form>            
         </p:panel>
+        
+        <p:panel header="Unidades de Medidas">
+            <h:form id="tabelaUnidadeMedida">
+                <p:dataTable var="um" value="#{mbUnidadeMedida.listaUnidadeMedida}">
+                    <p:column headerText="Id" width="100">
+                        <h:outputText value="#{um.id}" />
+                    </p:column>
+
+                    <p:column headerText="Unidade de Medida">
+                        <h:outputText value="#{um.descricao}" />
+                    </p:column>
+
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+        
     </ui:define>
 
 </ui:composition>

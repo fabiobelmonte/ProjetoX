@@ -7,17 +7,26 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form>
+        <h:form id="tabelaProdutos">
             <p:toolbar>
                 <f:facet name="left">
-                    <p:commandButton type="button" value="Novo" icon="fa fa-plus" onclick="PF('cadastroproduto').show()"/>                  
+                    <p:commandButton value="Novo" 
+                                     icon="fa fa-plus" 
+                                     onclick="PF('cadastroproduto').show()" 
+                                     update=":idcadastroproduto" 
+                                     actionListener="#{mbProduto.novoProduto()}"/>  
+
+                    <p:commandButton value="Alterar Produto" 
+                                     icon="fa fa-edit" update="@form, :idcadastroproduto" 
+                                     actionListener="#{mbProduto.editarProduto()}"/>    
                 </f:facet>
             </p:toolbar>
-        </h:form>
 
-        <p:panel header="Produtos">
-            <h:form id="tabelaProdutos">
-                <p:dataTable var="produto" value="#{mbProduto.listaProdutos}" style="height: 400px">
+
+            <p:panel header="Produtos">
+
+                <p:dataTable var="produto" value="#{mbProduto.listaProdutos}" style="height: 400px" 
+                             selectionMode="single" selection="#{mbProduto.produto}" rowKey="#{produto.id}">
 
                     <p:column headerText="Id" width="60">
                         <h:outputText value="#{produto.id}" />
@@ -44,13 +53,13 @@
                     </p:column>
 
                 </p:dataTable>                
-            </h:form>
-        </p:panel>
 
+            </p:panel>
+        </h:form>
 
 
         <p:dialog header="Cadatro de Produto" widgetVar="cadastroproduto" resizable="false" responsive="true">
-            <h:form>
+            <h:form id="idcadastroproduto">
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
 

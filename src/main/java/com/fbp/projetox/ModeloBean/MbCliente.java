@@ -40,8 +40,6 @@ import lombok.Setter;
 @ViewScoped
 public class MbCliente implements Serializable {
 
-    
-
     @Inject
     Clientes clientes;
 
@@ -109,6 +107,7 @@ public class MbCliente implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Cliente Cadastrado com Sucesso!"));
         cliente = new Cliente();
+        endereco = new Endereco();
     }
 
     public void salvarEndereco() {
@@ -138,7 +137,7 @@ public class MbCliente implements Serializable {
     public void editarCliente() {
         if (cliente == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.addMessage("", new FacesMessage("Selecione um cliente primeiro!"));
+            ctx.addMessage("", new FacesMessage("Selecione um Clinte Primeiro!"));
         } else {
             org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrocliente').show()");
         }

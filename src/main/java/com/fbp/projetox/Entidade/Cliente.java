@@ -22,9 +22,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.br.CNPJ;
+import org.hibernate.validator.constraints.br.CPF;
 
 /**
  *
@@ -39,12 +42,23 @@ class Cliente implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
+
+    @NotEmpty(message = "Nome/Razão Social não pode ser vazio!")
     private String nome;
+
+    @NotEmpty(message = "Informe um Apelido!")
     private String fantasia;
+    
+    @NotEmpty(message = "Informe o CPF/CNPF!")
     private String cpfCnpj;
+    
     private String incricaoEstatual;
     private String rg;
+    
+    @NotEmpty(message = "Informe um e-mail para Contato!")
     private String emailNfe;
+    
+    @NotEmpty(message = "Informe um telefone!")
     private String fone;
     private String celular;
     private String informacaoAdicional;
@@ -70,9 +84,9 @@ class Cliente implements AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil = EstadoCivil.SOLTEIRO;
-
+ 
     /*TABELAS REFERENCIADAS*/
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL)

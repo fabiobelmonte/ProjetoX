@@ -51,13 +51,29 @@ public class MbProduto implements Serializable {
         situacao = Situacao.values();
         simNao = SimNao.values();
     }
+    
 
     public void salvar() {
         produtos.save(produto);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage("Gazes", new FacesMessage("Produto Cadastrado com Orgasmosss!"));
+        ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado com Sucesso!"));
         produto = new Produto();
 
+    }
+    
+    public void novoProduto() {
+        produto = new Produto();
+    }
+
+    
+     public void editarProduto() {
+         System.out.println(produto.getId());
+        if (produto == null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Selecione um Produto primeiro!"));
+        } else {
+            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
+        }
     }
 
 }

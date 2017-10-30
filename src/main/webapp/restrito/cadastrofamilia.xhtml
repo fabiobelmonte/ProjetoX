@@ -17,6 +17,21 @@
                 </h:panelGrid>
             </h:form>            
         </p:panel>
+
+        <p:panel header="Marcas - Seguimentos">
+            <h:form id="tabelamarca">
+                <p:dataTable var="familia" value="#{mbFamilia.listaFamilias}">
+                    <p:column headerText="Id" width="100">
+                        <h:outputText value="#{familia.id}" />
+                    </p:column>
+
+                    <p:column headerText="Marca/Seguimento">
+                        <h:outputText value="#{familia.nomeFamilia}" />
+                    </p:column>
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
     </ui:define>
 
 </ui:composition>

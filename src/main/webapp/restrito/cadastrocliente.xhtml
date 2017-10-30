@@ -12,9 +12,13 @@
             <p:toolbar>
                 <f:facet name="left">
 
-                    <p:commandButton value="Novo Cliente" icon="fa fa-plus" onclick="PF('cadastrocliente').show()" update=":idcadastrocliente" actionListener="#{mbCliente.novoCliente()}"/>                  
+                    <p:commandButton value="Novo Cliente" 
+                                     icon="fa fa-plus" 
+                                     onclick="PF('cadastrocliente').show()" 
+                                     update=":idcadastrocliente" 
+                                     actionListener="#{mbCliente.novoCliente()}"/>                  
 
-                    <p:commandButton value="Editar Cliente" icon="fa fa-edit" 
+                    <p:commandButton value="Alterar Cliente" icon="fa fa-edit" 
                                      update="@form,:idcadastrocliente" 
                                      actionListener="#{mbCliente.editarCliente()}"/>    
                 </f:facet>

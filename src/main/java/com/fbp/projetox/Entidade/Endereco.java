@@ -27,15 +27,21 @@ class Endereco implements AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String endereco;
+    
     private String cep;
+  
     private String numero;
+    
     private String complemento;
     private String proximidade;
     private String referencia;
     private String bairro;
     private String cidade;
+    
     private EstadoProvincia estado;
+    
     private boolean principal;
 
     @Enumerated(EnumType.STRING)

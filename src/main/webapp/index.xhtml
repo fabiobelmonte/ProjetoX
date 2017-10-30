@@ -14,18 +14,19 @@
 
     <h:body>
 
-        <div id="top">
+        <div id="top" style="height: 50px">
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="Home" outcome="/index" icon="fa fa-home" />
+                    <p:menuitem value="" outcome="/index" icon="fa fa-h-square fa-1x" />
 
-                    <p:submenu label="Cadastro" icon="ui-icon-document">
+                    <p:submenu label="Cadastro">
 
-                        <p:submenu label="Cliente" icon="fa fa-users">
-                            <p:menuitem value="Cliente" outcome="/restrito/cadastrocliente"/> 
+                        <p:submenu label="Clientes/Fornecedores">
+                            <p:menuitem value="Cliente" outcome="/restrito/cadastrocliente" icon="fa fa-users"/> 
+                            <p:menuitem value="Fornecedor" outcome="/restrito/cadastrocliente" icon="fa fa-users"/> 
                         </p:submenu>
 
-                        <p:submenu label="Produto" icon="fa fa-product-hunt">
+                        <p:submenu label="Produto">
                             <p:menuitem value="Família" outcome="/restrito/cadastrofamilia"/> 
                             <p:menuitem value="Marca" outcome="/restrito/cadastromarca"/>                             
                             <p:menuitem value="Unidade de Medida" outcome="/restrito/cadastrounidademedida"/> 
@@ -43,6 +44,7 @@
         </div>
 
         <div id="content" class="center_content">
+            
             <ui:insert name="content"></ui:insert>
         </div>
 

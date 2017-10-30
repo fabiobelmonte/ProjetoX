@@ -36,21 +36,22 @@ class Produto implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
+    @NotEmpty(message = "Informe uma descrição!")
     private String descricao;
 
     private Integer usuarioCadastro;
     private Integer usuarioAlteracao;
 
     @ManyToOne
-    @NotNull(message = "A Unidade de Medida não pode ser vazia")
+    @NotNull(message = "A Unidade de Medida não pode ser vazia!")
     private UnidadeMedida unidadeMedida;
 
     @ManyToOne
-    @NotNull
+    @NotNull(message = "Escolha uma Família!")
     private Familia familia;
 
     @ManyToOne
+    @NotNull(message = "Escolha uma Marca!")
     private Marca marca;
 
     private String tipoProduto; //Comprado,produzido
@@ -64,8 +65,8 @@ class Produto implements AbstractEntity {
     @Enumerated(EnumType.STRING)
     private SimNao comprado;
 
-    @NotNull
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Situacao situacao;
 
     private BigDecimal custo;
