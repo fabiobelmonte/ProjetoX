@@ -17,7 +17,7 @@
         <div id="top" style="height: 50px">
             <h:form>
                 <p:menubar>
-                    <p:menuitem value="" outcome="/index" icon="fa fa-h-square fa-1x" />
+                    <p:menuitem value="" outcome="/index" icon="fa fa-h-square fa-1x" /> 
 
                     <p:submenu label="Cadastro">
 
@@ -33,9 +33,13 @@
                             <p:menuitem value="Produto" outcome="/restrito/cadastroproduto" /> 
                         </p:submenu>
 
-                        <p:separator />
-
                     </p:submenu>
+
+                    <p:submenu label="Estoque">
+                        <p:menuitem value="Consulta/Movimento" outcome="/restrito/controleestoque"/>
+                    </p:submenu>
+
+
                     <f:facet name="options">
                         <p:commandButton type="button" value="Sair" icon="ui-icon-extlink" />
                     </f:facet>
@@ -44,7 +48,7 @@
         </div>
 
         <div id="content" class="center_content">
-            
+
             <ui:insert name="content"></ui:insert>
         </div>
 
