@@ -32,7 +32,6 @@ public class DAOGenerico<T> {
     }
 
     public List<T> listar() {
-
         Query q = em.createQuery("from ");
         return q.getResultList();
 

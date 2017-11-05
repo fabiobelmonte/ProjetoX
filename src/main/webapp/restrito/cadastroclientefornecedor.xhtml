@@ -16,24 +16,24 @@
                                      icon="fa fa-plus" 
                                      onclick="PF('cadastrocliente').show()" 
                                      update=":idcadastrocliente" 
-                                     actionListener="#{mbCliente.novoCliente()}"/>                  
+                                     actionListener="#{mbClienteFornecedor.novoCliente()}"/>                  
 
                     <p:commandButton value="Alterar Cliente" icon="fa fa-edit" 
                                      update="@form,:idcadastrocliente" 
-                                     actionListener="#{mbCliente.editarCliente()}"/>    
+                                     actionListener="#{mbClienteFornecedor.editarCliente()}"/>    
                 </f:facet>
             </p:toolbar>
 
             <p:panel header="Clientes">
 
-                <p:dataTable var="cliente" value="#{mbCliente.listaClientes}" style="height: 400px" 
-                             selectionMode="single" selection="#{mbCliente.cliente}" rowKey="#{cliente.id}" id="tabelaclientes">
+                <p:dataTable var="cliente" value="#{mbClienteFornecedor.listaClientes}" style="height: 400px" 
+                             selectionMode="single" selection="#{mbClienteFornecedor.cliente}" rowKey="#{cliente.id}" id="tabelaclientes">
 
-                    <p:column headerText="Id" width="30">
+                    <p:column headerText="Id" width="15">
                         <h:outputText value="#{cliente.id}" />
                     </p:column>
 
-                    <p:column headerText="Nome/Razão Social" width="230">
+                    <p:column headerText="Nome/Razão Social" width="220">
                         <h:outputText value="#{cliente.nome}" />
                     </p:column>
 
@@ -41,15 +41,19 @@
                         <h:outputText value="#{cliente.fantasia}" />
                     </p:column>
 
-                    <p:column headerText="Cpf/Cnpj" width="40">
+                    <p:column headerText="Cpf/Cnpj" width="60">
                         <h:outputText value="#{cliente.cpfCnpj}" />
+                    </p:column>
+
+                    <p:column headerText="Cliente/Fornecedor" width="60">
+                        <h:outputText value="#{cliente.clienteFornecedorAmbos.descricao}" />
                     </p:column>
 
                     <p:column headerText="Operadora" width="40">
                         <h:outputText value="#{cliente.operadora.descricao}" />
                     </p:column>
 
-                    <p:column headerText="Celular" width="40">
+                    <p:column headerText="Celular" width="55">
                         <h:outputText value="#{cliente.celular}" />
                     </p:column>
 
@@ -68,97 +72,102 @@
                 <p:growl id="msg"/>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="@form,:formtabelaclientes" actionListener="#{mbCliente.salvar()}"/>
+                        <p:commandButton value="Salvar" update="@form,:formtabelaclientes" actionListener="#{mbClienteFornecedor.salvar()}"/>
                     </f:facet>
                 </p:toolbar>
                 <p:tabView style="height: 475px; width: 750px">
                     <p:tab title="Informações Basicas">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Nome/Razão Social"/>
-                            <p:inputText value="#{mbCliente.cliente.nome}" size="60"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.nome}" size="60"/>
 
                             <p:outputLabel value="Nome Fantasia"/>
-                            <p:inputText value="#{mbCliente.cliente.fantasia}" size="60"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.fantasia}" size="60"/>
 
                             <p:outputLabel value="Tipo de Cliente"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.tipoPessoa}">
-                                <f:selectItems value="#{mbCliente.tipoPessoa}" var="tipopessoa" itemLabel="#{tipopessoa.descricao}" itemValue="#{tipopessoa}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.tipoPessoa}">
+                                <f:selectItems value="#{mbClienteFornecedor.tipoPessoa}" var="tipopessoa" itemLabel="#{tipopessoa.descricao}" itemValue="#{tipopessoa}"/>   
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="Cliente/Fornecedor"/>
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.clienteFornecedorAmbos}" >
+                                <f:selectItems value="#{mbClienteFornecedor.clienteFornecedorAmbos}" var="clientefornecedor" itemLabel="#{clientefornecedor.descricao}" itemValue="#{clientefornecedor}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="CPF/CNPJ"/>
-                            <p:inputText value="#{mbCliente.cliente.cpfCnpj}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.cpfCnpj}" size="16"/>
 
                             <p:outputLabel value="Inscrição Estadual"/>
-                            <p:inputText value="#{mbCliente.cliente.incricaoEstatual}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.incricaoEstatual}" size="16"/>
 
                             <p:outputLabel value="RG"/>
-                            <p:inputText value="#{mbCliente.cliente.rg}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.rg}" size="16"/>
 
                             <p:outputLabel value="Ramo de Atividade"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.ramoAtividade}" >
-                                <f:selectItems value="#{mbCliente.ramoAtividade}" var="ramodeatividade" itemLabel="#{ramodeatividade.descricao}" itemValue="#{ramodeatividade}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.ramoAtividade}" >
+                                <f:selectItems value="#{mbClienteFornecedor.ramoAtividade}" var="ramodeatividade" itemLabel="#{ramodeatividade.descricao}" itemValue="#{ramodeatividade}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="E-Mail"/>
-                            <p:inputText value="#{mbCliente.cliente.emailNfe}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.emailNfe}" size="16"/>
 
                             <p:outputLabel value="Telefone Fixo"/>
-                            <p:inputText value="#{mbCliente.cliente.fone}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.fone}" size="16"/>
 
                             <p:outputLabel value="Operadora Móvel"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.operadora}" >
-                                <f:selectItems value="#{mbCliente.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.operadora}" >
+                                <f:selectItems value="#{mbClienteFornecedor.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Celular"/>
-                            <p:inputText value="#{mbCliente.cliente.celular}"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.celular}"/>
 
                             <p:outputLabel value="Situação"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.situacao}" >
-                                <f:selectItems value="#{mbCliente.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.situacao}" >
+                                <f:selectItems value="#{mbClienteFornecedor.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Informações Adicionais"/>
-                            <p:inputTextarea value="#{mbCliente.cliente.informacaoAdicional}" style="width: 440px"/>
+                            <p:inputTextarea value="#{mbClienteFornecedor.cliente.informacaoAdicional}" style="width: 440px"/>
 
                         </h:panelGrid>   
                     </p:tab>
                     <p:tab title="Endereço">
                         <h:panelGrid columns="2" id="endereco">
                             <p:outputLabel value="Tipo Endereço"/>
-                            <p:selectOneMenu value="#{mbCliente.endereco.tipoEndereco}" >
-                                <f:selectItems value="#{mbCliente.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
+                            <p:selectOneMenu value="#{mbClienteFornecedor.endereco.tipoEndereco}" >
+                                <f:selectItems value="#{mbClienteFornecedor.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
                             </p:selectOneMenu>  
 
 
                             <p:outputLabel value="CEP"/>
                             <p:column>
-                                <p:inputText value="#{mbCliente.endereco.cep}" size="22"/>
-                                <p:commandButton icon="fa fa-search" actionListener="#{mbCliente.consultaEndereco()}" update="endereco" style="margin-left: -31px"/>
+                                <p:inputText value="#{mbClienteFornecedor.endereco.cep}" size="22"/>
+                                <p:commandButton icon="fa fa-search" actionListener="#{mbClienteFornecedor.consultaEndereco()}" update="endereco" style="margin-left: -31px"/>
                             </p:column>
 
                             <p:outputLabel value="Logradouro"/>
-                            <p:inputText value="#{mbCliente.endereco.endereco}" size="22"/>   
+                            <p:inputText value="#{mbClienteFornecedor.endereco.endereco}" size="22"/>   
 
                             <p:outputLabel value="Numero"/>
-                            <p:inputText value="#{mbCliente.endereco.numero}" size="10"/>                            
+                            <p:inputText value="#{mbClienteFornecedor.endereco.numero}" size="10"/>                            
 
                             <p:outputLabel value="Bairro"/>
-                            <p:inputText value="#{mbCliente.endereco.bairro}" size="22"/>                      
+                            <p:inputText value="#{mbClienteFornecedor.endereco.bairro}" size="22"/>                      
 
                             <p:outputLabel value="Cidade"/>
-                            <p:inputText value="#{mbCliente.endereco.cidade}" size="22"/>                  
+                            <p:inputText value="#{mbClienteFornecedor.endereco.cidade}" size="22"/>                  
 
                             <p:outputLabel value="Estado"/>
-                            <p:selectOneMenu value="#{mbCliente.endereco.estado}" >
-                                <f:selectItems value="#{mbCliente.estadoProvincia}" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"/>   
+                            <p:selectOneMenu value="#{mbClienteFornecedor.endereco.estado}" >
+                                <f:selectItems value="#{mbClienteFornecedor.estadoProvincia}" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"/>   
                             </p:selectOneMenu>                 
 
                             <p:column/>
-                            <p:commandButton value="Adicionar" icon="fa fa-plus" actionListener="#{mbCliente.salvarEndereco()}" update="endereco,tabelaEnderecos"/>
+                            <p:commandButton value="Adicionar" icon="fa fa-plus" actionListener="#{mbClienteFornecedor.salvarEndereco()}" update="endereco,tabelaEnderecos"/>
                         </h:panelGrid>
 
-                        <p:dataTable var="endereco" value="#{mbCliente.cliente.enderecos}" style="height: 400px" id="tabelaEnderecos">
+                        <p:dataTable var="endereco" value="#{mbClienteFornecedor.cliente.enderecos}" style="height: 400px" id="tabelaEnderecos">
                             <p:column headerText="Tipo de Endereço">
                                 <p:outputLabel value="#{endereco.tipoEndereco.descricao}"/>
                             </p:column>
@@ -184,19 +193,19 @@
                     <p:tab title="Informações Complementares">
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Nome da Mãe"/>
-                            <p:inputText value="#{mbCliente.cliente.nomeMae}"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.nomeMae}"/>
 
                             <p:outputLabel value="Nome do Pai"/>
-                            <p:inputText value="#{mbCliente.cliente.nomePai}"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.nomePai}"/>
 
                             <p:outputLabel value="Origem"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.origem}" >
-                                <f:selectItems value="#{mbCliente.origem}" var="origem" itemLabel="#{origem.descricao}" itemValue="#{origem}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.origem}" >
+                                <f:selectItems value="#{mbClienteFornecedor.origem}" var="origem" itemLabel="#{origem.descricao}" itemValue="#{origem}"/>   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="Estado Civil"/>
-                            <p:selectOneMenu  value="#{mbCliente.cliente.estadoCivil}" >
-                                <f:selectItems value="#{mbCliente.estadoCivil}" var="estadocivil" itemLabel="#{estadocivil.descricao}" itemValue="#{estadocivil}"/>   
+                            <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.estadoCivil}" >
+                                <f:selectItems value="#{mbClienteFornecedor.estadoCivil}" var="estadocivil" itemLabel="#{estadocivil.descricao}" itemValue="#{estadocivil}"/>   
                             </p:selectOneMenu>
 
                         </h:panelGrid>
@@ -204,7 +213,7 @@
                     <p:tab title="Limite de Crédito">
                         <h:panelGrid columns="2" cellpadding="10">
                             <p:outputLabel value="Limite de Crédito(R$)"/>
-                            <p:inputNumber value="#{mbCliente.cliente.limiteCredito}"/>
+                            <p:inputNumber value="#{mbClienteFornecedor.cliente.limiteCredito}"/>
                         </h:panelGrid>
                     </p:tab>
                 </p:tabView>

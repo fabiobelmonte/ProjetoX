@@ -21,9 +21,17 @@
 
                     <p:submenu label="Cadastro">
 
+                        <p:submenu label="Empresa/Filial">
+                            <p:menuitem value="Empresa" outcome="/restrito/cadastroempresa" icon="fa fa-building"/>  
+                            <p:submenu label="Filial">
+                                <p:menuitem value="Cadastro Filial" outcome="/restrito/cadastrofilial" icon="fa fa-building-o"/> 
+                                <p:menuitem value="Consulta de Filiais" outcome="/restrito/consultafilial" icon="fa fa-search"/> 
+                            </p:submenu>
+                              
+                        </p:submenu>
+
                         <p:submenu label="Clientes/Fornecedores">
-                            <p:menuitem value="Cliente" outcome="/restrito/cadastrocliente" icon="fa fa-users"/> 
-                            <p:menuitem value="Fornecedor" outcome="/restrito/cadastrocliente" icon="fa fa-users"/> 
+                            <p:menuitem value="Cliente/Fornecedor" outcome="/restrito/cadastroclientefornecedor" icon="fa fa-users"/>                             
                         </p:submenu>
 
                         <p:submenu label="Produto">

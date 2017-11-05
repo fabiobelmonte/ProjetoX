@@ -6,7 +6,7 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
-import com.fbp.projetox.Entidade.Cliente;
+import com.fbp.projetox.Entidade.ClienteFornecedor;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,13 +16,13 @@ import javax.persistence.PersistenceContext;
  * @author F.Belmonte
  */
 @Stateless
-public class Clientes extends AbstractPersistence<Cliente, Long> {
+public class Clientes extends AbstractPersistence<ClienteFornecedor, Long> {
 
     @PersistenceContext
     EntityManager em;
 
     public Clientes() {
-        super(Cliente.class);
+        super(ClienteFornecedor.class);
     }
 
     @Override

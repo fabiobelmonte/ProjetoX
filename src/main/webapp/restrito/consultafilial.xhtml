@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../index.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formtabelafiliais">
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Editar" update="formtabelafiliais,alterarfilial" actionListener="#{mbFilial.alterarFilial()}"/>
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable var="filial" value="#{mbFilial.listaFiliais}" selectionMode="single" selection="#{mbFilial.filial}" rowKey="#{filial.id}">
+                <p:column headerText="Id" width="20">
+                    <h:outputText value="#{filial.id}" />
+                </p:column>
+
+                <p:column headerText="Empresa">
+                    <h:outputText value="#{filial.empresa.nome}" />
+                </p:column>
+
+                <p:column headerText="Filial">
+                    <h:outputText value="#{filial.nomefilial}" />
+                </p:column>
+
+                <p:column headerText="Fantasia">
+                    <h:outputText value="#{filial.fantasia}" />
+                </p:column> 
+
+                <p:column headerText="CNPJ Filial" width="110">
+                    <h:outputText value="#{filial.cnpj}"/>
+                </p:column>
+
+                <p:column headerText="Telefone" width="98">
+                    <h:outputText value="#{filial.telefone}" />
+                </p:column>
+
+                <p:column headerText="Situação" width="50">
+                    <h:outputText value="#{filial.situacao}" />
+                </p:column>
+
+            </p:dataTable>   
+        </h:form>
+        <p:dialog header="Cadastro de Filial" widgetVar="alterarfilial" resizable="false">
+            <h:form id="alterarfilial">
+                <p:growl/>
+                <p:toolbar>
+                    <f:facet name="left">
+                        <p:commandButton value="Salvar" update="formtabelafiliais,alterarfilial" actionListener="#{mbFilial.salvar()}" oncomplete="PF('alterarfilial').hide()"/>
+                    </f:facet>
+                </p:toolbar>
+
+                <p:tabView style="width: 1000px; height: 450px">
+
+                    <p:tab title="Informações Basicas">
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Selecione uma Empresa:"/>
+                            <p:selectOneMenu value="#{mbFilial.filial.empresa}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <f:selectItem itemLabel="Selecione uma Empresa"/>
+                                <f:selectItems var="empresafilial" value="#{mbEmpresa.listaEmpresas}" itemLabel="#{empresafilial.nome}" itemValue="#{empresafilial}" />                    
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Nome da Filial:"/>
+                            <p:inputText value="#{mbFilial.filial.nomefilial}" style="width:318px"/>
+                            <p:outputLabel value="Nome Fantasia:"/>
+                            <p:inputText value="#{mbFilial.filial.fantasia}" style="width:318px"/>
+                            <p:outputLabel value="C.N.P.J:"/>
+                            <p:inputText value="#{mbFilial.filial.cnpj}"/>
+                            <p:outputLabel value="Telefone:"/>
+                            <p:inputMask mask="(99)-9999-9999" value="#{mbFilial.filial.telefone}"/>    
+                            <p:outputLabel value="Situação"/>
+                            <p:selectOneMenu  value="#{mbFilial.filial.situacao}" >
+                                <f:selectItems value="#{mbFilial.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </p:tab>
+
+                    <p:tab title="Endereço Filial">
+                        <h:panelGrid columns="2" id="cadastroenderecofilial">
+                            <p:outputLabel value="Tipo Endereço"/>
+
+                            <p:selectOneMenu value="#{mbFilial.endereco.tipoEndereco}" >
+                                <f:selectItems value="#{mbFilial.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
+                            </p:selectOneMenu> 
+
+                            <p:outputLabel value="CEP"/>
+                            <p:column>
+                                <p:inputText value="#{mbFilial.endereco.cep}" size="22"/>
+                                <p:commandButton icon="fa fa-search" actionListener="#{mbFilial.consultaEndereco()}" update="cadastroenderecofilial" style="margin-left: -31px"/>
+                            </p:column>
+
+                            <p:outputLabel value="Logradouro"/>
+                            <p:inputText value="#{mbFilial.endereco.endereco}" size="22"/>   
+
+                            <p:outputLabel value="Numero"/>
+                            <p:inputText value="#{mbFilial.endereco.numero}" size="10"/>                            
+
+                            <p:outputLabel value="Bairro"/>
+                            <p:inputText value="#{mbFilial.endereco.bairro}" size="22"/>                      
+
+                            <p:outputLabel value="Cidade"/>
+                            <p:inputText value="#{mbFilial.endereco.cidade}" size="22"/>                  
+
+                            <p:outputLabel value="Estado"/>
+                            <p:selectOneMenu value="#{mbFilial.endereco.estado}" >
+                                <f:selectItems value="#{mbFilial.estadoProvincia}" var="estado" itemLabel="#{estado.descricao}" itemValue="#{estado}"/>   
+                            </p:selectOneMenu>                 
+
+                            <p:column/>
+                            <p:commandButton value="Adicionar" icon="fa fa-plus" actionListener="#{mbFilial.salvarEndereco()}" update="cadastroenderecofilial,tabelaenderecosfilial"/>
+                        </h:panelGrid>
+
+                        <p:dataTable var="enderecofilial" value="#{mbFilial.filial.enderecos}" id="tabelaenderecosfilial">
+                            <p:column headerText="Tipo de Endereço">
+                                <p:outputLabel value="#{enderecofilial.tipoEndereco.descricao}"/>
+                            </p:column>
+
+                            <p:column headerText="Endereço">
+                                <p:outputLabel value="#{enderecofilial.endereco}"/> 
+                            </p:column>
+
+                            <p:column headerText="CEP">
+                                <p:outputLabel value="#{enderecofilial.cep}"/>
+                            </p:column>
+
+                            <p:column headerText="Numero">
+                                <p:outputLabel value="#{enderecofilial.numero}"/>
+                            </p:column>
+
+                            <p:column headerText="Bairro">
+                                <p:outputLabel value="#{enderecofilial.bairro}"/>
+                            </p:column>                               
+
+                        </p:dataTable>  
+                    </p:tab>
+
+                </p:tabView>
+            </h:form>
+        </p:dialog>
+
+
+    </ui:define>
+
+</ui:composition>

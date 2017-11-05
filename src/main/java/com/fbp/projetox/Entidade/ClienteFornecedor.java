@@ -5,6 +5,7 @@
  */
 package com.fbp.projetox.Entidade;
 
+import com.fbp.projetox.Enums.ClienteFornecedorAmbos;
 import com.fbp.projetox.Enums.EstadoCivil;
 import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.Origem;
@@ -23,11 +24,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 
 /**
  *
@@ -35,7 +33,7 @@ import org.hibernate.validator.constraints.br.CPF;
  */
 @Entity
 public @Data
-class Cliente implements AbstractEntity {
+class ClienteFornecedor implements AbstractEntity {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,16 +46,16 @@ class Cliente implements AbstractEntity {
 
     @NotEmpty(message = "Informe um Apelido!")
     private String fantasia;
-    
+
     @NotEmpty(message = "Informe o CPF/CNPF!")
     private String cpfCnpj;
-    
+
     private String incricaoEstatual;
     private String rg;
-    
+
     @NotEmpty(message = "Informe um e-mail para Contato!")
     private String emailNfe;
-    
+
     @NotEmpty(message = "Informe um telefone!")
     private String fone;
     private String celular;
@@ -80,11 +78,14 @@ class Cliente implements AbstractEntity {
     private Origem origem = Origem.NACIONAL;
 
     @Enumerated(EnumType.STRING)
+    private ClienteFornecedorAmbos clienteFornecedorAmbos;
+
+    @Enumerated(EnumType.STRING)
     private OperadoraCelular operadora = OperadoraCelular.TIM;
 
     @Enumerated(EnumType.STRING)
     private EstadoCivil estadoCivil = EstadoCivil.SOLTEIRO;
- 
+
     /*TABELAS REFERENCIADAS*/
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Endereco> enderecos = new ArrayList<>();

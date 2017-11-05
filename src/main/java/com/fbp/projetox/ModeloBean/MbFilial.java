@@ -5,18 +5,12 @@
  */
 package com.fbp.projetox.ModeloBean;
 
-import com.fbp.projetox.Entidade.Cliente;
 import com.fbp.projetox.Entidade.Endereco;
-import com.fbp.projetox.Enums.EstadoCivil;
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Enums.EstadoProvincia;
-import com.fbp.projetox.Enums.OperadoraCelular;
-import com.fbp.projetox.Enums.Origem;
-import com.fbp.projetox.Enums.RamoAtividade;
-import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Enums.TipoEndereco;
-import com.fbp.projetox.Enums.TipoPessoa;
-import com.fbp.projetox.Repositorio.Clientes;
+import com.fbp.projetox.Repositorio.Filiais;
 import com.fbp.projetox.WebService.CepRetorno;
 import com.fbp.projetox.WebService.ConsultaCep;
 import java.io.IOException;
@@ -38,42 +32,26 @@ import lombok.Setter;
  */
 @Named
 @ViewScoped
-public class MbCliente implements Serializable {
+public class MbFilial implements Serializable {
 
     @Inject
-    Clientes clientes;
-
-    @Inject
-    ConsultaCep consultaCep;
+    Filiais filiais;
 
     @Getter
     @Setter
-    Cliente cliente;
+    Filial filial;
 
     @Getter
     @Setter
     Endereco endereco;
 
+    @Inject
+    ConsultaCep consultaCep;
+
+    List<Filial> listaMarcas;
+
     @Getter
     private final Situacao[] situacao;
-
-    @Getter
-    private final SimNao[] simNao;
-
-    @Getter
-    private final RamoAtividade[] ramoAtividade;
-
-    @Getter
-    private final TipoPessoa[] tipoPessoa;
-
-    @Getter
-    private final Origem[] origem;
-
-    @Getter
-    private final OperadoraCelular[] operadoraCelular;
-
-    @Getter
-    private final EstadoCivil[] estadoCivil;
 
     @Getter
     private final EstadoProvincia[] estadoProvincia;
@@ -81,37 +59,32 @@ public class MbCliente implements Serializable {
     @Getter
     private final TipoEndereco[] tipoEndereco;
 
-    List<Cliente> listaClientes;
-
-    public List<Cliente> getListaClientes() {
-        return clientes.findAll();
+    public List<Filial> getListaFiliais() {
+        return filiais.findAll();
     }
 
-    public MbCliente() {
-        cliente = new Cliente();
+    public MbFilial() {
+        filial = new Filial();
         endereco = new Endereco();
-
         situacao = Situacao.values();
-        simNao = SimNao.values();
-        ramoAtividade = RamoAtividade.values();
-        tipoPessoa = TipoPessoa.values();
-        origem = Origem.values();
-        operadoraCelular = OperadoraCelular.values();
-        estadoCivil = EstadoCivil.values();
         estadoProvincia = EstadoProvincia.values();
         tipoEndereco = TipoEndereco.values();
     }
 
+    public void novaFilial() {
+        filial = new Filial();
+    }
+
     public void salvar() {
-        clientes.save(cliente);
+        filiais.save(filial);
+        System.out.println(filial.getCnpj());
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage("", new FacesMessage("Cliente Cadastrado com Sucesso!"));
-        cliente = new Cliente();
-        endereco = new Endereco();
+        ctx.addMessage("", new FacesMessage("Filial Cadastrada/Alterada com sucesso!"));
+        filial = new Filial();
     }
 
     public void salvarEndereco() {
-        cliente.getEnderecos().add(endereco);
+        filial.getEnderecos().add(endereco);
         endereco = new Endereco();
     }
 
@@ -126,20 +99,17 @@ public class MbCliente implements Serializable {
             endereco.setEstado(retorno.getUf());
 
         } catch (IOException ex) {
-            Logger.getLogger(MbCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MbClienteFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void novoCliente() {
-        cliente = new Cliente();
-    }
-
-    public void editarCliente() {
-        if (cliente == null) {
+    public void alterarFilial() {
+        if (filial == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.addMessage("", new FacesMessage("Selecione um Clinte Primeiro!"));
+            ctx.addMessage("", new FacesMessage("Selecione uma filial para alterar!"));
         } else {
-            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrocliente').show()");
+            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('alterarfilial').show()");
         }
     }
+
 }

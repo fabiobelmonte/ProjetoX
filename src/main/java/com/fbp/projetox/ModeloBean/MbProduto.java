@@ -67,7 +67,7 @@ public class MbProduto implements Serializable {
 
     
      public void editarProduto() {
-         System.out.println(produto.getId());
+         
         if (produto == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Selecione um Produto primeiro!"));

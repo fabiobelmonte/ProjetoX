@@ -11,6 +11,7 @@ import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Enums.UnidadeMedida;
 import java.math.BigDecimal;
 import java.util.Date;
+import javafx.scene.transform.Scale;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -71,7 +72,9 @@ class Produto implements AbstractEntity {
 
     private BigDecimal custo;
     private BigDecimal peso;
-
+    
+    private BigDecimal saldoEstoque;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;
 

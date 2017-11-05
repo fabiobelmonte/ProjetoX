@@ -6,9 +6,7 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
-import com.fbp.projetox.Controle.ParamQuery;
-import com.fbp.projetox.Entidade.Produto;
-import java.util.List;
+import com.fbp.projetox.Entidade.Empresa;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,25 +16,18 @@ import javax.persistence.PersistenceContext;
  * @author F.Belmonte
  */
 @Stateless
-public class Produtos extends AbstractPersistence<Produto, Long> {
+public class Empresas extends AbstractPersistence<Empresa, Long> {
 
     @PersistenceContext
     EntityManager em;
 
-    public Produtos() {
-        super(Produto.class);
+    public Empresas() {
+        super(Empresa.class);
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
-    public List<Produto> getSaldoProduto(Long id){
-        ParamQuery param = new ParamQuery();
-        param.add("id", id);
-        return super.listByQuery("id = :id", param);
-        
-    }
-    
+
 }

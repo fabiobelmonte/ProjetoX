@@ -13,20 +13,25 @@
                     <p:outputLabel value="Nome da Família"/>
                     <p:inputText value="#{mbFamilia.familia.nomeFamilia}"/>
                     <p:column/>
-                    <p:commandButton value="Salvar" actionListener="#{mbFamilia.salvar()}" update="@form"/>
+                    <p:commandButton value="Salvar" actionListener="#{mbFamilia.salvar()}" update="@form,tabelafamilia"/>
                 </h:panelGrid>
             </h:form>            
         </p:panel>
 
         <p:panel header="Marcas - Seguimentos">
-            <h:form id="tabelamarca">
-                <p:dataTable var="familia" value="#{mbFamilia.listaFamilias}">
+            <h:form id="tabelafamilia">
+                <p:dataTable var="familia" value="#{mbFamilia.listaFamilias}" selectionMode="single" selection="#{mbFamilia.familia}" rowKey="#{familia.id}">
                     <p:column headerText="Id" width="100">
                         <h:outputText value="#{familia.id}" />
                     </p:column>
 
-                    <p:column headerText="Marca/Seguimento">
+                    <p:column headerText="Marca/Seguimento" width="950">
                         <h:outputText value="#{familia.nomeFamilia}" />
+                    </p:column>
+
+                    <p:column headerText="Açoes">
+                        <p:commandButton value="Alterar Produto" 
+                                         icon="fa fa-edit" update="@form" actionListener="#{mbFamilia.editarFamilia()}/> 
                     </p:column>
                 </p:dataTable>                
             </h:form>

@@ -51,4 +51,14 @@ public class MbFamilia implements Serializable {
 
     }
 
+    public void editarFamilia() {
+
+        if (familia == null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Selecione uma Familia primeiro!"));
+        } else {
+//            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
+        }
+    }
+
 }
