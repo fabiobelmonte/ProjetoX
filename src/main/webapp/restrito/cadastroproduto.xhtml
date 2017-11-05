@@ -117,7 +117,7 @@
                 </h:panelGrid>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" actionListener="#{mbProduto.salvar()}" update="@form,:tabelaProdutos"/>
+                        <p:commandButton value="Salvar" actionListener="#{mbProduto.salvar()}" update="@form,:tabelaProdutos" oncomplete="PF('cadastroproduto').hide()"/>
                     </f:facet>
                 </p:toolbar>
 

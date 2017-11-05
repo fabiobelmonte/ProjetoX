@@ -56,7 +56,7 @@ public class MbProduto implements Serializable {
     public void salvar() {
         produtos.save(produto);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado com Sucesso!"));
+        ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado/Alterado com Sucesso!"));
         produto = new Produto();
 
     }

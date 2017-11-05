@@ -10,14 +10,65 @@
         <h:form>
             <p:tabView style="height: 475px; width: 100%">
                 <p:tab title="Consulta de Saldos">
-                    <p:panel header="Saldo Produtos"> 
-                        
-                    </p:panel>
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:panelGrid columns="3">
+                                <p:outputLabel value="Selecione um produto:"/>
+                                <p:selectOneMenu style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione um produto"/>
+                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
+                                </p:selectOneMenu>
+
+                                <p:commandButton value="Pesquisar" icon="fa fa-search"/>
+
+                            </h:panelGrid>                            
+                        </f:facet>
+                    </p:toolbar>
+
+                    <p:dataTable var="consultasaldo" value="#{mbProduto.listaProdutos}" style="height: 100%">
+
+                        <p:column headerText="Id" width="10">
+                            <h:outputText value="#{consultasaldo.id}" />
+                        </p:column>
+
+                        <p:column headerText="Produto" width="370">
+                            <h:outputText value="#{consultasaldo.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="U.M" width="15">
+                            <h:outputText value="#{consultasaldo.unidadeMedida.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Saldo" width="15"> 
+                            <h:outputText value="#{consultasaldo.saldoEstoque}"/>
+                        </p:column>
+
+                    </p:dataTable>                
+
                 </p:tab>
 
                 <p:tab title="Consulta de Movimentações">
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:panelGrid columns="7">
 
-                    <p:dataTable var="movimentos" value="#{mbMovimentoEstoque.listaMovimentoEstoque}" style="height: 100%" 
+                                <p:outputLabel value="Selecione um produto:"/>
+                                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione um produto"/>
+                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
+                                </p:selectOneMenu>
+                                <p:outputLabel value="Data Inicial:"/>
+                                <p:calendar />
+                                <p:outputLabel value="Data Final:"/>
+                                <p:calendar />
+
+                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
+
+                            </h:panelGrid>                            
+                        </f:facet>
+                    </p:toolbar>
+
+                    <p:dataTable var="movimentos" value="#{mbMovimentoEstoque.listaMovimentos}" style="height: 100%" 
                                  id="consultamovimentos">
 
                         <p:column headerText="Id" width="10">
@@ -35,7 +86,7 @@
                         <p:column headerText="Valor em Estoque(R$)" width="15"> 
                             <h:outputText value="#{movimentos.valorMovimento}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Obs" width="40"> 
                             <h:outputText value="#{movimentos.observacaoMovimento}"/>
                         </p:column>
@@ -64,7 +115,7 @@
 
                             <p:outputLabel value="Quantidade a Movimentar:"/>
                             <p:inputNumber value="#{mbMovimentoEstoque.movimentoEstoque.quantidadeMovimentada}"/>
-                            
+
                             <p:outputLabel value="Observação Movimento:"/>
                             <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700"/>
 

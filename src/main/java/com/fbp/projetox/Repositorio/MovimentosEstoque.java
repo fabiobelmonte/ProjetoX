@@ -6,7 +6,10 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
+import com.fbp.projetox.Controle.ParamQuery;
 import com.fbp.projetox.Entidade.MovimentoEstoque;
+import com.fbp.projetox.Entidade.Produto;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +31,13 @@ public class MovimentosEstoque extends AbstractPersistence<MovimentoEstoque, Lon
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+    
+     public List<MovimentoEstoque> getMovimentoProduto(Produto produto){
+        ParamQuery param = new ParamQuery();
+        param.add("produto", produto);
+        return super.listByQuery("produto = :produto", param);
+        
     }
 
 }
