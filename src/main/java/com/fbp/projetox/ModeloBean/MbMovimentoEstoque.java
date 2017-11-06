@@ -12,7 +12,9 @@ import com.fbp.projetox.Repositorio.MovimentosEstoque;
 import com.fbp.projetox.Repositorio.Produtos;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -31,6 +33,13 @@ public class MbMovimentoEstoque implements Serializable {
     
     private BigDecimal saldoEstoque = BigDecimal.ZERO;
     
+    @Getter
+    @Setter
+    private Date dataIncial;
+    @Getter
+    @Setter
+    private Date dataFinal;
+    
     private BigDecimal check(BigDecimal valor) {
         return valor != null ? valor : BigDecimal.ZERO;
     }
@@ -45,19 +54,23 @@ public class MbMovimentoEstoque implements Serializable {
     @Setter
     MovimentoEstoque movimentoEstoque;
     
-    private Produto prod;
+    @Getter
+    @Setter
+    private Produto produto;
     
     @Getter
     private final EntradaSaida[] entradaSaida;
     
     List<MovimentoEstoque> listaMovimentosEstoques;
     
+    @Getter
+    @Setter
     List<MovimentoEstoque> listaMovimentos;
-
-    public List<MovimentoEstoque> getListaMovimentos() {
-        return movimentosEstoques.getMovimentoProduto(prod);
-    }
     
+    @PostConstruct
+    public void init() {
+        movimentoEstoque.setDataMovimento(new Date());
+    }
     
     public List<MovimentoEstoque> getListaMovimentoEstoque() {
         return movimentosEstoques.findAll();
@@ -120,8 +133,7 @@ public class MbMovimentoEstoque implements Serializable {
     }
     
     public void buscaMovimentacao() {
-        System.out.println(movimentoEstoque.getProduto());
-        listaMovimentos = movimentosEstoques.getMovimentoProduto(movimentoEstoque.getProduto());
+        listaMovimentos = movimentosEstoques.pesquisaMovimentacao(produto, dataIncial, dataFinal);
     }
     
 }

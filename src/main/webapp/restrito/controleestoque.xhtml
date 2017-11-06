@@ -7,9 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <h:form>
-            <p:tabView style="height: 475px; width: 100%">
-                <p:tab title="Consulta de Saldos">
+
+        <p:tabView style="height: 475px; width: 100%">
+            <p:tab title="Consulta de Saldos">
+                <h:form id="formconsultasaldo">
+                    <p:growl id="msg"/>
                     <p:toolbar>
                         <f:facet name="left">
                             <h:panelGrid columns="3">
@@ -44,23 +46,24 @@
                         </p:column>
 
                     </p:dataTable>                
+                </h:form>
+            </p:tab>
 
-                </p:tab>
-
-                <p:tab title="Consulta de Movimentações">
+            <p:tab title="Consulta de Movimentações">
+                <h:form id="formconsultamovimento">
                     <p:toolbar>
                         <f:facet name="left">
                             <h:panelGrid columns="7">
 
                                 <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbMovimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
                                     <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
-                                <p:outputLabel value="Data Inicial:"/>
-                                <p:calendar />
-                                <p:outputLabel value="Data Final:"/>
-                                <p:calendar />
+                                <p:outputLabel value="Data Inicial:" for="datainicial"/> 
+                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true"/>
+                                <p:outputLabel value="Data Final:" for="datafinal"/>
+                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true"/>
 
                                 <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
 
@@ -91,12 +94,15 @@
                             <h:outputText value="#{movimentos.observacaoMovimento}"/>
                         </p:column>
 
-                    </p:dataTable>                
+                    </p:dataTable> 
+
+                </h:form>
+            </p:tab>
+
+            <p:tab title="Entrada de Saldo">
+                <h:form id="formmovimentacao">
 
 
-                </p:tab>
-
-                <p:tab title="Entrada de Saldo">
                     <p:panel header="Entrada de Saldo">
                         <p:growl/>
 
@@ -113,21 +119,25 @@
                                 <f:selectItems value="#{mbMovimentoEstoque.entradaSaida}" var="entradaSaida" itemLabel="#{entradaSaida.descricao}" itemValue="#{entradaSaida}"/>   
                             </p:selectOneMenu>
 
+                            <p:outputLabel value="Data da Movimentação:" for="datamovimentacao"/>
+                            <p:calendar value="#{mbMovimentoEstoque.movimentoEstoque.dataMovimento}" id="datamovimentacao" disabled="true" pattern="dd/MM/yyyy"/>
+
                             <p:outputLabel value="Quantidade a Movimentar:"/>
                             <p:inputNumber value="#{mbMovimentoEstoque.movimentoEstoque.quantidadeMovimentada}"/>
 
                             <p:outputLabel value="Observação Movimento:"/>
                             <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700"/>
 
-                            <p:commandButton value="Salvar" actionListener="#{mbMovimentoEstoque.salvar()}" update="@form"/>
+                            <p:commandButton value="Salvar" actionListener="#{mbMovimentoEstoque.salvar()}" update="formmovimentacao"/>
 
 
                         </h:panelGrid>
 
                     </p:panel>
-                </p:tab>
-            </p:tabView>
-        </h:form>
+                </h:form>
+            </p:tab>
+        </p:tabView>
+
     </ui:define>
 
 </ui:composition>
