@@ -63,8 +63,8 @@
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
 
-                    <p:outputLabel value="Filial:" />
-                    <p:selectOneMenu value="#{mbProduto.produto.filial}" style="width:201px" converter="generic">
+                    <p:outputLabel value="Filial:" for="selfil"/>
+                    <p:selectOneMenu value="#{mbProduto.produto.filial}" style="width:201px" converter="generic" id="selfil">
                         <f:selectItem itemLabel="Selecione uma Filial"/>
                         <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.nomefilial}" itemValue="#{filial}"/>                    
                     </p:selectOneMenu>
