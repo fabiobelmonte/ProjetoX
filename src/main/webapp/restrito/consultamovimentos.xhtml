@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../index.xhtml">
+
+            <ui:define name="content">
+                <h:form id="formconsultamovimento">
+                    <p:toolbar>
+                        <f:facet name="left">
+                            <h:panelGrid columns="7">
+
+                                <p:outputLabel value="Selecione um produto:"/>
+                                <p:selectOneMenu value="#{mbMovimentoEstoque.prod}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione um produto"/>
+                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="Data Inicial:" for="datainicial"/> 
+                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true"/>
+                                <p:outputLabel value="Data Final:" for="datafinal"/>
+                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true"/>
+
+                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
+
+                            </h:panelGrid>                            
+                        </f:facet>
+                    </p:toolbar>
+
+                    <p:dataTable var="movimentos" value="#{mbMovimentoEstoque.listaMovimentos}" style="height: 100%" 
+                                 id="consultamovimentos">
+
+                        <p:column headerText="Id" width="10">
+                            <h:outputText value="#{movimentos.id}" />
+                        </p:column>
+
+                        <p:column headerText="Produto" width="70">
+                            <h:outputText value="#{movimentos.produto.descricao}"/>
+                        </p:column>
+
+                        <p:column headerText="Quantidade Movimentada" width="15">
+                            <h:outputText value="#{movimentos.quantidadeMovimentada}"/>
+                        </p:column>
+
+                        <p:column headerText="Valor em Estoque(R$)" width="15"> 
+                            <h:outputText value="#{movimentos.valorMovimento}"/>
+                        </p:column>
+
+                        <p:column headerText="Obs" width="40"> 
+                            <h:outputText value="#{movimentos.observacaoMovimento}"/>
+                        </p:column>
+
+                    </p:dataTable> 
+
+                </h:form>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

@@ -44,7 +44,7 @@
                 <p:growl id="msg"/>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="@form" actionListener="#{mbFilial.salvar()}"/>
+                        <p:commandButton value="Salvar" update="@form" actionListener="#{mbFilial.salvar()}" oncomplete="PF('cadastrofilial').hide()"/>
                     </f:facet>
                 </p:toolbar>
 

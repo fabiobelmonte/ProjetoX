@@ -30,59 +30,59 @@ import lombok.Setter;
 @Named
 @ViewScoped
 public class MbMovimentoEstoque implements Serializable {
-    
+
     private BigDecimal saldoEstoque = BigDecimal.ZERO;
-    
+
     @Getter
     @Setter
     private Date dataIncial;
     @Getter
     @Setter
     private Date dataFinal;
-    
+
     private BigDecimal check(BigDecimal valor) {
         return valor != null ? valor : BigDecimal.ZERO;
     }
-    
+
     @Inject
     MovimentosEstoque movimentosEstoques;
-    
+
     @Inject
     Produtos produtos;
-    
+
     @Getter
     @Setter
     MovimentoEstoque movimentoEstoque;
-    
+
     @Getter
     @Setter
-    private Produto produto;
-    
+    private Produto prod;
+
     @Getter
     private final EntradaSaida[] entradaSaida;
-    
+
     List<MovimentoEstoque> listaMovimentosEstoques;
-    
+
     @Getter
     @Setter
     List<MovimentoEstoque> listaMovimentos;
-    
+
     @PostConstruct
     public void init() {
         movimentoEstoque.setDataMovimento(new Date());
     }
-    
+
     public List<MovimentoEstoque> getListaMovimentoEstoque() {
         return movimentosEstoques.findAll();
     }
-    
+
     public MbMovimentoEstoque() {
         movimentoEstoque = new MovimentoEstoque();
         entradaSaida = EntradaSaida.values();
     }
-    
+
     public void salvar() {
-        
+
         movimentosEstoques.save(movimentoEstoque);
         FacesContext ctx = FacesContext.getCurrentInstance();
         if (movimentoEstoque.getTipoMovimento().getDescricao().equals("Entrada")) {
@@ -95,45 +95,49 @@ public class MbMovimentoEstoque implements Serializable {
         atualizaSaldoProduto();
         movimentoEstoque = new MovimentoEstoque();/*Zerar campos da tela de imputar saldos*/
     }
-    
+
     public void atualizaSaldoProduto() {
 
         /*CONSULTA DE ESTOQUE PARA ATUALIZAÇÃO*/
         List<Produto> prods = produtos.getSaldoProduto(movimentoEstoque.getProduto().getId());
         for (Produto produto : prods) {
-            
+
             BigDecimal saldo = check(produto.getSaldoEstoque());
             System.out.println(saldo);
-            
+
             if ((saldo.compareTo(BigDecimal.ZERO) == 1)) {
-                
+                System.out.println("1");
                 saldoEstoque = check(produto.getSaldoEstoque());
-                
+                System.out.println("SALDO ESTOQUE 1: " + saldoEstoque);
+
             } else {
-                
+                System.out.println("2");
                 saldoEstoque = BigDecimal.ZERO;
-                
+                System.out.println("SALDO ESTOQUE 2: " + saldoEstoque);
+
             }
 
             /*VERIFICO O SALDO DO PRODUTO EM QUESTÃO, CASO HAJA ESTOQUE SOMO A QUANTIDADE NOVA COM A ATUAL, SENÃO APENAS ADICIONO O VALOR A VARIAVEL 'SALDOESTOQUE'*/
             if (saldoEstoque.compareTo(BigDecimal.ZERO) == 1) {
-                
+                System.out.println("3");
                 saldoEstoque = saldoEstoque.add(movimentoEstoque.getQuantidadeMovimentada());
-                
+                System.out.println("SALDO ESTOQUE 3: " + saldoEstoque);
+
             } else {
-                
+                System.out.println("4");
                 saldoEstoque = check(movimentoEstoque.getQuantidadeMovimentada());
-                
+                System.out.println("SALDO ESTOQUE 4: " + saldoEstoque);
             }
-            
+
             produto.setSaldoEstoque(saldoEstoque);
             produtos.save(produto);
+            produto = new Produto();
         }
-        
+
     }
-    
+
     public void buscaMovimentacao() {
-        listaMovimentos = movimentosEstoques.pesquisaMovimentacao(produto, dataIncial, dataFinal);
+        listaMovimentos = movimentosEstoques.pesquisaMovimentacao(prod, dataIncial, dataFinal);
     }
-    
+
 }

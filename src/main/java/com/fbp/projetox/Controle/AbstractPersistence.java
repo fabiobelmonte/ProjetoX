@@ -33,7 +33,7 @@ public abstract class AbstractPersistence<T extends AbstractEntity, PK extends N
      */
     private Class<T> entityClass;
 
-    @Resource(lookup = "java:/jboss/datasources/dbbel")
+    @Resource(lookup = "java:/jboss/datasources/projetox")
     DataSource datasource;
 
     public AbstractPersistence(Class<T> entityClass) {

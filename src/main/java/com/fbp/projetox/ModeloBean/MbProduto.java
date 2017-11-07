@@ -36,10 +36,19 @@ public class MbProduto implements Serializable {
     Produto produto;
 
     @Getter
+    @Setter
+    Produto prod;
+
+    @Getter
+    @Setter
+    List<Produto> listaSaldoProdutos;
+
+    @Getter
     private final Situacao[] situacao;
-    
+
     @Getter
     private final SimNao[] simNao;
+
     List<Produto> listaProdutos;
 
     public List<Produto> getListaProdutos() {
@@ -51,7 +60,6 @@ public class MbProduto implements Serializable {
         situacao = Situacao.values();
         simNao = SimNao.values();
     }
-    
 
     public void salvar() {
         produtos.save(produto);
@@ -60,14 +68,13 @@ public class MbProduto implements Serializable {
         produto = new Produto();
 
     }
-    
+
     public void novoProduto() {
         produto = new Produto();
     }
 
-    
-     public void editarProduto() {
-         
+    public void editarProduto() {
+
         if (produto == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Selecione um Produto primeiro!"));
@@ -76,4 +83,9 @@ public class MbProduto implements Serializable {
         }
     }
 
+    public void buscaSaldos() {
+
+        System.out.println(produto);
+        listaSaldoProdutos = produtos.pesquisaSaldoProduto(prod.getId());
+    }
 }

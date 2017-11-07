@@ -8,134 +8,37 @@
 
     <ui:define name="content">
 
-        <p:tabView style="height: 475px; width: 100%">
-            <p:tab title="Consulta de Saldos">
-                <h:form id="formconsultasaldo">
-                    <p:growl id="msg"/>
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <h:panelGrid columns="3">
-                                <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
-                                    <f:selectItem itemLabel="Selecione um produto"/>
-                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
-                                </p:selectOneMenu>
-                                <p:commandButton value="Pesquisar" icon="fa fa-search"/>
-                            </h:panelGrid>                            
-                        </f:facet>
-                    </p:toolbar>
+        <h:form id="inputdesaldo">
+            <p:growl/>
 
-                    <p:dataTable var="consultasaldo" value="#{mbProduto.listaProdutos}" style="height: 100%">
+            <h:panelGrid columns="2">
+                <p:outputLabel value="Selecione um Produto:"/>
+                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                    <f:selectItem itemLabel="Selecione um produto"/>
+                    <f:selectItems var="movimento" value="#{mbProduto.listaProdutos}" itemLabel="#{movimento.descricao}" itemValue="#{movimento}" />                    
+                </p:selectOneMenu>
 
-                        <p:column headerText="Id" width="10">
-                            <h:outputText value="#{consultasaldo.id}" />
-                        </p:column>
+                <p:outputLabel value="Tipo de Moviemento:"/>
+                <p:selectOneMenu  value="#{mbMovimentoEstoque.movimentoEstoque.tipoMovimento}" style="width:131px">
+                    <f:selectItem itemLabel="Entrada/Saida?"/> 
+                    <f:selectItems value="#{mbMovimentoEstoque.entradaSaida}" var="entradaSaida" itemLabel="#{entradaSaida.descricao}" itemValue="#{entradaSaida}"/>   
+                </p:selectOneMenu>
 
-                        <p:column headerText="Produto" width="370">
-                            <h:outputText value="#{consultasaldo.descricao}"/>
-                        </p:column>
+                <p:outputLabel value="Data da Movimentação:" for="datamovimentacao"/>
+                <p:calendar value="#{mbMovimentoEstoque.movimentoEstoque.dataMovimento}" id="datamovimentacao" disabled="true" pattern="dd/MM/yyyy"/>
 
-                        <p:column headerText="U.M" width="15">
-                            <h:outputText value="#{consultasaldo.unidadeMedida.descricao}"/>
-                        </p:column>
+                <p:outputLabel value="Quantidade a Movimentar:"/>
+                <p:inputNumber value="#{mbMovimentoEstoque.movimentoEstoque.quantidadeMovimentada}"/>
 
-                        <p:column headerText="Saldo" width="15"> 
-                            <h:outputText value="#{consultasaldo.saldoEstoque}"/>
-                        </p:column>
+                <p:outputLabel value="Observação Movimento:"/>
+                <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700"/>
 
-                    </p:dataTable>                
-                </h:form>
-            </p:tab>
-
-            <p:tab title="Consulta de Movimentações">
-                <h:form id="formconsultamovimento">
-                    <p:toolbar>
-                        <f:facet name="left">
-                            <h:panelGrid columns="7">
-
-                                <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu value="#{mbMovimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
-                                    <f:selectItem itemLabel="Selecione um produto"/>
-                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
-                                </p:selectOneMenu>
-                                <p:outputLabel value="Data Inicial:" for="datainicial"/> 
-                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true"/>
-                                <p:outputLabel value="Data Final:" for="datafinal"/>
-                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true"/>
-
-                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
-
-                            </h:panelGrid>                            
-                        </f:facet>
-                    </p:toolbar>
-
-                    <p:dataTable var="movimentos" value="#{mbMovimentoEstoque.listaMovimentos}" style="height: 100%" 
-                                 id="consultamovimentos">
-
-                        <p:column headerText="Id" width="10">
-                            <h:outputText value="#{movimentos.id}" />
-                        </p:column>
-
-                        <p:column headerText="Produto" width="70">
-                            <h:outputText value="#{movimentos.produto.descricao}"/>
-                        </p:column>
-
-                        <p:column headerText="Quantidade Movimentada" width="15">
-                            <h:outputText value="#{movimentos.quantidadeMovimentada}"/>
-                        </p:column>
-
-                        <p:column headerText="Valor em Estoque(R$)" width="15"> 
-                            <h:outputText value="#{movimentos.valorMovimento}"/>
-                        </p:column>
-
-                        <p:column headerText="Obs" width="40"> 
-                            <h:outputText value="#{movimentos.observacaoMovimento}"/>
-                        </p:column>
-
-                    </p:dataTable> 
-
-                </h:form>
-            </p:tab>
-
-            <p:tab title="Entrada de Saldo">
-                <h:form id="formmovimentacao">
+                <p:commandButton value="Salvar" actionListener="#{mbMovimentoEstoque.salvar()}" update="inputdesaldo"/>
 
 
-                    <p:panel header="Entrada de Saldo">
-                        <p:growl/>
+            </h:panelGrid>
 
-                        <h:panelGrid columns="2">
-                            <p:outputLabel value="Selecione um Produto:"/>
-                            <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
-                                <f:selectItem itemLabel="Selecione um produto"/>
-                                <f:selectItems var="movimento" value="#{mbProduto.listaProdutos}" itemLabel="#{movimento.descricao}" itemValue="#{movimento}" />                    
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Tipo de Moviemento:"/>
-                            <p:selectOneMenu  value="#{mbMovimentoEstoque.movimentoEstoque.tipoMovimento}" style="width:131px">
-                                <f:selectItem itemLabel="Entrada/Saida?"/> 
-                                <f:selectItems value="#{mbMovimentoEstoque.entradaSaida}" var="entradaSaida" itemLabel="#{entradaSaida.descricao}" itemValue="#{entradaSaida}"/>   
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Data da Movimentação:" for="datamovimentacao"/>
-                            <p:calendar value="#{mbMovimentoEstoque.movimentoEstoque.dataMovimento}" id="datamovimentacao" disabled="true" pattern="dd/MM/yyyy"/>
-
-                            <p:outputLabel value="Quantidade a Movimentar:"/>
-                            <p:inputNumber value="#{mbMovimentoEstoque.movimentoEstoque.quantidadeMovimentada}"/>
-
-                            <p:outputLabel value="Observação Movimento:"/>
-                            <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700"/>
-
-                            <p:commandButton value="Salvar" actionListener="#{mbMovimentoEstoque.salvar()}" update="formmovimentacao"/>
-
-
-                        </h:panelGrid>
-
-                    </p:panel>
-                </h:form>
-            </p:tab>
-        </p:tabView>
-
+        </h:form>
     </ui:define>
 
 </ui:composition>
