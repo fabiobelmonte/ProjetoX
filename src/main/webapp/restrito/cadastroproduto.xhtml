@@ -63,52 +63,58 @@
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
 
-                    <p:outputLabel value="Família" />
+                    <p:outputLabel value="Filial:" />
+                    <p:selectOneMenu value="#{mbProduto.produto.filial}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma Filial"/>
+                        <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.nomefilial}" itemValue="#{filial}"/>                    
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Família:" />
                     <p:selectOneMenu value="#{mbProduto.produto.familia}" style="width:201px" converter="generic">
                         <f:selectItem itemLabel="Selecione uma Família"/>
                         <f:selectItems var="familia" value="#{mbFamilia.listaFamilias}" itemLabel="#{familia.nomeFamilia}" itemValue="#{familia}"/>                    
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Descrição" for="descricao"/>
+                    <p:outputLabel value="Descrição:" for="descricao"/>
                     <p:inputText value="#{mbProduto.produto.descricao}" id="descricao" style="width:229px"/> 
 
-                    <p:outputLabel value="U.M" />
+                    <p:outputLabel value="U.M:" />
                     <p:selectOneMenu value="#{mbProduto.produto.unidadeMedida}" style="width:201px" converter="generic">
                         <f:selectItem itemLabel="Selecione uma U.M"/>
                         <f:selectItems var="unidademedida" value="#{mbUnidadeMedida.listaUnidadeMedida}" itemLabel="#{unidademedida.descricao}" itemValue="#{unidademedida}"/>                    
                     </p:selectOneMenu>  
 
-                    <p:outputLabel value="Marca" />
+                    <p:outputLabel value="Marca:" />
                     <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:201px" converter="generic">
                         <f:selectItem itemLabel="Selecione uma Marca"/>
                         <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}"/>                    
                     </p:selectOneMenu> 
 
-                    <p:outputLabel value="Preço de Custo"/>
+                    <p:outputLabel value="Preço de Custo:"/>
                     <p:inputNumber value="#{mbProduto.produto.custo}" size="30"/>
 
-                    <p:outputLabel value="Peso"/>
+                    <p:outputLabel value="Peso:"/>
                     <p:inputNumber value="#{mbProduto.produto.peso}" size="30"/>
 
-                    <p:outputLabel value="Requisitado"/>
+                    <p:outputLabel value="Requisitado:"/>
                     <p:selectOneMenu  value="#{mbProduto.produto.requisitado}" style="width:201px">
                         <f:selectItem itemLabel="Pode ser Requisitado ?"/>
                         <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Vendido"/>
+                    <p:outputLabel value="Vendido:"/>
                     <p:selectOneMenu  value="#{mbProduto.produto.vendido}" style="width:201px">
                         <f:selectItem itemLabel="Pode ser Vendido ?"/>
                         <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Comprado"/>
+                    <p:outputLabel value="Comprado:"/>
                     <p:selectOneMenu  value="#{mbProduto.produto.comprado}" style="width:201px">
                         <f:selectItem itemLabel="Pode ser Comprado ?"/>
                         <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
                     </p:selectOneMenu>
 
-                    <p:outputLabel value="Situação"/>
+                    <p:outputLabel value="Situação:"/>
                     <p:selectOneMenu  value="#{mbProduto.produto.situacao}" style="width:201px">
                         <f:selectItem itemLabel="Selecione a Situação"/>
                         <f:selectItems value="#{mbProduto.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>                            

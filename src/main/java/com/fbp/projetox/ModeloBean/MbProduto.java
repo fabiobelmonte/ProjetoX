@@ -84,8 +84,6 @@ public class MbProduto implements Serializable {
     }
 
     public void buscaSaldos() {
-
-        System.out.println(produto);
         listaSaldoProdutos = produtos.pesquisaSaldoProduto(prod.getId());
     }
 }
