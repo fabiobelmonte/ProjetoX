@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../index.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h:form id="formconsultausuario">
+            <p:toolbar>
+                <f:facet name="left">
+                    <p:commandButton value="Novo Usuário" 
+                                     icon="fa fa-plus" 
+                                     onclick="PF('cadastrousuario').show()"/>   
+
+                    <p:commandButton value="Editar"/>
+                </f:facet>
+            </p:toolbar>
+            <p:dataTable var="usuario" value="#{mbConsultaUsuario.listaUsuario}" selectionMode="single" selection="#{mbConsultaUsuario.usuario}" rowKey="#{usuario}">
+
+                <p:column headerText="Id" width="20">
+                    <h:outputText value="#{usuario.id}" />
+                </p:column>
+
+                <p:column headerText="Nome Usuário">
+                    <h:outputText value="#{usuario.nomeCompleto}" />
+                </p:column>
+
+                <p:column headerText="E-Mail">
+                    <h:outputText value="#{usuario.email}" />
+                </p:column>
+
+                <p:column headerText="Telefone" width="110">
+                    <h:outputText value="#{usuario.telefoneFixo}"/>
+                </p:column>
+
+                <p:column headerText="Operadora" width="110">
+                    <h:outputText value="#{usuario.operadora.descricao}"/>
+                </p:column>
+
+                <p:column headerText="Celular" width="110">
+                    <h:outputText value="#{usuario.celular}"/>
+                </p:column>
+
+                <p:column headerText="Filial">
+                    <h:outputText value="#{usuario.filial.nomefilial}" />
+                </p:column> 
+
+            </p:dataTable>   
+        </h:form>
+
+        <h:form id="formcadastrousuario">
+            <p:growl id="cadastrousuario"/>
+            <p:dialog header="Cadatro de Usuário" widgetVar="cadastrousuario" resizable="false" responsive="true">
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="Filial:" for="filialusuario"/>
+                    <p:selectOneMenu value="#{mbUsuario.usuario.filial}" style="width:201px" id="filialusuario" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma Filial"/>
+                        <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.nomefilial}" itemValue="#{filial}"/>                    
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Nome Completo:"/>
+                    <p:inputText value="#{mbUsuario.usuario.nomeCompleto}"/>
+
+                    <p:outputLabel value="Usuário:"/>
+                    <p:inputText value="#{mbUsuario.usuario.usuario}"/>
+
+                    <p:outputLabel value="Senha:"/>
+                    <p:password value="#{mbUsuario.usuario.senha}"/>
+
+                    <p:outputLabel value="E-Mail:"/>
+                    <p:inputText value="#{mbUsuario.usuario.email}"/>
+
+                    <p:outputLabel value="Telefone Fixo:"/>
+                    <p:inputText value="#{mbUsuario.usuario.telefoneFixo}"/>
+
+                    <p:outputLabel value="Operadora Móvel"/>
+                    <p:selectOneMenu  value="#{mbUsuario.usuario.operadora}" >
+                        <f:selectItems value="#{mbUsuario.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
+                    </p:selectOneMenu>
+
+                    <p:outputLabel value="Celular:"/>
+                    <p:inputText value="#{mbUsuario.usuario.celular}"/>
+
+                    <p:commandButton value="Salvar" actionListener="#{mbUsuario.salvar()}" update=":formconsultausuario,formcadastrousuario" oncomplete="PF('cadastrousuario').hide()"/>
+
+
+                </h:panelGrid>
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="bottom">
+
+
+    </ui:define>
+
+</ui:composition>

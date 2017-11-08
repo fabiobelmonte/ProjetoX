@@ -29,24 +29,22 @@ class Usuario implements AbstractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    
+    private String usuario;
+    private String nomeCompleto;
+
+    private String senha;
 
     @Enumerated(EnumType.STRING)
     private OperadoraCelular operadora = OperadoraCelular.TIM;
 
-    private String telefone;
+    private String telefoneFixo;
+    private String celular;
+
     private String email;
 
     @ManyToOne
-    @NotNull(message = "Selecione uma Filial")
     private Filial filial;
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
 
     @Override
     public boolean equals(Object object) {
@@ -55,15 +53,7 @@ class Usuario implements AbstractEntity {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "com.fbp.projetox.Entidade.Usuario[ id=" + id + " ]";
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
 
 }
