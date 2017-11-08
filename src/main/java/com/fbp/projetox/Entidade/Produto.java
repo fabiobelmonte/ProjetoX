@@ -10,6 +10,7 @@ import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Enums.UnidadeMedida;
 import java.math.BigDecimal;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,6 +22,7 @@ import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
@@ -28,6 +30,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author F.Belmonte
  */
 @Entity
+@EqualsAndHashCode
 public @Data
 class Produto implements AbstractEntity {
 
@@ -73,6 +76,8 @@ class Produto implements AbstractEntity {
     private Filial filial;
 
     private BigDecimal custo;
+    
+    @Column(scale = 5)
     private BigDecimal peso;
     private BigDecimal valorEmEstoque;
 

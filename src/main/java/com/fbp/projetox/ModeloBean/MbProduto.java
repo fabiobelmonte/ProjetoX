@@ -6,6 +6,7 @@
 package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Filial;
+import com.fbp.projetox.Entidade.Marca;
 import com.fbp.projetox.Entidade.Produto;
 import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
@@ -14,6 +15,7 @@ import com.fbp.projetox.Repositorio.Filiais;
 import com.fbp.projetox.Repositorio.Produtos;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -39,7 +41,7 @@ public class MbProduto implements Serializable {
 
     @Getter
     @Setter
-    Produto prod;
+    Marca marca;
 
     @Getter
     @Setter
@@ -61,7 +63,6 @@ public class MbProduto implements Serializable {
     }
 
     public MbProduto() {
-        produto = new Produto();
         situacao = Situacao.values();
         simNao = SimNao.values();
     }
@@ -70,6 +71,10 @@ public class MbProduto implements Serializable {
         produtos.save(produto);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado/Alterado com Sucesso!"));
+        produto = new Produto();
+    }
+
+    public void init() {
         produto = new Produto();
     }
 
@@ -88,11 +93,10 @@ public class MbProduto implements Serializable {
     }
 
     public void buscaSaldos() {
-        listaSaldoProdutos = produtos.pesquisaSaldoProduto(produto.getMarca(), produto);
+        listaSaldoProdutos = produtos.pesquisaSaldoProduto(marca, produto);
     }
 
     public void pesquisaProdutoMarca() {
-        System.out.println(produto.getMarca());
         listaProdutoMarca = produtos.getProdutoMarca(produto.getMarca());
     }
 }

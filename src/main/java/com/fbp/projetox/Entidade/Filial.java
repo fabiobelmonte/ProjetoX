@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.br.CNPJ;
 
@@ -28,6 +29,7 @@ import org.hibernate.validator.constraints.br.CNPJ;
  * @author F.Belmonte
  */
 @Entity
+@EqualsAndHashCode
 public @Data
 class Filial implements AbstractEntity {
 

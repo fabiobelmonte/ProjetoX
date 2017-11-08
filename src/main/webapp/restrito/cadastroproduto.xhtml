@@ -7,6 +7,11 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
+        <f:metadata>
+
+            <f:event listener="#{mbProduto.init()}" type="preRenderView"/>
+
+        </f:metadata>
         <h:form id="tabelaProdutos">
             <p:toolbar>
                 <f:facet name="left">

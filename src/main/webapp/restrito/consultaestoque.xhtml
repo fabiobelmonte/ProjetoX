@@ -18,13 +18,13 @@
                             <h:panelGrid columns="9"> 
 
                                 <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu value="#{mbProduto.produto.id}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbProduto.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
                                     <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
 
                                 <p:outputLabel value="Selecione uma Marca:"/>
-                                <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbProduto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
                                     <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}" />                    
                                 </p:selectOneMenu>
@@ -52,7 +52,7 @@
                         <p:column headerText="Saldo" width="15"> 
                             <h:outputText value="#{consultasaldo.saldoEstoque}"/>
                         </p:column>
-                        
+
                         <p:column headerText="Valor em Estoque" width="30"> 
                             <h:outputText value="#{consultasaldo.valorEmEstoque}">
                                 <f:convertNumber type="currency"/>
