@@ -5,13 +5,11 @@
  */
 package com.fbp.projetox.Entidade;
 
-import com.fbp.projetox.Entidade.AbstractEntity;
 import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Enums.UnidadeMedida;
 import java.math.BigDecimal;
 import java.util.Date;
-import javafx.scene.transform.Scale;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -85,5 +83,15 @@ class Produto implements AbstractEntity {
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataAlteracao;
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Produto)) {
+            return false;
+        }
+        Produto other = (Produto) object;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
 
 }

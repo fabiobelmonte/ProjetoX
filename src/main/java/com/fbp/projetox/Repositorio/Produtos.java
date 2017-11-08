@@ -46,16 +46,25 @@ public class Produtos extends AbstractPersistence<Produto, Long> {
         return super.listByQuery("id = :id", param);
 
     }
+    
+    public List<Produto> getProdutoMarca(Marca marca) {
+        ParamQuery param = new ParamQuery();
+        param.add("marca", marca);
+        return super.listByQuery("marca = :marca", param);
 
-    public List<Produto> pesquisaSaldoProduto(Long id) {
+    }
+
+    public List<Produto> pesquisaSaldoProduto(Marca marca,Produto produto) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Produto> query = builder.createQuery(Produto.class);
         Root<Produto> from = query.from(Produto.class);
 
         Predicate filtros = builder.and();
-        if (id != null) {
-            filtros = builder.equal(from.get("id"), id);
+        if (marca != null) {
+            filtros = builder.equal(from.get("marca"), marca);
+        }else if (produto != null) {
+            filtros = builder.equal(from.get("id"), produto.getId());
         }
 
         TypedQuery<Produto> typedQuery = em.createQuery(query.select(from).where(filtros));

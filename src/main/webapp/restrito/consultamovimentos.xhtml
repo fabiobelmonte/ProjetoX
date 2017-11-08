@@ -49,10 +49,12 @@
                         </p:column>
 
                         <p:column headerText="Valor em Estoque(R$)" width="15"> 
-                            <h:outputText value="#{movimentos.valorMovimento}"/>
+                            <h:outputText value="#{movimentos.valorMovimento}">
+                                <f:convertNumber type="currency"/>                        
+                            </h:outputText>
                         </p:column>
 
-                        <p:column headerText="Obs" width="40"> 
+                        <p:column headerText="Observação" width="40"> 
                             <h:outputText value="#{movimentos.observacaoMovimento}"/>
                         </p:column>
 

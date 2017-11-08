@@ -18,13 +18,19 @@
                             <h:panelGrid columns="9"> 
 
                                 <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu value="#{mbProduto.prod}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbProduto.produto.id}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
                                     <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
 
+                                <p:outputLabel value="Selecione uma Marca:"/>
+                                <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione um produto"/>
+                                    <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}" />                    
+                                </p:selectOneMenu>
 
-                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbProduto.buscaSaldos()}" update="formconsultasaldo"/> 
+
+                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbProduto.buscaSaldos()}" update="tabelaconsultasaldo"/> 
                             </h:panelGrid>                            
                         </f:facet>
                     </p:toolbar>
@@ -45,6 +51,12 @@
 
                         <p:column headerText="Saldo" width="15"> 
                             <h:outputText value="#{consultasaldo.saldoEstoque}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Valor em Estoque" width="30"> 
+                            <h:outputText value="#{consultasaldo.valorEmEstoque}">
+                                <f:convertNumber type="currency"/>
+                            </h:outputText>
                         </p:column>
 
                     </p:dataTable>                

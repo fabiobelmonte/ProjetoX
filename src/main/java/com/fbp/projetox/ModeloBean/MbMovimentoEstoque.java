@@ -32,6 +32,7 @@ import lombok.Setter;
 public class MbMovimentoEstoque implements Serializable {
 
     private BigDecimal saldoEstoque = BigDecimal.ZERO;
+    private BigDecimal custo = BigDecimal.ZERO;
 
     @Getter
     @Setter
@@ -82,6 +83,13 @@ public class MbMovimentoEstoque implements Serializable {
     }
 
     public void salvar() {
+        List<Produto> prods = produtos.getSaldoProduto(movimentoEstoque.getProduto().getId());
+        for (Produto produto : prods) {
+            custo = check(produto.getCusto());
+            BigDecimal valorMovimentacao = BigDecimal.ZERO;
+            valorMovimentacao = custo.multiply(movimentoEstoque.getQuantidadeMovimentada());
+            movimentoEstoque.setValorMovimento(valorMovimentacao);
+        }
 
         movimentosEstoques.save(movimentoEstoque);
         FacesContext ctx = FacesContext.getCurrentInstance();
@@ -103,32 +111,28 @@ public class MbMovimentoEstoque implements Serializable {
         for (Produto produto : prods) {
 
             BigDecimal saldo = check(produto.getSaldoEstoque());
-            System.out.println(saldo);
 
             if ((saldo.compareTo(BigDecimal.ZERO) == 1)) {
-                System.out.println("1");
+
                 saldoEstoque = check(produto.getSaldoEstoque());
-                System.out.println("SALDO ESTOQUE 1: " + saldoEstoque);
 
             } else {
-                System.out.println("2");
+
                 saldoEstoque = BigDecimal.ZERO;
-                System.out.println("SALDO ESTOQUE 2: " + saldoEstoque);
 
             }
 
             /*VERIFICO O SALDO DO PRODUTO EM QUESTÃO, CASO HAJA ESTOQUE SOMO A QUANTIDADE NOVA COM A ATUAL, SENÃO APENAS ADICIONO O VALOR A VARIAVEL 'SALDOESTOQUE'*/
             if (saldoEstoque.compareTo(BigDecimal.ZERO) == 1) {
-                System.out.println("3");
+
                 saldoEstoque = saldoEstoque.add(movimentoEstoque.getQuantidadeMovimentada());
-                System.out.println("SALDO ESTOQUE 3: " + saldoEstoque);
 
             } else {
-                System.out.println("4");
-                saldoEstoque = check(movimentoEstoque.getQuantidadeMovimentada());
-                System.out.println("SALDO ESTOQUE 4: " + saldoEstoque);
-            }
 
+                saldoEstoque = check(movimentoEstoque.getQuantidadeMovimentada());
+
+            }
+            produto.setValorEmEstoque(custo.multiply(saldoEstoque));
             produto.setSaldoEstoque(saldoEstoque);
             produtos.save(produto);
             produto = new Produto();

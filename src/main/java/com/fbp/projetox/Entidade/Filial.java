@@ -57,4 +57,14 @@ class Filial implements AbstractEntity {
     @Enumerated(EnumType.STRING)
     private Situacao situacao = Situacao.ATIVO;
 
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Filial)) {
+            return false;
+        }
+        Filial other = (Filial) object;
+        return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
+    }
+
 }

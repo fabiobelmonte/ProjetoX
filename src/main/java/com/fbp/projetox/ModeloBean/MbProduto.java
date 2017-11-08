@@ -5,9 +5,11 @@
  */
 package com.fbp.projetox.ModeloBean;
 
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Entidade.Produto;
 import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
+import com.fbp.projetox.Repositorio.Filiais;
 
 import com.fbp.projetox.Repositorio.Produtos;
 import java.io.Serializable;
@@ -51,6 +53,9 @@ public class MbProduto implements Serializable {
 
     List<Produto> listaProdutos;
 
+    @Getter
+    List<Produto> listaProdutoMarca;
+
     public List<Produto> getListaProdutos() {
         return produtos.findAll();
     }
@@ -66,7 +71,6 @@ public class MbProduto implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado/Alterado com Sucesso!"));
         produto = new Produto();
-
     }
 
     public void novoProduto() {
@@ -84,6 +88,11 @@ public class MbProduto implements Serializable {
     }
 
     public void buscaSaldos() {
-        listaSaldoProdutos = produtos.pesquisaSaldoProduto(prod.getId());
+        listaSaldoProdutos = produtos.pesquisaSaldoProduto(produto.getMarca(), produto);
+    }
+
+    public void pesquisaProdutoMarca() {
+        System.out.println(produto.getMarca());
+        listaProdutoMarca = produtos.getProdutoMarca(produto.getMarca());
     }
 }

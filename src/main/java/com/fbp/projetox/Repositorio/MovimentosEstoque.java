@@ -6,7 +6,6 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
-import com.fbp.projetox.Controle.ParamQuery;
 import com.fbp.projetox.Entidade.MovimentoEstoque;
 import com.fbp.projetox.Entidade.Produto;
 import java.util.Date;
