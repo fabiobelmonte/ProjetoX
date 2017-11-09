@@ -72,7 +72,6 @@ public class MbLogin implements Serializable {
         session.invalidate();
         usuario = new Usuario();
         return "/login.jsf";
-
     }
 
     public Usuario usuarioLogado() {

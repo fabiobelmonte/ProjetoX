@@ -38,7 +38,8 @@ public class MbProduto implements Serializable {
     @Getter
     @Setter
     Produto produto;
-
+    
+   
     @Getter
     @Setter
     Marca marca;

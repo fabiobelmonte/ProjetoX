@@ -73,6 +73,9 @@ class Produto implements AbstractEntity {
 
     private BigDecimal custo;
 
+    @ManyToOne
+    private Filial filial;
+
     @Column(scale = 5)
     private BigDecimal peso;
     private BigDecimal valorEmEstoque;
