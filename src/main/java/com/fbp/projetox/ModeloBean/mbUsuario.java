@@ -8,7 +8,7 @@ package com.fbp.projetox.ModeloBean;
 import com.fbp.projetox.Entidade.Familia;
 import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Enums.OperadoraCelular;
-import com.fbp.projetox.Enums.UnidadeMedida;
+import com.fbp.projetox.Entidade.UnidadeMedida;
 import com.fbp.projetox.Repositorio.Familias;
 import com.fbp.projetox.Repositorio.Usuarios;
 import java.io.Serializable;

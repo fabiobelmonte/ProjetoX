@@ -7,7 +7,6 @@ package com.fbp.projetox.Entidade;
 
 import com.fbp.projetox.Enums.SimNao;
 import com.fbp.projetox.Enums.Situacao;
-import com.fbp.projetox.Enums.UnidadeMedida;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Column;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fbp.projetox.Enums;
+package com.fbp.projetox.Entidade;
 
 import com.fbp.projetox.Entidade.AbstractEntity;
 import javax.persistence.Entity;
