@@ -9,8 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -25,6 +25,6 @@ class Marca implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull(message = "O Nome da Marca não pode ser vazio!")
+    @NotEmpty(message = "O Nome da Marca não pode ser vazio!")
     private String nomeMarca;
 }
