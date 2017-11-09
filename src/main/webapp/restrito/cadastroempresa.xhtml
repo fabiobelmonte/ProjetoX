@@ -11,9 +11,9 @@
             <h:form id="cadastroempresa">
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
-                    <p:outputLabel value="Nome da Empresa:  "/>
-                    <p:inputText value="#{mbEmpresa.empresa.nome}" style="width: 400px"/>                    <p:column/>
-                    <p:commandButton value="Salvar" actionListener="#{mbEmpresa.salvar()}" update="@form,tabelaempresa"/>
+                    <p:outputLabel value="Nome da Empresa:"/>
+                    <p:inputText value="#{mbEmpresa.empresa.nome}" style="width: 400px"/>                    
+                    <p:commandButton value="Salvar" actionListener="#{mbEmpresa.salvar()}" update="@form,tabelaempresa,:formcadastrofilial"/>
                 </h:panelGrid>
             </h:form>            
         </p:panel>

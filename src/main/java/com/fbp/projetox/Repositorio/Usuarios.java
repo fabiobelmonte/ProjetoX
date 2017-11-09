@@ -6,7 +6,9 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
+import com.fbp.projetox.Controle.ParamQuery;
 import com.fbp.projetox.Entidade.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,6 +30,13 @@ public class Usuarios extends AbstractPersistence<Usuario, Long> {
     @Override
     protected EntityManager getEntityManager() {
         return em;
+    }
+
+    public List<Usuario> validaUsuario(String usuario, String senha) {
+        ParamQuery param = new ParamQuery();
+        param.add("usuario", usuario);
+        param.add("senha", senha);
+        return super.listByQuery("usuario = :usuario and senha =:senha", param);
     }
 
 }
