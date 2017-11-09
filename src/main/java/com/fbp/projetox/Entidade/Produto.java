@@ -71,12 +71,8 @@ class Produto implements AbstractEntity {
     @NotNull
     private Situacao situacao;
 
-    @ManyToOne
-    @NotNull(message = "Escolha uma Filial!")
-    private Filial filial;
-
     private BigDecimal custo;
-    
+
     @Column(scale = 5)
     private BigDecimal peso;
     private BigDecimal valorEmEstoque;

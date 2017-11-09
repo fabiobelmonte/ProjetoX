@@ -5,21 +5,19 @@
  */
 package com.fbp.projetox.ModeloBean;
 
+import com.fbp.projetox.Servico.ConverterSHA1;
 import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Repositorio.Usuarios;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -31,23 +29,34 @@ public class MbLogin implements Serializable {
 
     Usuario usuario = new Usuario();
 
-    private String senhaConvertida;
+    @Getter
+    @Setter
+    private String user;
+
+    @Getter
+    @Setter
+    private String pass;
 
     @Inject
     Usuarios usuarios;
+
+    private boolean cadastroAdmin = false;
 
     public MbLogin() {
     }
 
     public String efetuarLogin() {
-        if (retornaUserBanco(usuario)) {
-            //Adiciona o usuário logado na sessão            
+
+        if (retornaUserBanco()) {
+            //Adiciona o usuário logado na sessão      
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Seja Bem-Vindo ! " + usuario.getNomeCompleto(), ""));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", usuario);
             return "/restrito/index.jsf";
         } else {
-            System.out.println(usuario);
-            //   msg.retornaErro("Usuário ou senha inválidos!");
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos!", ""));
+            if (cadastroAdmin == false) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Usuário ou senha inválidos!", ""));
+
+            }
             return "";
         }
     }
@@ -70,21 +79,22 @@ public class MbLogin implements Serializable {
         return (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("user");
     }
 
-    private boolean retornaUserBanco(Usuario usuario) {
+    private boolean retornaUserBanco() {
         boolean ok = false;
 
-        try {
+        List<Usuario> users = usuarios.validaUsuario(user, ConverterSHA1.cipher(pass));
 
-            MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-            byte messageDigest[] = algorithm.digest(usuario.getSenha().getBytes("UTF-8"));
-            senhaConvertida = String.valueOf(messageDigest);
-
-        } catch (NoSuchAlgorithmException | UnsupportedEncodingException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, ex.getMessage(), ""));
+        if ((users.isEmpty()) && (user.equals("admin"))) {
+            cadastroAdmin = true;
+            usuario.setNomeCompleto("Administrador");
+            usuario.setUsuario(user);
+            usuario.setSenha(ConverterSHA1.cipher(pass));
+            usuarios.save(usuario);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Administrador Cadastrado com Sucesso! Efetue um Login novamente!", ""));
         }
 
-        List<Usuario> users = usuarios.validaUsuario(usuario.getUsuario(), senhaConvertida);
         for (Usuario usu : users) {
+            usuario = usu;
             ok = true;
         }
         return ok;

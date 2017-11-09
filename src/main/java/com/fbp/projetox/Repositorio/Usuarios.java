@@ -33,6 +33,7 @@ public class Usuarios extends AbstractPersistence<Usuario, Long> {
     }
 
     public List<Usuario> validaUsuario(String usuario, String senha) {
+        
         ParamQuery param = new ParamQuery();
         param.add("usuario", usuario);
         param.add("senha", senha);

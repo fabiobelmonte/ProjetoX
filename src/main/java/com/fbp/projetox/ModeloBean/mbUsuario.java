@@ -7,6 +7,7 @@ package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Familia;
 import com.fbp.projetox.Entidade.Usuario;
+import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.UnidadeMedida;
 import com.fbp.projetox.Repositorio.Familias;
 import com.fbp.projetox.Repositorio.Usuarios;
@@ -37,6 +38,14 @@ public class mbUsuario implements Serializable {
 
     List<Usuario> listaUsuario;
 
+    @Getter
+    private final OperadoraCelular[] operadoraCelular;
+
+    public mbUsuario() {
+        usuario = new Usuario();
+        operadoraCelular = OperadoraCelular.values();
+    }
+
     public List<Usuario> getListaUsuario() {
         return usuarios.findAll();
     }
@@ -46,11 +55,9 @@ public class mbUsuario implements Serializable {
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Família Cadastrada com Sucesso!"));
         usuario = new Usuario();
-
     }
 
-    public void editarFamilia() {
-
+    public void editaUsuario() {
         if (usuario == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Selecione um usuario primeiro!"));
@@ -58,5 +65,4 @@ public class mbUsuario implements Serializable {
 //            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
         }
     }
-
 }
