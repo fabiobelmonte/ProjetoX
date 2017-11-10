@@ -22,11 +22,6 @@ public class MbSelecionaFilial implements Serializable {
 
     @Getter
     @Setter
-    Filial filial;
-
-    public Filial filialLogada() {
-
-        return filial;
-    }
+    private Filial filial;
 
 }

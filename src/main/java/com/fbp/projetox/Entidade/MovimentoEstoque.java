@@ -6,7 +6,6 @@
 package com.fbp.projetox.Entidade;
 
 import com.fbp.projetox.Enums.EntradaSaida;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -43,5 +42,8 @@ public class MovimentoEstoque implements AbstractEntity {
 
     @OneToOne
     private Produto produto;
+
+    @OneToOne
+    private Filial filial;
 
 }

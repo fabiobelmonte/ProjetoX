@@ -12,7 +12,7 @@
                 <f:facet name="left">
                     <p:commandButton value="Novo Usuário" 
                                      icon="fa fa-plus" 
-                                     onclick="PF('cadastrousuario').show()"/>   
+                                     onclick="PF('cadastrousuario').show()" actionListener="#{mbUsuario.novoUsuario()}"/>   
 
                     <p:commandButton value="Editar" 
                                      icon="fa fa-edit" update="@form, formcadastrousuario" 
@@ -57,13 +57,13 @@
         </h:form>
 
 
-        <p:dialog header="Cadatro de Usuário" widgetVar="cadastrousuario" resizable="false" responsive="true" >
+        <p:dialog header="Cadatro de Usuário" widgetVar="cadastrousuario" resizable="false" responsive="true" width="610">
             <h:form id="formcadastrousuario">
                 <p:growl/>
                 <h:panelGrid columns="2">
 
                     <p:outputLabel value="Nome Completo:"/>
-                    <p:inputText value="#{mbUsuario.usuario.nomeCompleto}"/>
+                    <p:inputText value="#{mbUsuario.usuario.nomeCompleto}" size="50"/>
 
                     <p:outputLabel value="Usuário:"/>
                     <p:inputText value="#{mbUsuario.usuario.usuario}"/>
@@ -72,7 +72,7 @@
                     <p:password value="#{mbUsuario.usuario.senha}"/>
 
                     <p:outputLabel value="E-Mail:"/>
-                    <p:inputText value="#{mbUsuario.usuario.email}"/>
+                    <p:inputText value="#{mbUsuario.usuario.email}" size="30"/>
 
                     <p:outputLabel value="Telefone Fixo:"/>
                     <p:inputText value="#{mbUsuario.usuario.telefoneFixo}"/>
@@ -90,7 +90,8 @@
                         <f:selectItems value="#{mbUsuario.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
                     </p:selectOneMenu>
 
-                    <p:commandButton value="Salvar" actionListener="#{mbUsuario.salvar()}" update=":formconsultausuario,formcadastrousuario" oncomplete="PF('cadastrousuario').hide()"/>
+                    <p:commandButton value="Salvar" actionListener="#{mbUsuario.salvar()}" update=":formconsultausuario,formcadastrousuario" 
+                                     oncomplete="PF('cadastrousuario').hide()"/>
 
 
                 </h:panelGrid>

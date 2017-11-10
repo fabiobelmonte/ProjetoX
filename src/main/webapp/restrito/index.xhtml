@@ -81,17 +81,17 @@
 
         </div>
 
-        <div id="bottom">
+        <div class="rodape" id="bottom">
 
             <ui:insert name="bottom">
-                <p:panel style="height: 50px;font-weight: bold">
-                    <h:panelGrid columns="2">
-                        <p:outputLabel value="Empresa:  "/>
-                        <p:outputLabel value="#{mbSelecionaFilial.filial.empresa.nome}"/>
-                        <p:outputLabel value="Filial:"/>
-                        <p:outputLabel value="#{mbSelecionaFilial.filial.fantasia}"/>
-                    </h:panelGrid>
-                </p:panel>
+
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Empresa:  "/>
+                    <p:outputLabel value="#{mbSelecionaFilial.filial.empresa.nome}"/>
+                    <p:outputLabel value="Filial:"/>
+                    <p:outputLabel value="#{mbSelecionaFilial.filial.fantasia}"/>
+                </h:panelGrid>
+
             </ui:insert>
         </div>
 

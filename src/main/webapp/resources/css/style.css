@@ -15,3 +15,11 @@ body{
 .ui-datatable table {
     font-size: 13px;
 }
+.rodape{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #fff;
+    border: 1px solid #d5d5d5;
+    right: 0;
+}

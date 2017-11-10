@@ -7,10 +7,9 @@ package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
 import com.fbp.projetox.Controle.ParamQuery;
-import com.fbp.projetox.Entidade.Familia;
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Entidade.Marca;
 import com.fbp.projetox.Entidade.Produto;
-import com.fbp.projetox.Enums.Situacao;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -40,6 +39,13 @@ public class Produtos extends AbstractPersistence<Produto, Long> {
         return em;
     }
 
+    public List<Produto> getProdutoFilial(Filial filial) {
+        ParamQuery param = new ParamQuery();
+        param.add("filial", filial);
+        return super.listByQuery("filial = :filial", param);
+
+    }
+
     public List<Produto> getSaldoProduto(Long id) {
         ParamQuery param = new ParamQuery();
         param.add("id", id);
@@ -47,10 +53,11 @@ public class Produtos extends AbstractPersistence<Produto, Long> {
 
     }
 
-    public List<Produto> getProdutoMarca(Marca marca) {
+    public List<Produto> getProdutoMarca(Marca marca, Filial filial) {
         ParamQuery param = new ParamQuery();
         param.add("marca", marca);
-        return super.listByQuery("marca = :marca", param);
+        param.add("filial", filial);
+        return super.listByQuery("marca = :marca and filial =:filial", param);
 
     }
 

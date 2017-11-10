@@ -12,6 +12,7 @@ import com.fbp.projetox.Repositorio.Usuarios;
 import com.fbp.projetox.Servico.ConverterSHA1;
 import java.io.Serializable;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -47,6 +48,10 @@ public class mbUsuario implements Serializable {
         usuario = new Usuario();
         operadoraCelular = OperadoraCelular.values();
         situacao = Situacao.values();
+    }
+
+    public void novoUsuario() {
+        usuario = new Usuario();
     }
 
     public List<Usuario> getListaUsuario() {

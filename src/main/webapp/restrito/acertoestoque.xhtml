@@ -12,17 +12,23 @@
             <p:growl/>
 
             <h:panelGrid columns="2">
+
+                <p:outputLabel value="Filial:" for="selfil"/>
+                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.filial}" style="width:201px" id="selfil" converter="generic">
+                    <f:selectItem itemLabel="#{mbSelecionaFilial.filial.fantasia}" itemValue="#{mbSelecionaFilial.filial}"/>                    
+                </p:selectOneMenu>
+                
                 <p:outputLabel value="Selecione uma Marca:"/>
-                <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                <p:selectOneMenu value="#{mbProduto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                     <f:selectItem itemLabel="Selecione a Marca"/>
                     <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}"/>  
                     <p:ajax event="change" listener="#{mbProduto.pesquisaProdutoMarca()}" update="teste"/> 
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Selecione um Produto:"/>
-                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade" id="teste">
+                <p:selectOneMenu value="#{mbMovimentoEstoque.movimentoEstoque.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="contains" effect="fade" id="teste">
                     <f:selectItem itemLabel="Selecione um produto"/>
-                    <f:selectItems var="movimento" value="#{mbProduto.listaProdutoMarca}" itemLabel="#{movimento.descricao}" itemValue="#{movimento}" />                    
+                    <f:selectItems var="movimento" value="#{mbProduto.listaProdutoMarca}" itemLabel="#{movimento.id} - #{movimento.descricao}" itemValue="#{movimento}" />                    
                 </p:selectOneMenu>
 
                 <p:outputLabel value="Tipo de Moviemento:"/>
@@ -38,7 +44,7 @@
                 <p:inputNumber value="#{mbMovimentoEstoque.movimentoEstoque.quantidadeMovimentada}"/>
 
                 <p:outputLabel value="Observação Movimento:"/>
-                <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700"/>
+                <p:inputText value="#{mbMovimentoEstoque.movimentoEstoque.observacaoMovimento}" style="width: 700px"/>
 
                 <p:commandButton value="Salvar" actionListener="#{mbMovimentoEstoque.salvar()}" update="inputdesaldo"/>
 

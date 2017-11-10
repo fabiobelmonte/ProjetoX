@@ -32,11 +32,13 @@ public class MbProduto implements Serializable {
     @Inject
     Produtos produtos;
 
+    @Inject
+    MbSelecionaFilial filialLogada;
+
     @Getter
     @Setter
     Produto produto;
-    
-   
+
     @Getter
     @Setter
     Marca marca;
@@ -57,7 +59,7 @@ public class MbProduto implements Serializable {
     List<Produto> listaProdutoMarca;
 
     public List<Produto> getListaProdutos() {
-        return produtos.findAll();
+        return produtos.getProdutoFilial(filialLogada.getFilial());
     }
 
     public MbProduto() {
@@ -66,9 +68,6 @@ public class MbProduto implements Serializable {
     }
 
     public void salvar() {
-        /*Seto a filial conforme filial logada*/
-        
-        
         produtos.save(produto);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado/Alterado com Sucesso!"));
@@ -98,6 +97,6 @@ public class MbProduto implements Serializable {
     }
 
     public void pesquisaProdutoMarca() {
-        listaProdutoMarca = produtos.getProdutoMarca(produto.getMarca());
+        listaProdutoMarca = produtos.getProdutoMarca(marca, filialLogada.getFilial());
     }
 }

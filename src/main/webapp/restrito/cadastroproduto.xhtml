@@ -69,8 +69,7 @@
 
                     <p:outputLabel value="Filial:" for="selfil"/>
                     <p:selectOneMenu value="#{mbProduto.produto.filial}" style="width:201px" id="selfil" converter="generic">
-                        <f:selectItem itemLabel="Selecione uma Filial"/>
-                        <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.nomefilial}" itemValue="#{filial}"/>                    
+                        <f:selectItem itemLabel="#{mbSelecionaFilial.filial.fantasia}" itemValue="#{mbSelecionaFilial.filial}"/>                    
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Família:" />
