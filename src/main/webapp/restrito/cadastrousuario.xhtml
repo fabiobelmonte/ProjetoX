@@ -14,10 +14,14 @@
                                      icon="fa fa-plus" 
                                      onclick="PF('cadastrousuario').show()"/>   
 
-                    <p:commandButton value="Editar"/>
+                    <p:commandButton value="Editar" 
+                                     icon="fa fa-edit" update="@form, formcadastrousuario" 
+                                     actionListener="#{mbUsuario.editaUsuario()}"/>
+
                 </f:facet>
             </p:toolbar>
-            <p:dataTable var="usuario" value="#{mbConsultaUsuario.listaUsuario}" selectionMode="single" selection="#{mbConsultaUsuario.usuario}" rowKey="#{usuario}">
+            <p:dataTable var="usuario" value="#{mbConsultaUsuario.listaUsuario}" selectionMode="single" 
+                         selection="#{mbUsuario.usuario}" rowKey="#{usuario}">
 
                 <p:column headerText="Id" width="20">
                     <h:outputText value="#{usuario.id}" />
@@ -43,16 +47,19 @@
                     <h:outputText value="#{usuario.celular}"/>
                 </p:column>
 
-                <p:column headerText="Filial">
-                    <h:outputText value="#{usuario.filial.nomefilial}" />
-                </p:column> 
+                <p:column headerText="Situação" width="110">
+                    <h:outputText value="#{usuario.situacao.descricao}"/>
+                </p:column>
+
+
 
             </p:dataTable>   
         </h:form>
 
-        <h:form id="formcadastrousuario">
-            <p:growl id="cadastrousuario"/>
-            <p:dialog header="Cadatro de Usuário" widgetVar="cadastrousuario" resizable="false" responsive="true">
+
+        <p:dialog header="Cadatro de Usuário" widgetVar="cadastrousuario" resizable="false" responsive="true" >
+            <h:form id="formcadastrousuario">
+                <p:growl/>
                 <h:panelGrid columns="2">
 
                     <p:outputLabel value="Nome Completo:"/>
@@ -78,19 +85,20 @@
                     <p:outputLabel value="Celular:"/>
                     <p:inputText value="#{mbUsuario.usuario.celular}"/>
 
+                    <p:outputLabel value="Situação:"/>
+                    <p:selectOneMenu  value="#{mbUsuario.usuario.situacao}" >
+                        <f:selectItems value="#{mbUsuario.situacao}" var="situacao" itemLabel="#{situacao.descricao}" itemValue="#{situacao}"/>   
+                    </p:selectOneMenu>
+
                     <p:commandButton value="Salvar" actionListener="#{mbUsuario.salvar()}" update=":formconsultausuario,formcadastrousuario" oncomplete="PF('cadastrousuario').hide()"/>
 
 
                 </h:panelGrid>
-            </p:dialog>
-
-        </h:form>
-
-    </ui:define>
-
-    <ui:define name="bottom">
+            </h:form>
+        </p:dialog>
 
 
     </ui:define>
+
 
 </ui:composition>

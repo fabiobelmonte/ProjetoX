@@ -66,6 +66,9 @@ public class MbProduto implements Serializable {
     }
 
     public void salvar() {
+        /*Seto a filial conforme filial logada*/
+        
+        
         produtos.save(produto);
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("Informação", new FacesMessage("Produto Cadastrado/Alterado com Sucesso!"));

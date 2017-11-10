@@ -1,7 +1,3 @@
-/* 
-    Created on : 15/05/2017, 11:36:52
-    Author     : D.Arantes
-*/
 
 .ui-widget{
     font-size: 13px !important;
@@ -17,6 +13,5 @@ body{
     font-size: 13px !important;
 }
 .ui-datatable table {
-
     font-size: 13px;
 }

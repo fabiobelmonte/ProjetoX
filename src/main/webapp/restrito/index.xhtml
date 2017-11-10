@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -58,6 +58,12 @@
                         </p:submenu>
                     </p:submenu>
 
+                    <p:submenu label="Seleção Empresa/Filial">
+                        <p:submenu label="Empresa/Filial">
+                            <p:menuitem value="Selecção" outcome="/restrito/selecionafilial" icon="fa fa-search"/> 
+                        </p:submenu>
+                    </p:submenu>
+
 
                     <f:facet name="options">
                         <p:commandButton  value="Sair" icon="ui-icon-extlink" action="#{mbLogin.efetuarLogout()}" ajax="false"/>
@@ -68,11 +74,25 @@
 
         <div id="content" class="center_content">
 
-            <ui:insert name="content"></ui:insert>
+            <ui:insert name="content">
+
+
+            </ui:insert>
+
         </div>
 
         <div id="bottom">
-            <ui:insert name="bottom"></ui:insert>
+
+            <ui:insert name="bottom">
+                <p:panel style="height: 50px;font-weight: bold">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Empresa:  "/>
+                        <p:outputLabel value="#{mbSelecionaFilial.filial.empresa.nome}"/>
+                        <p:outputLabel value="Filial:"/>
+                        <p:outputLabel value="#{mbSelecionaFilial.filial.fantasia}"/>
+                    </h:panelGrid>
+                </p:panel>
+            </ui:insert>
         </div>
 
 
@@ -83,4 +103,4 @@
 
     </h:body>
 
-</html>
+</ui:composition>

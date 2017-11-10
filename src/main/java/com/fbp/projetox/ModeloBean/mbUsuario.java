@@ -5,12 +5,11 @@
  */
 package com.fbp.projetox.ModeloBean;
 
-import com.fbp.projetox.Entidade.Familia;
 import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Enums.OperadoraCelular;
-import com.fbp.projetox.Entidade.UnidadeMedida;
-import com.fbp.projetox.Repositorio.Familias;
+import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Repositorio.Usuarios;
+import com.fbp.projetox.Servico.ConverterSHA1;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -41,9 +40,13 @@ public class mbUsuario implements Serializable {
     @Getter
     private final OperadoraCelular[] operadoraCelular;
 
+    @Getter
+    private final Situacao[] situacao;
+
     public mbUsuario() {
         usuario = new Usuario();
         operadoraCelular = OperadoraCelular.values();
+        situacao = Situacao.values();
     }
 
     public List<Usuario> getListaUsuario() {
@@ -51,9 +54,12 @@ public class mbUsuario implements Serializable {
     }
 
     public void salvar() {
+
+        usuario.setSenha(ConverterSHA1.cipher(usuario.getSenha()));
         usuarios.save(usuario);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage("", new FacesMessage("Família Cadastrada com Sucesso!"));
+
+        ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
         usuario = new Usuario();
     }
 
@@ -62,7 +68,7 @@ public class mbUsuario implements Serializable {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Selecione um usuario primeiro!"));
         } else {
-//            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
+            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrousuario').show()");
         }
     }
 }
