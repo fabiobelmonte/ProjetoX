@@ -14,9 +14,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  *
@@ -24,6 +25,7 @@ import lombok.Data;
  */
 @Entity
 @Data
+@EqualsAndHashCode(of = "id")
 public class MovimentoEstoque implements AbstractEntity {
 
     private static final long serialVersionUID = 1L;
@@ -40,10 +42,10 @@ public class MovimentoEstoque implements AbstractEntity {
     @Enumerated(EnumType.STRING)
     private EntradaSaida tipoMovimento;
 
-    @OneToOne
+    @ManyToOne
     private Produto produto;
 
-    @OneToOne
+    @ManyToOne
     private Filial filial;
 
 }

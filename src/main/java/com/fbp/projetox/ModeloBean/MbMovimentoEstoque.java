@@ -5,6 +5,7 @@
  */
 package com.fbp.projetox.ModeloBean;
 
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Entidade.MovimentoEstoque;
 import com.fbp.projetox.Entidade.Produto;
 import com.fbp.projetox.Enums.EntradaSaida;
@@ -53,6 +54,10 @@ public class MbMovimentoEstoque implements Serializable {
 
     @Getter
     @Setter
+    private Filial filial;
+
+    @Getter
+    @Setter
     MovimentoEstoque movimentoEstoque;
 
     @Getter
@@ -73,9 +78,7 @@ public class MbMovimentoEstoque implements Serializable {
         movimentoEstoque.setDataMovimento(new Date());
     }
 
-    public List<MovimentoEstoque> getListaMovimentoEstoque() {
-        return movimentosEstoques.findAll();
-    }
+   
 
     public MbMovimentoEstoque() {
         movimentoEstoque = new MovimentoEstoque();
@@ -141,7 +144,8 @@ public class MbMovimentoEstoque implements Serializable {
     }
 
     public void buscaMovimentacao() {
-        listaMovimentos = movimentosEstoques.pesquisaMovimentacao(prod, dataIncial, dataFinal);
+        System.out.println(filial);
+        listaMovimentos = movimentosEstoques.pesquisaMovimentacao(prod, dataIncial, dataFinal, filial);
     }
 
 }

@@ -23,3 +23,11 @@ body{
     border: 1px solid #d5d5d5;
     right: 0;
 }
+.trocafilial{
+    margin: 10px;
+    float: right;
+}
+.dadosEmpresaFilial{
+    font-weight: bold;
+    float: left;
+}

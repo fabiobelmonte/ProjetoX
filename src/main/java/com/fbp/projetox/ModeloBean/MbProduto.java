@@ -5,6 +5,7 @@
  */
 package com.fbp.projetox.ModeloBean;
 
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Entidade.Marca;
 import com.fbp.projetox.Entidade.Produto;
 import com.fbp.projetox.Enums.SimNao;
@@ -33,15 +34,19 @@ public class MbProduto implements Serializable {
     Produtos produtos;
 
     @Inject
-    MbSelecionaFilial filialLogada;
+    MbSelecionaFilial mbSelecionaFilial;
 
     @Getter
     @Setter
-    Produto produto;
+    private Produto produto;
 
     @Getter
     @Setter
-    Marca marca;
+    private Filial filial;
+    
+    @Getter
+    @Setter
+    private Marca marca;
 
     @Getter
     @Setter
@@ -59,7 +64,7 @@ public class MbProduto implements Serializable {
     List<Produto> listaProdutoMarca;
 
     public List<Produto> getListaProdutos() {
-        return produtos.getProdutoFilial(filialLogada.getFilial());
+        return produtos.getProdutoFilial(mbSelecionaFilial.getFilial());
     }
 
     public MbProduto() {
@@ -93,10 +98,10 @@ public class MbProduto implements Serializable {
     }
 
     public void buscaSaldos() {
-        listaSaldoProdutos = produtos.pesquisaSaldoProduto(marca, produto);
+        listaSaldoProdutos = produtos.pesquisaSaldoProduto(marca, produto, filial);
     }
 
     public void pesquisaProdutoMarca() {
-        listaProdutoMarca = produtos.getProdutoMarca(marca, filialLogada.getFilial());
+        listaProdutoMarca = produtos.getProdutoMarca(marca, mbSelecionaFilial.getFilial());
     }
 }

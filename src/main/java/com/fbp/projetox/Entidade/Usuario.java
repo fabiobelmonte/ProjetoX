@@ -13,6 +13,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import lombok.Data;
 
 /**
@@ -43,5 +44,8 @@ class Usuario implements AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private Situacao situacao = Situacao.ATIVO;
+
+    @ManyToOne(optional = true)
+    private Filial ultimaFilialLogada;
 
 }

@@ -10,9 +10,9 @@ import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Repositorio.Usuarios;
 import java.io.Serializable;
 import java.util.List;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
@@ -24,7 +24,7 @@ import lombok.Setter;
  * @author FA&GRA
  */
 @Named
-@ViewScoped
+@RequestScoped
 public class MbLogin implements Serializable {
 
     Usuario usuario = new Usuario();
@@ -39,6 +39,9 @@ public class MbLogin implements Serializable {
 
     @Inject
     Usuarios usuarios;
+    
+    @Inject
+    MbSelecionaFilial mbSelecionaFilial;
 
     private boolean cadastroAdmin = false;
 
@@ -51,6 +54,8 @@ public class MbLogin implements Serializable {
             //Adiciona o usuário logado na sessão      
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Seja Bem-Vindo ! " + usuario.getNomeCompleto(), ""));
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("user", usuario);
+            mbSelecionaFilial.setFilial(usuario.getUltimaFilialLogada());
+            
             return "/restrito/index.jsf";
         } else {
             if (cadastroAdmin == false) {

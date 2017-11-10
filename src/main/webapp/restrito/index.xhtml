@@ -58,13 +58,6 @@
                         </p:submenu>
                     </p:submenu>
 
-                    <p:submenu label="Seleção Empresa/Filial">
-                        <p:submenu label="Empresa/Filial">
-                            <p:menuitem value="Selecção" outcome="/restrito/selecionafilial" icon="fa fa-search"/> 
-                        </p:submenu>
-                    </p:submenu>
-
-
                     <f:facet name="options">
                         <p:commandButton  value="Sair" icon="ui-icon-extlink" action="#{mbLogin.efetuarLogout()}" ajax="false"/>
                     </f:facet>
@@ -80,27 +73,52 @@
             </ui:insert>
 
         </div>
+        <ui:insert name="bottom">
 
+
+        </ui:insert>
         <div class="rodape" id="bottom">
-
-            <ui:insert name="bottom">
-
+            <div class="dadosEmpresaFilial">
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Empresa:  "/>
                     <p:outputLabel value="#{mbSelecionaFilial.filial.empresa.nome}"/>
                     <p:outputLabel value="Filial:"/>
                     <p:outputLabel value="#{mbSelecionaFilial.filial.fantasia}"/>
                 </h:panelGrid>
+            </div>
 
-            </ui:insert>
+            <div class="trocafilial" >
+                <h:form>
+                    <p:commandButton value="Trocar Filial" onclick="PF('selecionafilial').show()" />
+                </h:form>
+
+            </div>
+
         </div>
 
-
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+        <p:dialog widgetVar="statusDialog" modal="false" draggable="false" closable="false" resizable="false" showHeader="false">
             <p:graphicImage library="images" name="loading.gif" />
         </p:dialog>
 
     </h:body>
+    <p:dialog  id="dialogologin" modal="false" minWidth="400" height="150" width="400" position="center" draggable="false"
+               resizable="false" closable="false" showEffect="fade" widgetVar="selecionafilial" 
+               header="Trocar Filial">
+        <h:form>
+            <h:panelGrid columns="2">
+
+                <p:outputLabel value="Filial:" for="selfil"/>
+                <p:selectOneMenu value="#{mbSelecionaFilial.filial}" style="width:201px" id="selfil" converter="generic">
+                    <f:selectItem itemLabel="Selecione uma Filial"/>
+                    <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.nomefilial}" itemValue="#{filial}"/>                    
+                </p:selectOneMenu>
+                <p:column/>
+                <p:commandButton value="Selecionar" update="@all" actionListener="#{mbSelecionaFilial.alteraFilialUsuario()}" oncomplete="PF('selecionafilial').hide()'"/>
+
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+
 
 </ui:composition>

@@ -17,6 +17,12 @@
                         <f:facet name="left">
                             <h:panelGrid columns="9"> 
 
+                                <p:selectOneMenu value="#{mbProduto.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione uma Filial"/>
+                                    <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
+                                </p:selectOneMenu>
+                                <p:separator/>
+
                                 <p:outputLabel value="Selecione um produto:"/>
                                 <p:selectOneMenu value="#{mbProduto.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>

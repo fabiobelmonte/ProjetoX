@@ -6,6 +6,7 @@
 package com.fbp.projetox.Repositorio;
 
 import com.fbp.projetox.Controle.AbstractPersistence;
+import com.fbp.projetox.Entidade.Filial;
 import com.fbp.projetox.Entidade.MovimentoEstoque;
 import com.fbp.projetox.Entidade.Produto;
 import java.util.Date;
@@ -38,7 +39,7 @@ public class MovimentosEstoque extends AbstractPersistence<MovimentoEstoque, Lon
         return em;
     }
 
-    public List<MovimentoEstoque> pesquisaMovimentacao(Produto produto, Date dataInicial, Date dataFinal) {
+    public List<MovimentoEstoque> pesquisaMovimentacao(Produto produto, Date dataInicial, Date dataFinal, Filial filial) {
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<MovimentoEstoque> query = builder.createQuery(MovimentoEstoque.class);
@@ -46,9 +47,12 @@ public class MovimentosEstoque extends AbstractPersistence<MovimentoEstoque, Lon
 
         Predicate filtros = builder.and();
         if (produto != null) {
-            filtros = builder.equal(from.get("produto"), produto);
+            filtros = builder.and(filtros, builder.equal(from.get("produto"), produto));
         }
-        filtros = builder.between(from.<Date>get("dataMovimento"), dataInicial, dataFinal);
+        if (filial != null) {
+            filtros = builder.and(filtros, builder.equal(from.get("filial"), filial));
+        }
+        filtros = builder.and(filtros, builder.between(from.<Date>get("dataMovimento"), dataInicial, dataFinal));
         TypedQuery<MovimentoEstoque> typedQuery = em.createQuery(query.select(from).where(filtros));
         return typedQuery.getResultList();
 

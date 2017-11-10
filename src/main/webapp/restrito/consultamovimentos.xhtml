@@ -14,18 +14,23 @@
                 <h:form id="formconsultamovimento">
                     <p:toolbar>
                         <f:facet name="left">
-                            <h:panelGrid columns="7">
+                            <h:panelGrid columns="9">
 
-                                <p:outputLabel value="Selecione um produto:"/>
+                                <p:selectOneMenu value="#{mbMovimentoEstoque.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                    <f:selectItem itemLabel="Selecione uma Filial"/>
+                                    <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
+                                </p:selectOneMenu>
+                                <p:separator/>
+                                
                                 <p:selectOneMenu value="#{mbMovimentoEstoque.prod}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
                                     <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
 
-                                <p:outputLabel value="Data Inicial:" for="datainicial"/> 
-                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true"/>
-                                <p:outputLabel value="Data Final:" for="datafinal"/>
-                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true"/>
+                                <p:separator/>
+                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true" placeholder="Data Inicial"/>
+
+                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true" placeholder="Data Final"/>
 
                                 <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
 
@@ -40,6 +45,10 @@
                             <h:outputText value="#{movimentos.id}" />
                         </p:column>
 
+                        <p:column headerText="Filial" width="70">
+                            <h:outputText value="#{movimentos.filial.fantasia}"/>
+                        </p:column>
+                        
                         <p:column headerText="Produto" width="70">
                             <h:outputText value="#{movimentos.produto.descricao}"/>
                         </p:column>
