@@ -75,7 +75,7 @@
                     <p:inputText value="#{mbUsuario.usuario.email}" size="30"/>
 
                     <p:outputLabel value="Telefone Fixo:"/>
-                    <p:inputText value="#{mbUsuario.usuario.telefoneFixo}"/>
+                    <p:inputMask mask="(99)-9999-9999" value="#{mbUsuario.usuario.telefoneFixo}"/>
 
                     <p:outputLabel value="Operadora Móvel"/>
                     <p:selectOneMenu  value="#{mbUsuario.usuario.operadora}" >
@@ -83,7 +83,7 @@
                     </p:selectOneMenu>
 
                     <p:outputLabel value="Celular:"/>
-                    <p:inputText value="#{mbUsuario.usuario.celular}"/>
+                    <p:inputMask mask="(99)-99999-9999" value="#{mbUsuario.usuario.celular}"/>
 
                     <p:outputLabel value="Situação:"/>
                     <p:selectOneMenu  value="#{mbUsuario.usuario.situacao}" >

@@ -62,7 +62,7 @@
         </h:form>
 
 
-        <p:dialog header="Cadatro de Produto" widgetVar="cadastroproduto" resizable="false" responsive="true">
+        <p:dialog header="Cadatro de Produto" widgetVar="cadastroproduto" resizable="false" responsive="true" width="550px">
             <h:form id="idcadastroproduto">
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
@@ -78,19 +78,19 @@
                         <f:selectItems var="familia" value="#{mbFamilia.listaFamilias}" itemLabel="#{familia.nomeFamilia}" itemValue="#{familia}"/>                    
                     </p:selectOneMenu>
 
+                    <p:outputLabel value="Marca:" />
+                    <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione uma Marca"/>
+                        <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}"/>                    
+                    </p:selectOneMenu> 
+
                     <p:outputLabel value="Descrição:" for="descricao"/>
-                    <p:inputText value="#{mbProduto.produto.descricao}" id="descricao" style="width:229px"/> 
+                    <p:inputText value="#{mbProduto.produto.descricao}" id="descricao" style="width:350px"/> 
 
                     <p:outputLabel value="U.M:" />
                     <p:selectOneMenu value="#{mbProduto.produto.unidadeMedida}" style="width:201px" converter="generic">
                         <f:selectItem itemLabel="Selecione uma U.M"/>
                         <f:selectItems var="unidademedida" value="#{mbUnidadeMedida.listaUnidadeMedida}" itemLabel="#{unidademedida.descricao}" itemValue="#{unidademedida}"/>                    
-                    </p:selectOneMenu>  
-
-                    <p:outputLabel value="Marca:" />
-                    <p:selectOneMenu value="#{mbProduto.produto.marca}" style="width:201px" converter="generic">
-                        <f:selectItem itemLabel="Selecione uma Marca"/>
-                        <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}"/>                    
                     </p:selectOneMenu> 
 
                     <p:outputLabel value="Preço de Custo:"/>
@@ -116,6 +116,9 @@
                         <f:selectItem itemLabel="Pode ser Comprado ?"/>
                         <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
                     </p:selectOneMenu>
+
+                    <p:outputLabel value="Data do Cadastro" for="datacadastro"/>
+                    <p:calendar value="#{mbProduto.produto.dataCadastro}" id="datacadastro" disabled="true" pattern="dd/MM/yyyy"/>
 
                     <p:outputLabel value="Situação:"/>
                     <p:selectOneMenu  value="#{mbProduto.produto.situacao}" style="width:201px">

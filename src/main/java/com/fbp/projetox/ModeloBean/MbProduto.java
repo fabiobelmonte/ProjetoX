@@ -13,7 +13,9 @@ import com.fbp.projetox.Enums.Situacao;
 
 import com.fbp.projetox.Repositorio.Produtos;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -43,7 +45,7 @@ public class MbProduto implements Serializable {
     @Getter
     @Setter
     private Filial filial;
-    
+
     @Getter
     @Setter
     private Marca marca;
@@ -81,10 +83,12 @@ public class MbProduto implements Serializable {
 
     public void init() {
         produto = new Produto();
+        produto.setDataCadastro(new Date());
     }
 
     public void novoProduto() {
         produto = new Produto();
+
     }
 
     public void editarProduto() {

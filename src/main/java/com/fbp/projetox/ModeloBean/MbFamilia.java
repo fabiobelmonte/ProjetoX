@@ -6,7 +6,6 @@
 package com.fbp.projetox.ModeloBean;
 
 import com.fbp.projetox.Entidade.Familia;
-import com.fbp.projetox.Entidade.UnidadeMedida;
 import com.fbp.projetox.Repositorio.Familias;
 import java.io.Serializable;
 import java.util.List;

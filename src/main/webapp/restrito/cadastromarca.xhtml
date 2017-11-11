@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <p:panel header="Cadastro de Marca">
-            <h:form>
+            <h:form id="cadastromarca">
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Nome da Marca"/>
@@ -27,6 +27,10 @@
 
                     <p:column headerText="Nome da Marca">
                         <h:outputText value="#{marca.nomeMarca}" />
+                    </p:column>
+
+                    <p:column headerText="Açoes" width="124">
+                        <p:commandButton value="Alterar Marca"  icon="fa fa-edit" update="cadastromarca" actionListener="#{mbMarca.editarFamilia()}"/> 
                     </p:column>
 
                 </p:dataTable>                

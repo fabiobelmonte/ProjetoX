@@ -49,4 +49,12 @@ public class MbMarca implements Serializable {
         marca = new Marca();
     }
 
+    public void editarFamilia() {
+        if (marca == null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Selecione uma Marca primeiro!"));
+        } else {
+//            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
+        }
+    }
 }

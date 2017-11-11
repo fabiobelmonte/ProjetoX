@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -29,9 +30,13 @@ class Usuario implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "O Usuário é Obrigatório")
     private String usuario;
+
+    @NotEmpty(message = "O Nome é Obrigatório")
     private String nomeCompleto;
 
+    @NotEmpty(message = "A Senha é Obrigatório")
     private String senha;
 
     @Enumerated(EnumType.STRING)

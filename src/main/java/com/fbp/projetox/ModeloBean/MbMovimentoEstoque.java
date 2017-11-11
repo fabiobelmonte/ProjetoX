@@ -77,8 +77,7 @@ public class MbMovimentoEstoque implements Serializable {
     public void init() {
         movimentoEstoque.setDataMovimento(new Date());
     }
-
-   
+  
 
     public MbMovimentoEstoque() {
         movimentoEstoque = new MovimentoEstoque();

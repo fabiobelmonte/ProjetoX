@@ -50,4 +50,13 @@ public class MbUnidadeMedida implements Serializable {
 
     }
 
+    public void editarUM() {
+        if (unidadeMedida == null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Selecione uma U.M primeiro!"));
+        } else {
+//            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastroproduto').show()");
+        }
+    }
+
 }

@@ -7,7 +7,7 @@
 
     <ui:define name="content">
         <p:panel header="Cadastro de Unidade de Medida">
-            <h:form>
+            <h:form id="cadastrounidademedida">
                 <p:growl id="msg"/>
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Descrição da U.M"/>
@@ -26,7 +26,11 @@
                     </p:column>
 
                     <p:column headerText="Unidade de Medida">
-                        <h:outputText value="#{um.descricao}" />
+                        <h:outputText value="#{um.descricao}"/>
+                    </p:column>
+                    
+                    <p:column headerText="Açoes" width="112">
+                        <p:commandButton value="Alterar U.M"  icon="fa fa-edit" update="cadastrounidademedida" actionListener="#{mbUnidadeMedida.editarUM()}"/> 
                     </p:column>
 
                 </p:dataTable>                

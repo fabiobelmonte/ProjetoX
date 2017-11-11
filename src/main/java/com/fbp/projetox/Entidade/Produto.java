@@ -55,8 +55,6 @@ class Produto implements AbstractEntity {
     @NotNull(message = "Escolha uma Marca!")
     private Marca marca;
 
-    private String tipoProduto; //Comprado,produzido
-
     @Enumerated(EnumType.STRING)
     private SimNao requisitado;
 
@@ -77,6 +75,7 @@ class Produto implements AbstractEntity {
 
     @Column(scale = 5)
     private BigDecimal peso;
+    
     private BigDecimal valorEmEstoque;
 
     private BigDecimal saldoEstoque;
