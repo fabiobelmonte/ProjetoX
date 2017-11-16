@@ -81,18 +81,18 @@ public class MbProduto implements Serializable {
         produto = new Produto();
     }
 
+    @PostConstruct
     public void init() {
         produto = new Produto();
-        produto.setDataCadastro(new Date());
     }
 
     public void novoProduto() {
         produto = new Produto();
-
+        produto.setDataCadastro(new Date());
     }
 
     public void editarProduto() {
-
+        System.out.println(produto);
         if (produto == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Selecione um Produto primeiro!"));

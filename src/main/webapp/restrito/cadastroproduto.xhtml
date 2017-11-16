@@ -7,11 +7,7 @@
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="content">
-        <f:metadata>
 
-            <f:event listener="#{mbProduto.init()}" type="preRenderView"/>
-
-        </f:metadata>
         <h:form id="tabelaProdutos">
             <p:toolbar>
                 <f:facet name="left">
@@ -22,7 +18,7 @@
                                      actionListener="#{mbProduto.novoProduto()}"/>  
 
                     <p:commandButton value="Alterar Produto" 
-                                     icon="fa fa-edit" update="@form, :idcadastroproduto" 
+                                     icon="fa fa-edit" update=":idcadastroproduto" 
                                      actionListener="#{mbProduto.editarProduto()}"/>    
                 </f:facet>
             </p:toolbar>
