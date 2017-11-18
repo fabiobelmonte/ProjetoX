@@ -20,7 +20,7 @@
 
         <p:panel header="Marcas">
             <h:form id="tabelaMarcas">
-                <p:dataTable var="marca" value="#{mbMarca.listaMarcas}" selectionMode="single" selection="#{mbMarca.marca}" rowKey="#{marca.id}">
+                <p:dataTable var="marca" value="#{mbConsultaMarca.listaMarcas}" selectionMode="single" selection="#{mbMarca.marca}" rowKey="#{marca.id}">
                     <p:column headerText="Id" width="100">
                         <h:outputText value="#{marca.id}" />
                     </p:column>

@@ -79,6 +79,8 @@ class Produto implements AbstractEntity {
     private BigDecimal valorEmEstoque;
 
     private BigDecimal saldoEstoque;
+    
+    private String codigodeBarra;
 
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dataCadastro;

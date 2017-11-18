@@ -26,7 +26,7 @@
 
             <p:panel header="Clientes">
 
-                <p:dataTable var="cliente" value="#{mbClienteFornecedor.listaClientes}" style="height: 400px" 
+                <p:dataTable var="cliente" value="#{mbConsultaClienteFornecedor.listaClientes}" style="height: 400px" 
                              selectionMode="single" selection="#{mbClienteFornecedor.cliente}" rowKey="#{cliente.id}" id="tabelaclientes">
 
                     <p:column headerText="Id" width="15">
@@ -72,7 +72,7 @@
                 <p:growl id="msg"/>
                 <p:toolbar>
                     <f:facet name="left">
-                        <p:commandButton value="Salvar" update="@form,:formtabelaclientes" actionListener="#{mbClienteFornecedor.salvar()}"/>
+                        <p:commandButton value="Salvar" update="@form,:formtabelaclientes" actionListener="#{mbClienteFornecedor.salvar()}" oncomplete="PF('cadastrocliente').hide()"/>
                     </f:facet>
                 </p:toolbar>
                 <p:tabView style="height: 475px; width: 750px">
@@ -91,7 +91,7 @@
 
                             <p:outputLabel value="Cliente/Fornecedor"/>
                             <p:selectOneMenu  value="#{mbClienteFornecedor.cliente.clienteFornecedorAmbos}" >
-                                <f:selectItems value="#{mbClienteFornecedor.clienteFornecedorAmbos}" var="clientefornecedor" itemLabel="#{clientefornecedor.descricao}" itemValue="#{clientefornecedor}"/>   
+                                <f:selectItems value="#{mbClienteFornecedor.clienteFornecedorAmbos}" var="clientefornecedor" itemLabel="#{clientefornecedor.descricao}" itemValue="#{clientefornecedor}" />   
                             </p:selectOneMenu>
 
                             <p:outputLabel value="CPF/CNPJ"/>
@@ -109,7 +109,7 @@
                             </p:selectOneMenu>
 
                             <p:outputLabel value="E-Mail"/>
-                            <p:inputText value="#{mbClienteFornecedor.cliente.emailNfe}" size="16"/>
+                            <p:inputText value="#{mbClienteFornecedor.cliente.emailNfe}" size="50"/>
 
                             <p:outputLabel value="Telefone Fixo"/>
                             <p:inputText value="#{mbClienteFornecedor.cliente.fone}" size="16"/>

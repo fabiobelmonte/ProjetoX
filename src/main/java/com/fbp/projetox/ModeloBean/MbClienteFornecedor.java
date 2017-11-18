@@ -94,7 +94,6 @@ public class MbClienteFornecedor implements Serializable {
     public MbClienteFornecedor() {
         cliente = new ClienteFornecedor();
         endereco = new Endereco();
-
         situacao = Situacao.values();
         simNao = SimNao.values();
         ramoAtividade = RamoAtividade.values();

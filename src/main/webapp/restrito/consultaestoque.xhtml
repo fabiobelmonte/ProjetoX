@@ -17,31 +17,31 @@
                         <f:facet name="left">
                             <h:panelGrid columns="9"> 
 
-                                <p:selectOneMenu value="#{mbProduto.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbConsultaProduto.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione uma Filial"/>
-                                    <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
+                                    <f:selectItems var="filial" value="#{mbConsultaFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
                                 </p:selectOneMenu>
                                 <p:separator/>
 
                                 <p:outputLabel value="Selecione um produto:"/>
-                                <p:selectOneMenu value="#{mbProduto.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbConsultaProduto.produto}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
-                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
+                                    <f:selectItems var="produto" value="#{mbConsultaProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
 
                                 <p:outputLabel value="Selecione uma Marca:"/>
-                                <p:selectOneMenu value="#{mbProduto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbConsultaProduto.marca}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
-                                    <f:selectItems var="marca" value="#{mbMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}" />                    
+                                    <f:selectItems var="marca" value="#{mbConsultaMarca.listaMarcas}" itemLabel="#{marca.nomeMarca}" itemValue="#{marca}" />                    
                                 </p:selectOneMenu>
 
 
-                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbProduto.buscaSaldos()}" update="tabelaconsultasaldo"/> 
+                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbConsultaProduto.buscaSaldos()}" update="tabelaconsultasaldo"/> 
                             </h:panelGrid>                            
                         </f:facet>
                     </p:toolbar>
 
-                    <p:dataTable var="consultasaldo" value="#{mbProduto.listaSaldoProdutos}" style="height: 100%" id="tabelaconsultasaldo">
+                    <p:dataTable var="consultasaldo" value="#{mbConsultaProduto.listaSaldoProdutos}" style="height: 100%" id="tabelaconsultasaldo">
 
                         <p:column headerText="Id" width="10">
                             <h:outputText value="#{consultasaldo.id}" />

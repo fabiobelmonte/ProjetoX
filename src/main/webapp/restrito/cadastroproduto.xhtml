@@ -26,7 +26,7 @@
 
             <p:panel header="Produtos">
 
-                <p:dataTable var="produto" value="#{mbProduto.listaProdutos}" style="height: 400px" 
+                <p:dataTable var="produto" value="#{mbConsultaProduto.listaProdutos}" style="height: 400px" 
                              selectionMode="single" selection="#{mbProduto.produto}" rowKey="#{produto.id}">
 
                     <p:column headerText="Id" width="60">
@@ -112,8 +112,11 @@
                         <f:selectItem itemLabel="Pode ser Comprado ?"/>
                         <f:selectItems value="#{mbProduto.simNao}" var="simnao" itemLabel="#{simnao.descricao}" itemValue="#{simnao}"/>   
                     </p:selectOneMenu>
+                    
+                    <p:outputLabel value="Código de Barras:"/>
+                    <p:inputText value="#{mbProduto.produto.codigodeBarra}" size="30"/>
 
-                    <p:outputLabel value="Data do Cadastro" for="datacadastro"/>
+                    <p:outputLabel value="Data do Cadastro:" for="datacadastro"/>
                     <p:calendar value="#{mbProduto.produto.dataCadastro}" id="datacadastro" disabled="true" pattern="dd/MM/yyyy"/>
 
                     <p:outputLabel value="Situação:"/>

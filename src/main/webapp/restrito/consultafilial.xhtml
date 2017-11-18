@@ -13,7 +13,7 @@
                     <p:commandButton value="Editar" update="formtabelafiliais,alterarfilial" actionListener="#{mbFilial.alterarFilial()}"/>
                 </f:facet>
             </p:toolbar>
-            <p:dataTable var="filial" value="#{mbFilial.listaFiliais}" selectionMode="single" selection="#{mbFilial.filial}" rowKey="#{filial.id}">
+            <p:dataTable var="filial" value="#{mbConsultaFilial.listaFiliais}" selectionMode="single" selection="#{mbFilial.filial}" rowKey="#{filial.id}">
                 <p:column headerText="Id" width="20">
                     <h:outputText value="#{filial.id}" />
                 </p:column>

@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.fbp.projetox.ModeloBean;
+package com.fbp.projetox.ModeloBackBean;
 
-import com.fbp.projetox.Entidade.Usuario;
-import com.fbp.projetox.Repositorio.Usuarios;
+import com.fbp.projetox.Entidade.Marca;
+import com.fbp.projetox.Repositorio.Marcas;
 import java.io.Serializable;
 import java.util.List;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -23,19 +21,20 @@ import lombok.Setter;
  */
 @Named
 @ViewScoped
-public class MbConsultaUsuario implements Serializable {
+public class MbConsultaMarca implements Serializable {
 
     @Inject
-    Usuarios usuarios;
+    Marcas marcas;
 
     @Getter
     @Setter
-    Usuario usuario;
+    Marca marca;
 
-    List<Usuario> listaUsuario;
+    List<Marca> listaMarcas;
 
-    public List<Usuario> getListaUsuario() {
-        return usuarios.findAll();
+    public List<Marca> getListaMarcas() {
+        return marcas.findAll();
     }
 
+ 
 }

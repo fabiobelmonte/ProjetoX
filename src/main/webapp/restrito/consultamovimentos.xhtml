@@ -16,29 +16,29 @@
                         <f:facet name="left">
                             <h:panelGrid columns="9">
 
-                                <p:selectOneMenu value="#{mbMovimentoEstoque.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbConsultaMovimentoEstoque.filial}" style="width:150px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione uma Filial"/>
-                                    <f:selectItems var="filial" value="#{mbFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
+                                    <f:selectItems var="filial" value="#{mbConsultaFilial.listaFiliais}" itemLabel="#{filial.fantasia}" itemValue="#{filial}" />                    
                                 </p:selectOneMenu>
                                 <p:separator/>
                                 
-                                <p:selectOneMenu value="#{mbMovimentoEstoque.prod}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
+                                <p:selectOneMenu value="#{mbConsultaMovimentoEstoque.prod}" style="width:290px" converter="generic" filter="true" filterMatchMode="startsWith" effect="fade">
                                     <f:selectItem itemLabel="Selecione um produto"/>
-                                    <f:selectItems var="produto" value="#{mbProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
+                                    <f:selectItems var="produto" value="#{mbConsultaProduto.listaProdutos}" itemLabel="#{produto.descricao}" itemValue="#{produto}" />                    
                                 </p:selectOneMenu>
 
                                 <p:separator/>
-                                <p:calendar id="datainicial" value="#{mbMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true" placeholder="Data Inicial"/>
+                                <p:calendar id="datainicial" value="#{mbConsultaMovimentoEstoque.dataIncial}" pattern="dd/MM/yyyy" required="true" placeholder="Data Inicial"/>
 
-                                <p:calendar  id="datafinal" value="#{mbMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true" placeholder="Data Final"/>
+                                <p:calendar  id="datafinal" value="#{mbConsultaMovimentoEstoque.dataFinal}" pattern="dd/MM/yyyy" required="true" placeholder="Data Final"/>
 
-                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
+                                <p:commandButton value="Pesquisar" icon="fa fa-search" actionListener="#{mbConsultaMovimentoEstoque.buscaMovimentacao()}" update="consultamovimentos"/>
 
                             </h:panelGrid>                            
                         </f:facet>
                     </p:toolbar>
 
-                    <p:dataTable var="movimentos" value="#{mbMovimentoEstoque.listaMovimentos}" style="height: 100%" 
+                    <p:dataTable var="movimentos" value="#{mbConsultaMovimentoEstoque.listaMovimentos}" style="height: 100%" 
                                  id="consultamovimentos">
 
                         <p:column headerText="Id" width="10">
