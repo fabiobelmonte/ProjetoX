@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../restrito/index.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <p:panel header="Cadastro de Formas de Pagamentos">
+            <h:form id="cadastroformapagamento">
+                <p:growl id="msg"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Descrição Forma de Pagamento"/>
+                    <p:inputText value="#{mbFormaDePagamento.formaDePagamento.descricaFormaDePagamento}"/>
+                    <p:column/>
+                    <p:commandButton value="Salvar" actionListener="#{mbFormaDePagamento.salvar()}" update="@form,tabelaformapagamento"/>
+                </h:panelGrid>
+            </h:form>            
+        </p:panel>
+
+        <p:panel header="Formas de Pagamentos">
+            <h:form id="tabelaformapagamento">
+                <p:dataTable var="formapagamento" value="#{mbConsultaFormaDePagamento.listaFormaDePagamentos}" selectionMode="single" selection="#{mbFormaDePagamento.formaDePagamento}" rowKey="#{formapagamento.id}">
+                    <p:column headerText="Id" width="100">
+                        <h:outputText value="#{formapagamento.id}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição Forma de Pagamento" width="948">
+                        <h:outputText value="#{formapagamento.descricaFormaDePagamento}" />
+                    </p:column>
+
+                    <p:column headerText="Açoes">
+                        <p:commandButton value="Alterar Forma De Pagamento"  icon="fa fa-edit" update="cadastroformapagamento" actionListener="#{mbFormaDePagamento.editarFormaDePagamento()}"/> 
+                    </p:column>
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>
