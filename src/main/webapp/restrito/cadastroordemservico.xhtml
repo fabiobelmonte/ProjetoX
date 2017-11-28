@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../restrito/index.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+        <p:panel header="Cadastro de Família">
+            <h:form id="cadastrofamilia">
+                <p:growl id="msg"/>
+                <h:panelGrid columns="2">
+                    <p:outputLabel value="Nome da Família"/>
+                    <p:inputText value="#{mbFamilia.familia.nomeFamilia}"/>
+                    <p:column/>
+                    <p:commandButton value="Salvar" actionListener="#{mbFamilia.salvar()}" update="@form,tabelafamilia"/>
+                </h:panelGrid>
+            </h:form>            
+        </p:panel>
+
+        <p:panel header="Famílias">
+            <h:form id="tabelafamilia">
+                <p:dataTable var="familia" value="#{mbConsultaFamilia.listaFamilias}" selectionMode="single" selection="#{mbFamilia.familia}" rowKey="#{familia.id}">
+                    <p:column headerText="Id" width="100">
+                        <h:outputText value="#{familia.id}" />
+                    </p:column>
+
+                    <p:column headerText="Nome Familia" width="950">
+                        <h:outputText value="#{familia.nomeFamilia}" />
+                    </p:column>
+
+                    <p:column headerText="Açoes">
+                        <p:commandButton value="Alterar Familia"  icon="fa fa-edit" update="cadastrofamilia" actionListener="#{mbFamilia.editarFamilia()}"/> 
+                    </p:column>
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>

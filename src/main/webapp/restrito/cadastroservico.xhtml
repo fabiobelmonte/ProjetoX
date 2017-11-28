@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../restrito/index.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <p:panel header="Cadastro de Ocorrências">
+            <h:form id="cadastroservico">
+                <p:growl id="msg"/>
+                <h:panelGrid columns="2">
+
+                    <p:outputLabel value="Tipo de Serviço:" />
+                    <p:selectOneMenu value="#{mbServico.servico.tipoServico}" style="width:201px" converter="generic">
+                        <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
+                        <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico"/>                    
+                    </p:selectOneMenu>
+
+
+                    <p:outputLabel value="Descrição Serviço"/>
+                    <p:inputText value="#{mbServico.servico.descricaoServico}" size="120"/>
+                    <p:column/>
+                    <p:commandButton value="Salvar" actionListener="#{mbServico.salvar()}" update="@form,tabelaservicos"/>
+                </h:panelGrid>
+            </h:form>            
+        </p:panel>
+
+        <p:panel header="Serviços">
+            <h:form id="tabelaservicos">
+                <p:dataTable var="servicos" value="#{mbConsultaServico.listaServicos}" selectionMode="single" selection="#{mbServico.servico}" rowKey="#{servicos.id}">
+                    <p:column headerText="Id" width="100">
+                        <h:outputText value="#{servicos.id}" />
+                    </p:column>
+
+                    <p:column headerText="Descrição Serviço" width="950">
+                        <h:outputText value="#{servicos.descricaoServico}" />
+                    </p:column>
+                    
+                    <p:column headerText="Tipo de Serviço" width="350">
+                        <h:outputText value="#{servicos.tipoServico.tipoServico}" />
+                    </p:column>
+
+                    <p:column headerText="Açoes">
+                        <p:commandButton value="Alterar Serviço"  icon="fa fa-edit" update="cadastroservico" actionListener="#{mbServico.editarServico()}"/> 
+                    </p:column>
+                </p:dataTable>                
+            </h:form>
+        </p:panel>
+
+    </ui:define>
+
+</ui:composition>
