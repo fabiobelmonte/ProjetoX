@@ -56,5 +56,21 @@ public class Servicos extends AbstractPersistence<Servico, Long> {
         return typedQuery.getResultList();
 
     }
+    
+    public List<Servico> servicoPorTipodeServico(TipoServico tipoServico) {
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<Servico> query = builder.createQuery(Servico.class);
+        Root<Servico> from = query.from(Servico.class);
+        Predicate filtros = builder.and();
+
+        if (tipoServico != null) {
+            filtros = builder.and(filtros, builder.equal(from.get("tipoServico"), tipoServico));
+        }
+
+        TypedQuery<Servico> typedQuery = em.createQuery(query.select(from).where(filtros));
+        return typedQuery.getResultList();
+
+    }
 
 }

@@ -5,8 +5,8 @@
  */
 package com.fbp.projetox.ModeloBackBean;
 
-import com.fbp.projetox.Entidade.Marca;
 import com.fbp.projetox.Entidade.Servico;
+import com.fbp.projetox.Entidade.TipoServico;
 import com.fbp.projetox.ModeloBean.MbSelecionaFilial;
 import com.fbp.projetox.Repositorio.Servicos;
 import java.io.Serializable;
@@ -35,10 +35,22 @@ public class MbConsultaServico implements Serializable {
     @Setter
     Servico servico;
 
+    @Getter
+    @Setter
+    TipoServico tipoServico;
+
     List<Servico> listaServicos;
+
+    @Getter
+    @Setter
+    List<Servico> listaServicosPorTipoDeServico;
 
     public List<Servico> getListaServicos() {
         return servicos.servicoPorTipoEFilial(mbSelecionaFilial.getFilial());
+    }
+
+    public void pesquisaServicoPeloTipo() {
+        listaServicosPorTipoDeServico = servicos.servicoPorTipodeServico(tipoServico);
     }
 
 }

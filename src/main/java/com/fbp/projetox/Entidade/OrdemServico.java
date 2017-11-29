@@ -5,7 +5,6 @@
  */
 package com.fbp.projetox.Entidade;
 
-import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +28,13 @@ class OrdemServico implements AbstractEntity {
     @ManyToOne
     private Usuario usuario;
 
+    @ManyToOne
+    private Filial filial;
+
+    @ManyToOne
+    private Servico servico;
+
+   
     @Override
     public int hashCode() {
         int hash = 0;

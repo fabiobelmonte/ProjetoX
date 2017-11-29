@@ -3,38 +3,108 @@
 <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./../restrito/index.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <p:panel header="Cadastro de Família">
-            <h:form id="cadastrofamilia">
-                <p:growl id="msg"/>
-                <h:panelGrid columns="2">
-                    <p:outputLabel value="Nome da Família"/>
-                    <p:inputText value="#{mbFamilia.familia.nomeFamilia}"/>
-                    <p:column/>
-                    <p:commandButton value="Salvar" actionListener="#{mbFamilia.salvar()}" update="@form,tabelafamilia"/>
-                </h:panelGrid>
-            </h:form>            
-        </p:panel>
 
-        <p:panel header="Famílias">
-            <h:form id="tabelafamilia">
-                <p:dataTable var="familia" value="#{mbConsultaFamilia.listaFamilias}" selectionMode="single" selection="#{mbFamilia.familia}" rowKey="#{familia.id}">
-                    <p:column headerText="Id" width="100">
-                        <h:outputText value="#{familia.id}" />
-                    </p:column>
 
-                    <p:column headerText="Nome Familia" width="950">
-                        <h:outputText value="#{familia.nomeFamilia}" />
-                    </p:column>
+        <div class="ui-g">
 
-                    <p:column headerText="Açoes">
-                        <p:commandButton value="Alterar Familia"  icon="fa fa-edit" update="cadastrofamilia" actionListener="#{mbFamilia.editarFamilia()}"/> 
-                    </p:column>
-                </p:dataTable>                
-            </h:form>
-        </p:panel>
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+
+                <p:panel header="Tipo de Serviço" style="height: 150px">
+                    <h:form id="tipodeservico">
+                        <h:panelGrid columns="2">
+                            <p:selectOneMenu value="#{mbConsultaServico.tipoServico}" style="width:100%" converter="generic">
+                                <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
+                                <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico" /> 
+                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update="servicos"/> 
+                            </p:selectOneMenu>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4">
+
+                <p:panel header="Serviços Disponíveis" id="servicos" style="height: 150px">
+                    <h:form id="servicosdisponiveis">
+                        <h:panelGrid columns="7">
+                            <p:selectOneMenu value="#{mbOrdemServico.ordemServico.servico}" style="width:100%" converter="generic">
+                                <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
+                                <f:selectItems var="servico" value="#{mbConsultaServico.listaServicosPorTipoDeServico}" itemLabel="#{servico.descricaoServico}" itemValue="#{servico}"/>                    
+                            </p:selectOneMenu>
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:spacer/>
+                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvar()}" update="tabelaods"/>
+                        </h:panelGrid>
+                    </h:form>
+                </p:panel>
+
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4" style="height: 100%">
+
+                <p:panel header="Cliente" style="height: 150px">                    
+                    <h:panelGrid columns="2">
+                        <p:outputLabel value="Cliente: "/>
+                        <p:outputLabel value="#{mbLogin.usuarioLogado().nomeCompleto}"/>
+                        <p:outputLabel value="Telefone Fixo: "/>
+                        <p:outputLabel value="#{mbLogin.usuarioLogado().telefoneFixo}"/>
+                        <p:outputLabel value="Celular:  #{mbLogin.usuarioLogado().operadora.descricao}"/>
+                        <p:outputLabel value="#{mbLogin.usuarioLogado().celular}"/>
+                        <p:outputLabel value="E-Mail: "/>
+                        <p:outputLabel value="#{mbLogin.usuarioLogado().email}"/>                        
+                    </h:panelGrid>
+                </p:panel>
+
+            </div>
+
+        </div>
+
+        <div class="ui-g">
+
+            <div class="ui-g-12 ui-md-6 ui-lg-8" style="height: 100%">
+
+                <p:panel header="Serviços Solicitados" >
+                    <h:form id="tabelaods">
+                        <p:dataTable var="ods" value="#{mbConsultaOrdemServico.listaOrdensServicos}" selectionMode="single" selection="#{ods.servico}" rowKey="#{ods.id}">
+                            <p:column headerText="Id" width="100">
+                                <h:outputText value="#{ods.id}" />
+                            </p:column>
+
+                            <p:column headerText="Descrição Serviço" width="650">
+                                <h:outputText value="#{ods.servico}" />
+                            </p:column>
+
+                            <p:column headerText="Açoes">
+                                <p:commandButton value="Excluir Serviço"  icon="fa fa-edit" update="tabelaOds"/> 
+                            </p:column>
+                        </p:dataTable>                
+                    </h:form>
+                </p:panel>
+
+            </div>
+
+            <div class="ui-g-12 ui-md-6 ui-lg-4" style="height: 100%">
+
+                <p:panel header="Resumo" >
+
+                </p:panel>
+
+            </div>
+
+
+        </div>
+
+
+
 
     </ui:define>
 

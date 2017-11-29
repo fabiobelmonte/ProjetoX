@@ -5,17 +5,16 @@
  */
 package com.fbp.projetox.ModeloBean;
 
-import com.fbp.projetox.Entidade.Servico;
 import com.fbp.projetox.Entidade.OrdemServico;
-import com.fbp.projetox.Repositorio.Servicos;
 import com.fbp.projetox.Repositorio.OrdemServicos;
 import java.io.Serializable;
-import java.util.List;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  *
@@ -28,6 +27,8 @@ public class MbOrdemServico implements Serializable {
     @Inject
     OrdemServicos ordenServicos;
 
+    @Getter
+    @Setter
     OrdemServico ordemServico;
 
     public MbOrdemServico() {

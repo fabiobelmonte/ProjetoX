@@ -5,8 +5,6 @@
  */
 package com.fbp.projetox.ModeloBackBean;
 
-import com.fbp.projetox.Entidade.Marca;
-import com.fbp.projetox.Entidade.Servico;
 import com.fbp.projetox.Entidade.OrdemServico;
 import com.fbp.projetox.Repositorio.OrdemServicos;
 import java.io.Serializable;
@@ -34,7 +32,7 @@ public class MbConsultaOrdemServico implements Serializable {
 
     List<OrdemServico> listaOrdemServicos;
 
-    public List<OrdemServico> getListaOcorrencias() {
+    public List<OrdemServico> getListaOrdensServicos() {
         return ordemServicos.findAll();
     }
 
