@@ -20,7 +20,7 @@
                             <p:selectOneMenu value="#{mbConsultaServico.tipoServico}" style="width:100%" converter="generic">
                                 <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
                                 <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico" /> 
-                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update="servicos"/> 
+                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update="servicos,servicosdisponiveis"/> 
                             </p:selectOneMenu>
                         </h:panelGrid>
                     </h:form>
@@ -33,7 +33,7 @@
                 <p:panel header="Serviços Disponíveis" id="servicos" style="height: 150px">
                     <h:form id="servicosdisponiveis">
                         <h:panelGrid columns="7">
-                            <p:selectOneMenu value="#{mbOrdemServico.ordemServico.servico}" style="width:100%" converter="generic">
+                            <p:selectOneMenu value="#{mbOrdemServico.servico}" style="width:100%" converter="generic">
                                 <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
                                 <f:selectItems var="servico" value="#{mbConsultaServico.listaServicosPorTipoDeServico}" itemLabel="#{servico.descricaoServico}" itemValue="#{servico}"/>                    
                             </p:selectOneMenu>
@@ -42,7 +42,7 @@
                             <p:spacer/>
                             <p:spacer/>
                             <p:spacer/>
-                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvar()}" update="tabelaods"/>
+                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvarServico()}" update="tabelaods"/>
                         </h:panelGrid>
                     </h:form>
                 </p:panel>
@@ -70,21 +70,21 @@
 
         <div class="ui-g">
 
-            <div class="ui-g-12 ui-md-6 ui-lg-8" style="height: 100%">
+            <div class="ui-g-12 ui-md-6 ui-lg-9" style="height: 100%">
 
-                <p:panel header="Serviços Solicitados" >
+                <p:panel header="Serviços Solicitados" style="font-size: 13px">
                     <h:form id="tabelaods">
-                        <p:dataTable var="ods" value="#{mbConsultaOrdemServico.listaOrdensServicos}" selectionMode="single" selection="#{ods.servico}" rowKey="#{ods.id}">
+                        <p:dataTable var="ods" value="#{mbOrdemServico.ordemServico.servicos}" selectionMode="single" selection="#{ods.id}" rowKey="#{ods.id}">
                             <p:column headerText="Id" width="100">
                                 <h:outputText value="#{ods.id}" />
                             </p:column>
 
-                            <p:column headerText="Descrição Serviço" width="650">
-                                <h:outputText value="#{ods.servico}" />
+                            <p:column headerText="Descrição Serviço" width="450">
+                                <h:outputText value="#{ods.descricaoServico}" />
                             </p:column>
 
                             <p:column headerText="Açoes">
-                                <p:commandButton value="Excluir Serviço"  icon="fa fa-edit" update="tabelaOds"/> 
+                                <p:commandButton value="Excluir Serviço"  icon="fa fa-edit" update="@form"/> 
                             </p:column>
                         </p:dataTable>                
                     </h:form>
@@ -92,20 +92,24 @@
 
             </div>
 
-            <div class="ui-g-12 ui-md-6 ui-lg-4" style="height: 100%">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" style="height: 100%">
 
-                <p:panel header="Resumo" >
-
+                <p:panel header="Ações" >
+                    <h:form>
+                        <p:growl/>
+                        <h:panelGrid columns="2">
+                            <p:outputLabel value="Emissão:" for="dataemissao"/>
+                            <p:calendar value="#{mbOrdemServico.ordemServico.dataEmissao}" id="dataemissao" disabled="true" pattern="dd/MM/yyyy"/>
+                        </h:panelGrid>
+                        <p:commandButton value="Gravar Orderm de Serviço" actionListener="#{mbOrdemServico.salvar()}" update="@all"/>
+                    </h:form>
                 </p:panel>
 
             </div>
 
 
         </div>
-
-
-
-
+        
     </ui:define>
 
 </ui:composition>
