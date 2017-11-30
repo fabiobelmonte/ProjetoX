@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *
@@ -26,7 +25,7 @@ class Servico implements AbstractEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "Informe a descrição do Serviço!")
+  
     private String descricaoServico;
 
     @ManyToOne

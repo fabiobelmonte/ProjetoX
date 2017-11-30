@@ -5,7 +5,6 @@
  */
 package com.fbp.projetox.ModeloBean;
 
-import com.fbp.projetox.Entidade.Endereco;
 import com.fbp.projetox.Entidade.OrdemServico;
 import com.fbp.projetox.Entidade.Servico;
 import com.fbp.projetox.Enums.SituacaoOds;

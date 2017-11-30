@@ -9,7 +9,6 @@ import com.fbp.projetox.Enums.SituacaoOds;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
-import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 /**
@@ -40,7 +38,7 @@ class OrdemServico implements AbstractEntity {
     private Usuario usuario;
 
     /*TABELAS REFERENCIADAS*/
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Servico> servicos = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
