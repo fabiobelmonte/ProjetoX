@@ -16,8 +16,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import lombok.Data;
 
@@ -38,7 +38,7 @@ class OrdemServico implements AbstractEntity {
     private Usuario usuario;
 
     /*TABELAS REFERENCIADAS*/
-    @OneToMany
+    @ManyToMany
     private List<Servico> servicos = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

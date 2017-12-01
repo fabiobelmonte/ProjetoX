@@ -1,45 +1,51 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>ProjetoX</title>
-    </h:head>
-    <h:body>
-        <p:dialog
-            id="dialogologin"  
-            modal="false"
-            minWidth="400"
-            height="150"
-            width="400"
-            closable="false"
-            position="center"
-            widgetVar="modalLogin" 
-            draggable="false"
-            resizable="false"
-            visible="true"
-            showEffect="explode">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/ModeloInicial.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:define name="header">
+        <style>
+            .centro{
+                margin-top: 15%;
+                display: flex;
+                justify-content: center;
+            }
+            .ui-widget-content{           
+                border: none;
+            }
 
-            <h:form>
-                <p:growl id="msglogin"/>
+        </style>
+    </ui:define>
 
-                <h:panelGrid columns="2">
+    <ui:define name="content">
+        <h:form class="centro">
 
-                    <p:outputLabel for="nomeUsuario" value="Nome Usuário:" />
-                    <p:inputText id="nomeUsuario" value="#{mbLogin.user}" />
+            <div class="ui-g">
 
-                    <p:outputLabel for="senha" value="Senha:" />
-                    <p:password id="senha" value="#{mbLogin.pass}" />
-                    
-                    <p:column/>
-                    <p:commandButton value="Enviar" icon="ui-icon-star" action="#{mbLogin.efetuarLogin()}" ajax="false" update="msglogin"/>
-                </h:panelGrid>
-                
+                <div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 384px">
+                    <p:panel>
+                        <h3>Quero me Cadastrar!</h3>
+                        <p:commandButton value="Cadastrar" style="height: 41px; width: 100%; border-radius: 8px; font-size: 20px"/>
+                    </p:panel>
+                </div>
 
+                <div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 384px">
+                    <p:panel>
+                        <h3>Já Sou Cadastrado!</h3>
 
-            </h:form>
-        </p:dialog>
-    </h:body>
-</html>
+                        <p:messages closable="true"/>
+                        <p:inputText value="#{mbLogin.user}" placeholder="Informe o Usuário" style="font-size: 1.6em; border-radius: 8px; height: 41px; width: 100%; padding-left: 18px; " required="true"/>
 
+                        <p:password value="#{mbLogin.pass}" placeholder="Informe a Senha" style="font-size: 1.6em; margin-top: 20px; border-radius: 8px; height: 41px; width: 100%; padding-left: 18px" required="true"/>
+
+                        <p:commandButton value="Entrar" style="height: 41px; width: 100%; margin-top: 20px; border-radius: 8px; font-size: 20px" action="#{mbLogin.efetuarLogin()}" update="@form" ajax="false"/>
+
+                    </p:panel>
+                </div>
+            </div>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

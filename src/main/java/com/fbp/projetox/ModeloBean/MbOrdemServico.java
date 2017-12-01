@@ -26,48 +26,45 @@ import lombok.Setter;
 @Named
 @ViewScoped
 public class MbOrdemServico implements Serializable {
-    
+
     @Inject
     OrdemServicos ordenServicos;
-    
+
     @Inject
     MbLogin mbLogin;
-    
+
     @Getter
     @Setter
     OrdemServico ordemServico;
-    
+
     @Getter
     @Setter
     Servico servico;
-    
+
     @Getter
     private final SituacaoOds[] situacaoOds;
-    
+
     public MbOrdemServico() {
         ordemServico = new OrdemServico();
         situacaoOds = SituacaoOds.values();
         ordemServico.setDataEmissao(new Date());
     }
-    
-    public void salvar() {        
+
+    public void salvar() {
         ordemServico.setUsuario(mbLogin.usuarioLogado());
         ordemServico.setSituacaoOds(SituacaoOds.ABERTA);
         ordenServicos.save(ordemServico);
-        
-        ordemServico.setServicos(ordemServico.getServicos());
-        ordenServicos.save(ordemServico);
-        
+
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Serviço Adicionado com Sucesso!"));
         ordemServico = new OrdemServico();
         ordemServico.setDataEmissao(new Date());
     }
-    
+
     public void salvarServico() {
         ordemServico.getServicos().add(servico);
     }
-    
+
     public void editarOrdemServico() {
         if (ordemServico == null) {
             FacesContext ctx = FacesContext.getCurrentInstance();

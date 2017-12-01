@@ -33,7 +33,7 @@ public class LoginFilter implements Filter {
             chain.doFilter(request, response);
         } else {
             //Retorna para a página de login
-            ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/login.jsf?faces-redirect=true");
+            ((HttpServletResponse) response).sendRedirect(((HttpServletRequest) request).getContextPath() + "/inicial.jsf?faces-redirect=true");
         }
     }
 

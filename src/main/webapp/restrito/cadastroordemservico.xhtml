@@ -7,22 +7,29 @@
                 xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui">
 
-    <ui:define name="content">
+    <ui:define name="header">
+        <style>
+            .ui-confirm-dialog-severity{
+                display: none;
+            }
+        </style>
+    </ui:define>
 
+    <ui:define name="content">
 
         <div class="ui-g">
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
                 <h:form id="tipodeservico">
-                    <p:panel header="Tipo de Serviço" style="height: 150px">
+                    <p:panel header="Tipo de Serviço" style="height: 120px">
 
-                        <h:panelGrid columns="2">
-                            <p:selectOneMenu value="#{mbConsultaServico.tipoServico}" style="width:100%" converter="generic">
-                                <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
-                                <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico" /> 
-                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update=":servicosdisponiveis"/> 
-                            </p:selectOneMenu>
-                        </h:panelGrid>
+
+                        <p:selectOneMenu value="#{mbConsultaServico.tipoServico}" style="width:95%" converter="generic">
+                            <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
+                            <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico" /> 
+                            <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update=":servicosdisponiveis"/> 
+                        </p:selectOneMenu>
+
 
                     </p:panel>
                 </h:form>
@@ -30,20 +37,16 @@
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
                 <h:form id="servicosdisponiveis">
-                    <p:panel header="Serviços Disponíveis" id="servicos" style="height: 150px">
+                    <p:panel header="Serviços Disponíveis" id="servicos" style="height: 120px">
 
-                        <h:panelGrid columns="7">
-                            <p:selectOneMenu value="#{mbOrdemServico.servico}" style="width:100%" converter="generic">
-                                <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
-                                <f:selectItems var="servico" value="#{mbConsultaServico.listaServicosPorTipoDeServico}" itemLabel="#{servico.descricaoServico}" itemValue="#{servico}"/>                    
-                            </p:selectOneMenu>
-                            <p:spacer/>
-                            <p:spacer/>
-                            <p:spacer/>
-                            <p:spacer/>
-                            <p:spacer/>
-                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvarServico()}" update=":tabelaods,:tipodeservico"/>
-                        </h:panelGrid>
+
+                        <p:selectOneMenu value="#{mbOrdemServico.servico}" converter="generic" style="width:95%">
+                            <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
+                            <f:selectItems var="servico" value="#{mbConsultaServico.listaServicosPorTipoDeServico}" itemLabel="#{servico.descricaoServico}" itemValue="#{servico}"/>                    
+                        </p:selectOneMenu>
+                        <p:spacer height="22" width="0"/>
+                        <p:commandButton icon="fa fa-plus" actionListener="#{mbOrdemServico.salvarServico()}" update=":tabelaods,:tipodeservico"/>
+
 
                     </p:panel>
                 </h:form>
@@ -51,7 +54,7 @@
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
 
-                <p:panel header="Cliente" style="height: 150px">                    
+                <p:panel header="Cliente" style="height: 120px">                    
                     <h:panelGrid columns="2">
                         <p:outputLabel value="Cliente: "/>
                         <p:outputLabel value="#{mbLogin.usuarioLogado().nomeCompleto}"/>
@@ -66,16 +69,16 @@
 
             </div>
 
-            <div class="ui-g-12 ui-md-6 ui-lg-9" style="height: 100%">
+            <div class="ui-g-12 ui-md-6 ui-lg-9">
                 <h:form id="tabelaods">
                     <p:panel header="Serviços Solicitados" style="font-size: 13px">
 
-                        <p:dataTable var="ods" value="#{mbOrdemServico.ordemServico.servicos}" selectionMode="single" selection="#{ods.id}" rowKey="#{ods.id}">
+                        <p:dataTable var="ods" value="#{mbOrdemServico.ordemServico.servicos}" selectionMode="single" selection="#{ods.id}" rowKey="#{ods.id}" reflow="true">
                             <p:column headerText="Id" width="100">
                                 <h:outputText value="#{ods.id}" />
                             </p:column>
 
-                            <p:column headerText="Descrição Serviço" width="450">
+                            <p:column headerText="Descrição" width="450">
                                 <h:outputText value="#{ods.descricaoServico}" />
                             </p:column>
 
@@ -88,7 +91,7 @@
                 </h:form>
             </div>
 
-            <div class="ui-g-12 ui-md-6 ui-lg-3" style="height: 100%">
+            <div class="ui-g-12 ui-md-6 ui-lg-3" style="height: 120px">
 
                 <p:panel header="Ações" >
                     <h:form>
@@ -97,7 +100,16 @@
                             <p:outputLabel value="Emissão:" for="dataemissao"/>
                             <p:calendar value="#{mbOrdemServico.ordemServico.dataEmissao}" id="dataemissao" disabled="true" pattern="dd/MM/yyyy"/>
                         </h:panelGrid>
-                        <p:commandButton value="Gravar Orderm de Serviço" actionListener="#{mbOrdemServico.salvar()}" update="@all"/>
+
+                        <p:commandButton value="Gravar Orderm de Serviço" actionListener="#{mbOrdemServico.salvar()}" update="@all">
+                            <p:confirm header="Deseja realmente abrir esta Ordem de Serviço?"/>
+                        </p:commandButton>
+
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                        </p:confirmDialog>
+
                     </h:form>
                 </p:panel>
 

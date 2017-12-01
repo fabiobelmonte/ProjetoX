@@ -8,7 +8,10 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="initial-scale=1"/>
         <h:outputStylesheet library="css" name="style.css"/>
+        <ui:insert name="header">
+        </ui:insert>
         <title>ProjetoX</title>
     </h:head>
 
@@ -87,7 +90,7 @@
 
 
         </ui:insert>
-        <div class="rodape" id="bottom">
+<!--        <div class="rodape" id="bottom">
             <div class="dadosEmpresaFilial">
                 <h:panelGrid columns="2">
                     <p:outputLabel value="Empresa:  "/>
@@ -104,7 +107,7 @@
 
             </div>
 
-        </div>
+        </div>-->
 
         <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
         <p:dialog widgetVar="statusDialog" modal="false" draggable="false" closable="false" resizable="false" showHeader="false">
