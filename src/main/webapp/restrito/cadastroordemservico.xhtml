@@ -13,25 +13,25 @@
         <div class="ui-g">
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <h:form id="tipodeservico">
+                    <p:panel header="Tipo de Serviço" style="height: 150px">
 
-                <p:panel header="Tipo de Serviço" style="height: 150px">
-                    <h:form id="tipodeservico">
                         <h:panelGrid columns="2">
                             <p:selectOneMenu value="#{mbConsultaServico.tipoServico}" style="width:100%" converter="generic">
                                 <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
                                 <f:selectItems var="tiposervico" value="#{mbConsultaTipoServico.listaTipoServicos}" itemLabel="#{tiposervico.tipoServico}" itemValue="#{tiposervico}" id="tipoServico" /> 
-                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update="servicos,servicosdisponiveis"/> 
+                                <p:ajax event="change" listener="#{mbConsultaServico.pesquisaServicoPeloTipo()}" update=":servicosdisponiveis"/> 
                             </p:selectOneMenu>
                         </h:panelGrid>
-                    </h:form>
-                </p:panel>
 
+                    </p:panel>
+                </h:form>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
+                <h:form id="servicosdisponiveis">
+                    <p:panel header="Serviços Disponíveis" id="servicos" style="height: 150px">
 
-                <p:panel header="Serviços Disponíveis" id="servicos" style="height: 150px">
-                    <h:form id="servicosdisponiveis">
                         <h:panelGrid columns="7">
                             <p:selectOneMenu value="#{mbOrdemServico.servico}" style="width:100%" converter="generic">
                                 <f:selectItem itemLabel="Selecione um tipo de Serviço"/>
@@ -42,11 +42,11 @@
                             <p:spacer/>
                             <p:spacer/>
                             <p:spacer/>
-                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvarServico()}" update="tabelaods"/>
+                            <p:commandButton value="Add" actionListener="#{mbOrdemServico.salvarServico()}" update=":tabelaods,:tipodeservico"/>
                         </h:panelGrid>
-                    </h:form>
-                </p:panel>
 
+                    </p:panel>
+                </h:form>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-lg-4">
@@ -66,14 +66,10 @@
 
             </div>
 
-        </div>
-
-        <div class="ui-g">
-
             <div class="ui-g-12 ui-md-6 ui-lg-9" style="height: 100%">
+                <h:form id="tabelaods">
+                    <p:panel header="Serviços Solicitados" style="font-size: 13px">
 
-                <p:panel header="Serviços Solicitados" style="font-size: 13px">
-                    <h:form id="tabelaods">
                         <p:dataTable var="ods" value="#{mbOrdemServico.ordemServico.servicos}" selectionMode="single" selection="#{ods.id}" rowKey="#{ods.id}">
                             <p:column headerText="Id" width="100">
                                 <h:outputText value="#{ods.id}" />
@@ -87,9 +83,9 @@
                                 <p:commandButton value="Excluir Serviço"  icon="fa fa-edit" update="@form"/> 
                             </p:column>
                         </p:dataTable>                
-                    </h:form>
-                </p:panel>
 
+                    </p:panel>
+                </h:form>
             </div>
 
             <div class="ui-g-12 ui-md-6 ui-lg-3" style="height: 100%">
@@ -107,9 +103,8 @@
 
             </div>
 
-
         </div>
-        
+
     </ui:define>
 
 </ui:composition>

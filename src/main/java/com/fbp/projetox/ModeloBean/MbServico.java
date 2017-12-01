@@ -38,7 +38,7 @@ public class MbServico implements Serializable {
     public void salvar() {
         servicos.save(servico);
         FacesContext ctx = FacesContext.getCurrentInstance();
-        ctx.addMessage("Gazes", new FacesMessage("Ocorrencia Cadastrada com Sucesso!"));
+        ctx.addMessage("", new FacesMessage("Serviço Cadastrada com Sucesso!"));
         servico = new Servico();
     }
 
