@@ -94,14 +94,14 @@
             <div class="ui-g-12 ui-md-6 ui-lg-3" style="height: 120px">
 
                 <p:panel header="Ações" >
-                    <h:form>
+                    <h:form id="inserirods">
                         <p:growl/>
                         <h:panelGrid columns="2">
                             <p:outputLabel value="Emissão:" for="dataemissao"/>
                             <p:calendar value="#{mbOrdemServico.ordemServico.dataEmissao}" id="dataemissao" disabled="true" pattern="dd/MM/yyyy"/>
                         </h:panelGrid>
 
-                        <p:commandButton value="Gravar Orderm de Serviço" actionListener="#{mbOrdemServico.salvar()}" update="@all">
+                        <p:commandButton value="Gravar Orderm de Serviço" actionListener="#{mbOrdemServico.salvar()}" update="@form,:tabelaods,:servicosdisponiveis,:tipodeservico">
                             <p:confirm header="Deseja realmente abrir esta Ordem de Serviço?"/>
                         </p:commandButton>
 

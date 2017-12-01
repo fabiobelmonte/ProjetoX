@@ -16,6 +16,7 @@ body{
     font-size: 13px;
 }
 .rodape{
+    float: end;
     position: absolute;
     bottom: 0;
     left: 0;
