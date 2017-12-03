@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./WEB-INF/template/ModeloInicial.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="header">
+        <style>
+            .centro{
+                margin-top: 21%;
+                display: flex;
+                justify-content: center;
+            } 
+        </style>
+    </ui:define> 
+
+    <ui:define name="content">
+        <h:form class="centro">
+
+            <div class="ui-g" style="width: 80%">
+
+
+                <p:wizard flowListener="#{mbUsuarioBasico.onFlowProcess}" style="width: 100%" class="wizard">
+                    <p:tab id="cep" title="CEP">
+                        <p:panel>
+                            <p:messages closable="true"/>
+                            <h:panelGrid columns="2" width="100%">
+                                <p:inputText value="#{mbUsuarioBasico.endereco.cep}" placeholder="Informe seu Cep!" maxlength="8" style="height: 80px; text-align: center; width: 100%; font-size: 30px" required="true" label="CEP">
+                                    <f:convertNumber integerOnly="true" minIntegerDigits="8"/>
+                                </p:inputText>
+                                <p:commandButton icon="fa fa-check" style="height: 80px; width: 100%" actionListener="#{mbUsuarioBasico.consultaEndereco()}" update="@form"/>
+                            </h:panelGrid>
+                            <br/>
+                            <p:link value="Não sabe o Cep?:" target="@form" href="http://www.buscacep.correios.com.br/sistemas/buscacep/buscaCepEndereco.cfm" style="text-align: center"/>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab title="Endereço" id="endereco">
+                        <p:panel>
+                            <p:messages closable="true"/>
+                            <h:panelGrid columns="2" width="100%">
+
+                                <p:outputLabel value="Tipo Endereço"/>
+                                <p:selectOneMenu value="#{mbUsuarioBasico.endereco.tipoEndereco}">
+                                    <f:selectItems value="#{mbUsuarioBasico.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
+                                </p:selectOneMenu>  
+
+                                <p:outputLabel value="Logradouro:"/>
+                                <p:inputText value="#{mbUsuarioBasico.endereco.endereco}" required="true" label="Lograduro" style="width: 100%"/>
+
+                                <p:outputLabel value="Bairro"/>
+                                <p:inputText value="#{mbUsuarioBasico.endereco.bairro}" required="true" label="Bairro" style="width: 100%"/>
+
+                                <p:outputLabel value="Numero"/>
+                                <p:inputText value="#{mbUsuarioBasico.endereco.numero}" required="true" label="Número" style="width: 100%"/>
+
+                                <p:outputLabel value="Cidade"/>
+                                <p:inputText value="#{mbUsuarioBasico.endereco.cidade}" required="true" label="Cidade" style="width: 100%"/>
+
+                                <p:outputLabel value="Estado"/>
+                                <p:inputText value="#{mbUsuarioBasico.endereco.estado}" required="true" label="Estado" style="width: 100%"/>
+
+                                <h:outputText value="Skip to last: " />
+                                <h:selectBooleanCheckbox value="#{mbUsuarioBasico.skip}"/>
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+                    <p:tab id="contact" title="Conta">
+                        <p:panel>
+                            <p:messages closable="true"/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <p:outputLabel value="Nome"/>
+                                <p:inputText value="#{mbUsuarioBasico.usuario.nomeCompleto}"/>
+
+                                <p:outputLabel value="Usúario:"/>
+                                <p:inputMask value="#{mbUsuarioBasico.usuario.usuario}" mask="(99)-99999-9999" placeholder="Utilize o Celular"/>
+
+                                <p:outputLabel value="Senha"/>
+                                <p:password value="#{mbUsuarioBasico.usuario.senha}"/>
+
+                                <p:outputLabel value="Fixo:"/>
+                                <p:inputText value="#{mbUsuarioBasico.usuario.telefoneFixo}"/>
+
+                                <p:outputLabel value="Operadora Móvel"/>
+                                <p:selectOneMenu  value="#{mbUsuarioBasico.usuario.operadora}" >
+                                    <f:selectItems value="#{mbUsuarioBasico.operadoraCelular}" var="operadora" itemLabel="#{operadora.descricao}" itemValue="#{operadora}"/>   
+                                </p:selectOneMenu>
+
+                                <p:outputLabel value="celular"/>
+                                <p:inputText value="#{mbUsuarioBasico.usuario.celular}"/>
+
+                                <p:commandButton value="Salvar" update="@form" actionListener="#{mbUsuarioBasico.salvar()}"/>
+
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+
+
+                </p:wizard>
+
+            </div>
+        </h:form>
+
+
+
+    </ui:define>
+
+</ui:composition>

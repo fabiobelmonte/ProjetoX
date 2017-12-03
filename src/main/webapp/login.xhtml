@@ -27,7 +27,7 @@
                 <div class="ui-g-12 ui-md-6 ui-lg-6" style="width: 384px">
                     <p:panel>
                         <h3>Quero me Cadastrar!</h3>
-                        <p:commandButton value="Cadastrar" style="height: 41px; width: 100%; border-radius: 8px; font-size: 20px"/>
+                        <p:button value="Cadastrar" style="height: 41px; width: 100%; border-radius: 8px; font-size: 20px" outcome="/informecep.jsf" />
                     </p:panel>
                 </div>
 
@@ -36,7 +36,7 @@
                         <h3>Já Sou Cadastrado!</h3>
 
                         <p:messages closable="true"/>
-                        <p:inputText value="#{mbLogin.user}" placeholder="Informe o Usuário" style="font-size: 1.6em; border-radius: 8px; height: 41px; width: 100%; padding-left: 18px; " required="true"/>
+                        <p:inputMask mask="(99)-99999-9999" value="#{mbLogin.user}" placeholder="Informe o Celular" style="font-size: 1.6em; border-radius: 8px; height: 41px; width: 100%; padding-left: 18px; " required="true"/>
 
                         <p:password value="#{mbLogin.pass}" placeholder="Informe a Senha" style="font-size: 1.6em; margin-top: 20px; border-radius: 8px; height: 41px; width: 100%; padding-left: 18px" required="true"/>
 

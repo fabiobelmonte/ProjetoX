@@ -9,6 +9,7 @@ import com.fbp.projetox.Entidade.Endereco;
 import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.Situacao;
+import com.fbp.projetox.Enums.TipoEndereco;
 import com.fbp.projetox.Repositorio.Usuarios;
 import com.fbp.projetox.Servico.ConverterSHA1;
 import com.fbp.projetox.WebService.CepRetorno;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.event.FlowEvent;
 
 /**
  *
@@ -32,7 +34,7 @@ import lombok.Setter;
  */
 @Named
 @ViewScoped
-public class mbUsuario implements Serializable {
+public class mbUsuarioBasico implements Serializable {
 
     @Inject
     Usuarios usuarios;
@@ -50,20 +52,23 @@ public class mbUsuario implements Serializable {
 
     List<Usuario> listaUsuario;
 
+    private boolean skip;
+
     @Getter
     private final OperadoraCelular[] operadoraCelular;
 
     @Getter
+    private final TipoEndereco[] tipoEndereco;
+
+    @Getter
     private final Situacao[] situacao;
 
-    public mbUsuario() {
+    public mbUsuarioBasico() {
         usuario = new Usuario();
+        endereco = new Endereco();
         operadoraCelular = OperadoraCelular.values();
         situacao = Situacao.values();
-    }
-
-    public void novoUsuario() {
-        usuario = new Usuario();
+        tipoEndereco = TipoEndereco.values();
     }
 
     public List<Usuario> getListaUsuario() {
@@ -74,10 +79,24 @@ public class mbUsuario implements Serializable {
 
         usuario.setSenha(ConverterSHA1.cipher(usuario.getSenha()));
         usuarios.save(usuario);
-        FacesContext ctx = FacesContext.getCurrentInstance();
 
+        FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
+
         usuario = new Usuario();
+    }
+
+    public void mudaPagina() {
+        try {
+            FacesContext.getCurrentInstance().getExternalContext().redirect("/ProjetoX/login.jsf");
+        } catch (IOException ex) {
+            Logger.getLogger(mbUsuarioBasico.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void salvarEndereco() {
+        endereco.getTipoEndereco();
+        usuario.getEnderecos().add(endereco);
     }
 
     public void consultaEndereco() {
@@ -93,6 +112,11 @@ public class mbUsuario implements Serializable {
         } catch (IOException ex) {
             Logger.getLogger(MbClienteFornecedor.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if (endereco != null) {
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Endereço Localizado!"));
+            salvarEndereco();
+        }
     }
 
     public void editaUsuario() {
@@ -103,4 +127,22 @@ public class mbUsuario implements Serializable {
             org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrousuario').show()");
         }
     }
+
+    public boolean isSkip() {
+        return skip;
+    }
+
+    public void setSkip(boolean skip) {
+        this.skip = skip;
+    }
+
+    public String onFlowProcess(FlowEvent event) {
+        if (skip) {
+            skip = false;   //reset in case user goes back
+            return "confirm";
+        } else {
+            return event.getNewStep();
+        }
+    }
+
 }

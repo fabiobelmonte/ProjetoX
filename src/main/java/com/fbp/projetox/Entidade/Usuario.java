@@ -7,6 +7,10 @@ package com.fbp.projetox.Entidade;
 
 import com.fbp.projetox.Enums.OperadoraCelular;
 import com.fbp.projetox.Enums.Situacao;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Data;
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -21,7 +26,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author F.Belmonte
  */
-@Entity
+@Entity 
 public @Data
 class Usuario implements AbstractEntity {
 
@@ -43,6 +48,7 @@ class Usuario implements AbstractEntity {
     private OperadoraCelular operadora = OperadoraCelular.TIM;
 
     private String telefoneFixo;
+    
     private String celular;
 
     private String email;
@@ -52,5 +58,10 @@ class Usuario implements AbstractEntity {
 
     @ManyToOne(optional = true)
     private Filial ultimaFilialLogada;
+
+    /*TABELAS REFERENCIADAS*/
+    @OneToMany(cascade = CascadeType.ALL)
+    @Column(nullable = true)
+    private List<Endereco> enderecos = new ArrayList<>();
 
 }
