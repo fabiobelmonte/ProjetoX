@@ -79,7 +79,7 @@ public class mbUsuarioBasico implements Serializable {
 
         usuario.setSenha(ConverterSHA1.cipher(usuario.getSenha()));
         usuarios.save(usuario);
-
+   
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
 
