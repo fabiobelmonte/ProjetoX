@@ -46,6 +46,7 @@ public class MbLogin implements Serializable {
     private boolean cadastroAdmin = false;
 
     public MbLogin() {
+         user = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("usuario");
     }
 
     public String efetuarLogin() {

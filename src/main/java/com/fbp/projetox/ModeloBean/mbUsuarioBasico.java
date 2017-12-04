@@ -82,9 +82,11 @@ public class mbUsuarioBasico implements Serializable {
    
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
-
+        String novoUsuario = "/login.jsf?usuario="+usuario.getUsuario()+"&faces-redirect=true";
+        
         usuario = new Usuario();
-        return "/login";
+        
+        return novoUsuario;
     }
 
     public void mudaPagina() {
