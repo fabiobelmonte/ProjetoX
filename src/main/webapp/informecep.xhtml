@@ -23,7 +23,7 @@
             <div class="ui-g" style="width: 80%">
 
 
-                <p:wizard flowListener="#{mbUsuarioBasico.onFlowProcess}" style="width: 100%" class="wizard">
+                <p:wizard flowListener="#{mbUsuarioBasico.onFlowProcess}" style="width: 100%" class="wizard" backLabel="Voltar" nextLabel="Próximo">
                     <p:tab id="cep" title="CEP">
                         <p:panel>
                             <p:messages closable="true"/>
@@ -63,8 +63,7 @@
                                 <p:outputLabel value="Estado"/>
                                 <p:inputText value="#{mbUsuarioBasico.endereco.estado}" required="true" label="Estado" style="width: 100%"/>
 
-                                <h:outputText value="Skip to last: " />
-                                <h:selectBooleanCheckbox value="#{mbUsuarioBasico.skip}"/>
+                                
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -93,8 +92,8 @@
                                 <p:outputLabel value="celular"/>
                                 <p:inputText value="#{mbUsuarioBasico.usuario.celular}"/>
 
-                                <p:commandButton value="Salvar" update="@form" actionListener="#{mbUsuarioBasico.salvar()}"/>
-                                <p:commandButton value="Voltar para o Login" update="@form" actionListener="#{mbUsuarioBasico.mudaPagina()}"/>
+                                <p:commandButton value="Salvar" update="@form" action="#{mbUsuarioBasico.salvar()}" ajax="false"/>
+                             
 
                             </h:panelGrid>
                         </p:panel>

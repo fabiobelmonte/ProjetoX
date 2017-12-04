@@ -75,7 +75,7 @@ public class mbUsuarioBasico implements Serializable {
         return usuarios.findAll();
     }
 
-    public void salvar() {
+    public String salvar() {
 
         usuario.setSenha(ConverterSHA1.cipher(usuario.getSenha()));
         usuarios.save(usuario);
@@ -84,11 +84,15 @@ public class mbUsuarioBasico implements Serializable {
         ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
 
         usuario = new Usuario();
+        return "/login";
     }
 
     public void mudaPagina() {
         try {
-            FacesContext.getCurrentInstance().getExternalContext().redirect("/ProjetoX/login.jsf");
+            FacesContext ctx = FacesContext.getCurrentInstance();
+            ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
+            ctx.getExternalContext().redirect("/ProjetoX/login.jsf");
+            
         } catch (IOException ex) {
             Logger.getLogger(mbUsuarioBasico.class.getName()).log(Level.SEVERE, null, ex);
         }
