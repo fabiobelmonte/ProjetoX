@@ -43,27 +43,26 @@
                         <p:panel>
                             <p:messages closable="true"/>
                             <h:panelGrid columns="2" width="100%">
-
-                                <p:outputLabel value="Tipo Endereço"/>
+                                
+                                <p:outputLabel value="Tipo Endereço"/>                          
                                 <p:selectOneMenu value="#{mbUsuarioBasico.endereco.tipoEndereco}">
                                     <f:selectItems value="#{mbUsuarioBasico.tipoEndereco}" var="tipo" itemLabel="#{tipo.descricao}" itemValue="#{tipo}"/>   
                                 </p:selectOneMenu>  
-
-                                <p:outputLabel value="Logradouro:"/>
+                              
+                                <p:outputLabel value="Logradouro:"/>                                                   
                                 <p:inputText value="#{mbUsuarioBasico.endereco.endereco}" required="true" label="Lograduro" style="width: 100%"/>
-
-                                <p:outputLabel value="Bairro"/>
+                               
+                                <p:outputLabel value="Bairro"/>                                                       
                                 <p:inputText value="#{mbUsuarioBasico.endereco.bairro}" required="true" label="Bairro" style="width: 100%"/>
-
-                                <p:outputLabel value="Numero"/>
+                                
+                                <p:outputLabel value="Numero"/>                                                           
                                 <p:inputText value="#{mbUsuarioBasico.endereco.numero}" required="true" label="Número" style="width: 100%"/>
-
-                                <p:outputLabel value="Cidade"/>
+                                
+                                <p:outputLabel value="Cidade"/>                                                              
                                 <p:inputText value="#{mbUsuarioBasico.endereco.cidade}" required="true" label="Cidade" style="width: 100%"/>
 
-                                <p:outputLabel value="Estado"/>
+                                <p:outputLabel value="Estado"/>                                                           
                                 <p:inputText value="#{mbUsuarioBasico.endereco.estado}" required="true" label="Estado" style="width: 100%"/>
-
 
                             </h:panelGrid>
                         </p:panel>

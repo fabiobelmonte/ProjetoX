@@ -15,6 +15,12 @@
     </properties>
     
     <dependencies>
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>manhattan-theme</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+        
         <!-- Hibernate Validator (Validações) -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -65,7 +71,17 @@
             <artifactId>lombok</artifactId>
             <version>1.16.16</version>
         </dependency>
+        
+        
     </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>local-repo</id>
+            <name>Repositorio Local Projeto</name>
+            <url>file:${project.basedir}/lib</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
