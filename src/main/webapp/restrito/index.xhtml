@@ -16,7 +16,7 @@
     </h:head>
 
     <h:body>
-
+        
         <div id="top" style="height: 50px"> 
             <h:form>
                 <p:growl life="2000"/>
@@ -86,6 +86,7 @@
             </ui:insert>
 
         </div>
+
         <ui:insert name="bottom">
 
 
@@ -109,10 +110,7 @@
 
         </div>
 
-        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-        <p:dialog widgetVar="statusDialog" modal="false" draggable="false" closable="false" resizable="false" showHeader="false">
-            <p:graphicImage library="images" name="loading.gif" />
-        </p:dialog>
+      
 
     </h:body>
     <p:dialog  id="dialogologin" modal="false" minWidth="400" height="150" width="400" position="center" draggable="false"

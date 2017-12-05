@@ -8,6 +8,7 @@ package com.fbp.projetox.ModeloBean;
 import com.fbp.projetox.Entidade.Endereco;
 import com.fbp.projetox.Entidade.Usuario;
 import com.fbp.projetox.Enums.OperadoraCelular;
+import com.fbp.projetox.Enums.Permissao;
 import com.fbp.projetox.Enums.Situacao;
 import com.fbp.projetox.Enums.TipoEndereco;
 import com.fbp.projetox.Repositorio.Usuarios;
@@ -62,10 +63,14 @@ public class mbUsuarioBasico implements Serializable {
 
     @Getter
     private final Situacao[] situacao;
+    
+     @Getter
+    private final Permissao[] permissao;
 
     public mbUsuarioBasico() {
         usuario = new Usuario();
         endereco = new Endereco();
+        permissao = Permissao.values();
         operadoraCelular = OperadoraCelular.values();
         situacao = Situacao.values();
         tipoEndereco = TipoEndereco.values();
@@ -76,16 +81,18 @@ public class mbUsuarioBasico implements Serializable {
     }
 
     public String salvar() {
-
+        
+        usuario.setPermissao(Permissao.BASICO);
+        usuario.setSituacao(Situacao.ATIVO);
         usuario.setSenha(ConverterSHA1.cipher(usuario.getSenha()));
         usuarios.save(usuario);
-   
+
         FacesContext ctx = FacesContext.getCurrentInstance();
         ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
-        String novoUsuario = "/login.jsf?usuario="+usuario.getUsuario();
-        
+        String novoUsuario = "/login.jsf?usuario=" + usuario.getUsuario();
+
         usuario = new Usuario();
-        
+
         return novoUsuario;
     }
 
@@ -94,7 +101,7 @@ public class mbUsuarioBasico implements Serializable {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Usuario Cadastrado com Sucesso!"));
             ctx.getExternalContext().redirect("/ProjetoX/login.jsf");
-            
+
         } catch (IOException ex) {
             Logger.getLogger(mbUsuarioBasico.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -116,22 +123,14 @@ public class mbUsuarioBasico implements Serializable {
             endereco.setEstado(retorno.getUf());
 
         } catch (IOException ex) {
-            Logger.getLogger(MbClienteFornecedor.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         if (endereco != null) {
             FacesContext ctx = FacesContext.getCurrentInstance();
             ctx.addMessage("", new FacesMessage("Endereço Localizado!"));
             salvarEndereco();
         }
-    }
 
-    public void editaUsuario() {
-        if (usuario == null) {
-            FacesContext ctx = FacesContext.getCurrentInstance();
-            ctx.addMessage("", new FacesMessage("Selecione um usuario primeiro!"));
-        } else {
-            org.primefaces.context.RequestContext.getCurrentInstance().execute("PF('cadastrousuario').show()");
-        }
     }
 
     public boolean isSkip() {
@@ -143,12 +142,14 @@ public class mbUsuarioBasico implements Serializable {
     }
 
     public String onFlowProcess(FlowEvent event) {
+
         if (skip) {
             skip = false;   //reset in case user goes back
             return "confirm";
         } else {
             return event.getNewStep();
         }
+
     }
 
 }

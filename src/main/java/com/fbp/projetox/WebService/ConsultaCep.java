@@ -36,7 +36,7 @@ public class ConsultaCep {
             ret.setUf(EstadoProvincia.valueOf(urlPesquisa.get(0).text()));
 
         } catch (SocketTimeoutException | HttpStatusException e) {
-
+            System.out.println(e.getMessage());
         }
         return ret;
     }

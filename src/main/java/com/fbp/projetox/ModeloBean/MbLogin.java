@@ -77,7 +77,7 @@ public class MbLogin implements Serializable {
         HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
         session.invalidate();
         usuario = new Usuario();
-        return "/login.jsf";
+        return "/inicial.jsf";
     }
 
     public Usuario usuarioLogado() {
@@ -89,7 +89,7 @@ public class MbLogin implements Serializable {
 
         List<Usuario> users = usuarios.validaUsuario(user, ConverterSHA1.cipher(pass));
 
-        if ((users.isEmpty()) && (user.equals("admin"))) {
+        if ((users.isEmpty()) && (user.equals("(00)-00000-0000"))) {
             cadastroAdmin = true;
             usuario.setNomeCompleto("Administrador");
             usuario.setUsuario(user);

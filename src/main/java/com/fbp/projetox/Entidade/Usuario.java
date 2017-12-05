@@ -6,6 +6,7 @@
 package com.fbp.projetox.Entidade;
 
 import com.fbp.projetox.Enums.OperadoraCelular;
+import com.fbp.projetox.Enums.Permissao;
 import com.fbp.projetox.Enums.Situacao;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  *
  * @author F.Belmonte
  */
-@Entity 
+@Entity
 public @Data
 class Usuario implements AbstractEntity {
 
@@ -48,10 +49,13 @@ class Usuario implements AbstractEntity {
     private OperadoraCelular operadora = OperadoraCelular.TIM;
 
     private String telefoneFixo;
-    
+
     private String celular;
 
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Permissao permissao = Permissao.BASICO;
 
     @Enumerated(EnumType.STRING)
     private Situacao situacao = Situacao.ATIVO;

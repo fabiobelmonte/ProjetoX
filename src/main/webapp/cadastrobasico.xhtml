@@ -10,7 +10,7 @@
     <ui:define name="header">
         <style>
             .centro{
-                margin-top: 21%;
+                padding-top: 6.5%;
                 display: flex;
                 justify-content: center;
             } 
@@ -20,16 +20,16 @@
     <ui:define name="content">
         <h:form class="centro">
 
-            <div class="ui-g" style="width: 80%">
-
+            <div class="ui-g" style="width: 90%">
 
                 <p:wizard flowListener="#{mbUsuarioBasico.onFlowProcess}" style="width: 100%" class="wizard" backLabel="Voltar" nextLabel="Próximo">
-                    
+
                     <p:tab id="cep" title="CEP">
                         <p:panel>
                             <p:messages closable="true"/>
                             <h:panelGrid columns="2" width="100%">
-                                <p:inputText value="#{mbUsuarioBasico.endereco.cep}" placeholder="Informe seu Cep!" maxlength="8" style="height: 80px; text-align: center; width: 100%; font-size: 30px" required="true" label="CEP">
+                                <p:inputText value="#{mbUsuarioBasico.endereco.cep}" placeholder="Informe seu Cep!" maxlength="8" 
+                                             style="height: 80px; border-radius: 8px; text-align: center; width: 100%; font-size: 30px" required="true" label="CEP">
                                     <f:convertNumber integerOnly="true" minIntegerDigits="8"/>
                                 </p:inputText>
                                 <p:commandButton icon="fa fa-check" style="height: 80px; width: 100%" actionListener="#{mbUsuarioBasico.consultaEndereco()}" update="@form"/>
@@ -64,7 +64,7 @@
                                 <p:outputLabel value="Estado"/>
                                 <p:inputText value="#{mbUsuarioBasico.endereco.estado}" required="true" label="Estado" style="width: 100%"/>
 
-                                
+
                             </h:panelGrid>
                         </p:panel>
                     </p:tab>
@@ -93,8 +93,8 @@
                                 <p:outputLabel value="celular"/>
                                 <p:inputText value="#{mbUsuarioBasico.usuario.celular}"/>
 
-                                <p:commandButton value="Salvar" update="@form" action="#{mbUsuarioBasico.salvar()}" ajax="false"/>
-                             
+                                <p:commandButton value="Salvar" update="@form" actionListener="#{mbUsuarioBasico.salvar()}" ajax="false"/>
+
 
                             </h:panelGrid>
                         </p:panel>

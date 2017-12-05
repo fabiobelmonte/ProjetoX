@@ -11,19 +11,20 @@
     </h:head>
 
     <style>
-        .ui-widget-content{           
-            border: none;
-        }
         .top{
             top: 0;
             left: 0;
             right: 0;
-            position: absolute;
-            background-color: #cccccc;
+            padding: 0px;
+            position: relative;
+            background-color: #80d7d1;
             height: 80px;
             width: 100%;
             display: flex;
             justify-content: flex-end;
+        }
+        .center_content{           
+            padding-top: 3.5%;
         }
     </style>
 
@@ -33,14 +34,17 @@
 
     <h:body>
 
-        <div id="top" class="top">
-            <p:button value="Entrar ou Cadastrar" outcome="/login.jsf"/>
-        </div>
+        <div class="pagina">
 
-        <div id="content" class="center_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
+            <div id="top" class="top">
+                <p:button value="Entrar ou Cadastrar" outcome="/login.jsf"/>
+            </div>
 
+            <div id="content" class="center_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+
+        </div>
     </h:body>
 
 </html>
